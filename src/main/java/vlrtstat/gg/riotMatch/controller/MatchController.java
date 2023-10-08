@@ -1,8 +1,7 @@
-package vlrtstat.gg.match.controller;
+package vlrtstat.gg.riotMatch.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vlrtstat.gg.match.service.MatchService;
+import vlrtstat.gg.riotMatch.service.MatchService;
 
 @RestController
 public class MatchController {

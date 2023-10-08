@@ -1,4 +1,4 @@
-package vlrtstat.gg.match.service;
+package vlrtstat.gg.riotMatch.service;
 
 import org.springframework.stereotype.Service;
 
