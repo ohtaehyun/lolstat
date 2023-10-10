@@ -2,17 +2,17 @@ package vlrtstat.gg.home;
 
 import org.springframework.stereotype.Service;
 import vlrtstat.gg.riotContent.domain.Content;
-import vlrtstat.gg.riotContent.repository.ContentRepository;
+import vlrtstat.gg.riotContent.repository.RiotContentRepository;
 
 @Service
 public class HomeService {
-    private ContentRepository contentRepository;
+    private RiotContentRepository riotContentRepository;
 
-    public HomeService(ContentRepository contentRepository) {
-        this.contentRepository = contentRepository;
+    public HomeService(RiotContentRepository riotContentRepository) {
+        this.riotContentRepository = riotContentRepository;
     }
 
     public Content getContent() {
-        return contentRepository.getContents();
+        return riotContentRepository.getContents();
     }
 }

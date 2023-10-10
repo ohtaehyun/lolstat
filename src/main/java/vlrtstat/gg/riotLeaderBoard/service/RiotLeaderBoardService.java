@@ -1,8 +1,4 @@
 package vlrtstat.gg.riotLeaderBoard.service;
-
-import org.springframework.stereotype.Service;
-
-@Service
-public class RiotLeaderBoardService {
-
+public interface RiotLeaderBoardService {
+    String getLeaderBoard(int episode, int act);
 }
