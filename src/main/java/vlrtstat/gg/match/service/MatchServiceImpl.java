@@ -13,6 +13,6 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public String[] getMatchHistories(String puuid) {
-        return matchRepository.findMatchIdsByPuuid(puuid);
+        return matchRepository.findIdsByPuuid(puuid);
     }
 }

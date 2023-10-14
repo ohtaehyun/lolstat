@@ -16,6 +16,6 @@ class MatchServiceImplTest {
     @Test
     void getMatchHistories() {
         String puuid = "WHZpGYnW2SvQRwvVA3U6kWwpNVk8mOy57fMMdUfY5w382PMbefoqdDQRAWFt6OpgponUDsEknBeQjw";
-        String[] matchIds = matchRepository.findMatchIdsByPuuid(puuid);
+        String[] matchIds = matchRepository.findIdsByPuuid(puuid);
     }
 }
