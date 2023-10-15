@@ -1,5 +1,7 @@
 package vlrtstat.gg.match.domain;
 
+import vlrtstat.gg.match.dto.SimpleMatchDto;
+
 public class Match {
     Metadata metadata;
     Info info;
@@ -23,5 +25,12 @@ public class Match {
 
     public void setInfo(Info info) {
         this.info = info;
+    }
+
+    public SimpleMatchDto toSimpleMatchDto() {
+        SimpleMatchDto simpleMatchDto = new SimpleMatchDto();
+        simpleMatchDto.setMatchId(metadata.getMatchId());
+
+        return simpleMatchDto;
     }
 }

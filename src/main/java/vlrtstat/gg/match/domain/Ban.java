@@ -1,12 +1,12 @@
 package vlrtstat.gg.match.domain;
 
 public class Ban {
-    int championId;
-    int pickTurn;
+    private int championId;
+    private int pickTurn;
 
     public Ban(int championId, int pickTurn) {
-        this.championId = championId;
-        this.pickTurn = pickTurn;
+        this.setChampionId(championId);
+        this.setPickTurn(pickTurn);
     }
 
     public int getChampionId() {

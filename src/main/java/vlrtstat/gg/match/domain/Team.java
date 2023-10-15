@@ -1,16 +1,16 @@
 package vlrtstat.gg.match.domain;
 
 public class Team {
-    Ban[] bans;
-    Objectives objectives;
-    int teamId;
-    boolean win;
+    private Ban[] bans;
+    private Objectives objectives;
+    private int teamId;
+    private boolean win;
 
     public Team(Ban[] bans, Objectives objectives, int teamId, boolean win) {
-        this.bans = bans;
-        this.objectives = objectives;
-        this.teamId = teamId;
-        this.win = win;
+        this.setBans(bans);
+        this.setObjectives(objectives);
+        this.setTeamId(teamId);
+        this.setWin(win);
     }
 
     public Ban[] getBans() {

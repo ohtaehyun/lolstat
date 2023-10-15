@@ -1,20 +1,20 @@
 package vlrtstat.gg.match.domain;
 
 public class Objectives {
-    Objective baron;
-    Objective champion;
-    Objective dragon;
-    Objective inhibitor;
-    Objective riftHerald;
-    Objective tower;
+    private Objective baron;
+    private Objective champion;
+    private Objective dragon;
+    private Objective inhibitor;
+    private Objective riftHerald;
+    private Objective tower;
 
     public Objectives(Objective baron, Objective champion, Objective dragon, Objective inhibitor, Objective riftHerald, Objective tower) {
-        this.baron = baron;
-        this.champion = champion;
-        this.dragon = dragon;
-        this.inhibitor = inhibitor;
-        this.riftHerald = riftHerald;
-        this.tower = tower;
+        this.setBaron(baron);
+        this.setChampion(champion);
+        this.setDragon(dragon);
+        this.setInhibitor(inhibitor);
+        this.setRiftHerald(riftHerald);
+        this.setTower(tower);
     }
 
     public Objective getBaron() {

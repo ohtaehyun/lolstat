@@ -1,14 +1,14 @@
 package vlrtstat.gg.match.domain;
 
 public class PerkStyle {
-    String description;
-    PerkStyleSelection[] selections;
-    int style;
+    private String description;
+    private PerkStyleSelection[] selections;
+    private int style;
 
     public PerkStyle(String description, PerkStyleSelection[] selections, int style) {
-        this.description = description;
-        this.selections = selections;
-        this.style = style;
+        this.setDescription(description);
+        this.setSelections(selections);
+        this.setStyle(style);
     }
 
     public String getDescription() {

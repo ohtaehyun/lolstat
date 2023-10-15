@@ -5,38 +5,38 @@ import vlrtstat.gg.match.constant.GameType;
 import vlrtstat.gg.match.constant.QueueId;
 
 public class Info {
-    Long gameCreation;
-    Long gameDuration;
-    Long gameEndTimestamp;
-    Long gameId;
-    GameMode gameMode;
-    String gameName;
-    Long gameStartTimestamp;
-    GameType gameType;
-    String gameVersion;
-    int mapId;
-    Participant[] participants;
-    String platformId;
-    QueueId queueId;
-    Team[] teams;
-    String tournamentCode;
+    private Long gameCreation;
+    private Long gameDuration;
+    private Long gameEndTimestamp;
+    private Long gameId;
+    private GameMode gameMode;
+    private String gameName;
+    private Long gameStartTimestamp;
+    private GameType gameType;
+    private String gameVersion;
+    private int mapId;
+    private Participant[] participants;
+    private String platformId;
+    private QueueId queueId;
+    private Team[] teams;
+    private String tournamentCode;
 
     public Info(Long gameCreation, Long gameDuration, Long gameEndTimestamp, Long gameId, GameMode gameMode, String gameName, Long gameStartTimestamp, GameType gameType, String gameVersion, int mapId, Participant[] participants, String platformId, int queueId, Team[] teams, String tournamentCode) {
-        this.gameCreation = gameCreation;
-        this.gameDuration = gameDuration;
-        this.gameEndTimestamp = gameEndTimestamp;
-        this.gameId = gameId;
-        this.gameMode = gameMode;
-        this.gameName = gameName;
-        this.gameStartTimestamp = gameStartTimestamp;
-        this.gameType = gameType;
-        this.gameVersion = gameVersion;
-        this.mapId = mapId;
-        this.participants = participants;
-        this.platformId = platformId;
-        this.queueId = QueueId.fromId(queueId);
-        this.teams = teams;
-        this.tournamentCode = tournamentCode;
+        this.setGameCreation(gameCreation);
+        this.setGameDuration(gameDuration);
+        this.setGameEndTimestamp(gameEndTimestamp);
+        this.setGameId(gameId);
+        this.setGameMode(gameMode);
+        this.setGameName(gameName);
+        this.setGameStartTimestamp(gameStartTimestamp);
+        this.setGameType(gameType);
+        this.setGameVersion(gameVersion);
+        this.setMapId(mapId);
+        this.setParticipants(participants);
+        this.setPlatformId(platformId);
+        this.setQueueId(QueueId.fromId(queueId));
+        this.setTeams(teams);
+        this.setTournamentCode(tournamentCode);
     }
 
     public Long getGameCreation() {
@@ -140,7 +140,7 @@ public class Info {
     }
 
     public void setQueueId(int queueId) {
-        this.queueId = QueueId.fromId(queueId);
+        this.setQueueId(QueueId.fromId(queueId));
     }
 
     public Team[] getTeams() {
@@ -157,5 +157,9 @@ public class Info {
 
     public void setTournamentCode(String tournamentCode) {
         this.tournamentCode = tournamentCode;
+    }
+
+    public void setQueueId(QueueId queueId) {
+        this.queueId = queueId;
     }
 }

@@ -1,14 +1,14 @@
 package vlrtstat.gg.match.domain;
 
 public class PerkStat {
-    int defense;
-    int flex;
-    int offense;
+    private int defense;
+    private int flex;
+    private int offense;
 
     public PerkStat(int defense, int flex, int offense) {
-        this.defense = defense;
-        this.flex = flex;
-        this.offense = offense;
+        this.setDefense(defense);
+        this.setFlex(flex);
+        this.setOffense(offense);
     }
 
     public int getDefense() {

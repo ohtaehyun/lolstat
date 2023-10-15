@@ -1,16 +1,16 @@
 package vlrtstat.gg.match.domain;
 
 public class PerkStyleSelection {
-    int perk;
-    int var1;
-    int var2;
-    int var3;
+    private int perk;
+    private int var1;
+    private int var2;
+    private int var3;
 
     public PerkStyleSelection(int perk, int var1, int var2, int var3) {
-        this.perk = perk;
-        this.var1 = var1;
-        this.var2 = var2;
-        this.var3 = var3;
+        this.setPerk(perk);
+        this.setVar1(var1);
+        this.setVar2(var2);
+        this.setVar3(var3);
     }
 
     public int getPerk() {

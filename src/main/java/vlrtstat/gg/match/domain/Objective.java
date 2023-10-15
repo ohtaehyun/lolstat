@@ -1,8 +1,8 @@
 package vlrtstat.gg.match.domain;
 
 public class Objective {
-    boolean first;
-    int kills;
+    private boolean first;
+    private int kills;
 
     public Objective(boolean first, int kills) {
         this.first = first;

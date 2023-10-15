@@ -1,9 +1,9 @@
 package vlrtstat.gg.match.domain;
 
 public class Metadata {
-    String dataVersion;
-    String matchId;
-    String[] participants;
+    private String dataVersion;
+    private String matchId;
+    private String[] participants;
 
     public Metadata(String dataVersion, String matchId, String[] participants) {
         this.dataVersion = dataVersion;
