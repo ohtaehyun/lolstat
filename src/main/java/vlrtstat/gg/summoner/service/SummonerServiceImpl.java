@@ -2,9 +2,10 @@ package vlrtstat.gg.summoner.service;
 
 import org.springframework.stereotype.Service;
 import vlrtstat.gg.match.domain.Match;
+import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.repository.MatchRepository;
 import vlrtstat.gg.summoner.domain.Summoner;
-import vlrtstat.gg.summoner.domain.SummonerProfile;
+import vlrtstat.gg.summoner.dto.SummonerProfile;
 import vlrtstat.gg.summoner.repository.SummonerRepository;
 
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ public class SummonerServiceImpl implements SummonerService {
         Summoner summoner = summonerRepository.findByName(summonerName);
         String puuid = summoner.getPuuid();
         String[] MatchIds = matchRepository.findIdsByPuuid(puuid);
-        ArrayList<Match> matches = new ArrayList<>();
+        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
         for (String matchId : MatchIds) {
-            matches.add(matchRepository.findById(matchId));
+            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }
         SummonerProfile summonerProfile = new SummonerProfile();
         summonerProfile.setSummonerName(summoner.getName());
-        summonerProfile.setMatches(matches.stream().toArray(match -> new Match[match]));
+        summonerProfile.setSimpleMatches(matches.stream().toArray(match -> new SimpleMatchDto[match]));
 
         return summonerProfile;
     }

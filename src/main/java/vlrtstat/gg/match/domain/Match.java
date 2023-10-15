@@ -30,7 +30,9 @@ public class Match {
     public SimpleMatchDto toSimpleMatchDto() {
         SimpleMatchDto simpleMatchDto = new SimpleMatchDto();
         simpleMatchDto.setMatchId(metadata.getMatchId());
-
+        simpleMatchDto.setGameMode(info.getGameMode());
+        simpleMatchDto.setGameType(info.getGameType());
+        simpleMatchDto.setQueueId(info.getQueueId());
         return simpleMatchDto;
     }
 }
