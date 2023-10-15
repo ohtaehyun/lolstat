@@ -1,23 +1,27 @@
 package vlrtstat.gg.match.domain;
 
+import vlrtstat.gg.match.constant.GameMode;
+import vlrtstat.gg.match.constant.GameType;
+import vlrtstat.gg.match.constant.QueueId;
+
 public class Info {
     Long gameCreation;
     Long gameDuration;
     Long gameEndTimestamp;
     Long gameId;
-    String gameMode;
+    GameMode gameMode;
     String gameName;
     Long gameStartTimestamp;
-    String gameType;
+    GameType gameType;
     String gameVersion;
     int mapId;
     Participant[] participants;
     String platformId;
-    int queueId;
+    QueueId queueId;
     Team[] teams;
     String tournamentCode;
 
-    public Info(Long gameCreation, Long gameDuration, Long gameEndTimestamp, Long gameId, String gameMode, String gameName, Long gameStartTimestamp, String gameType, String gameVersion, int mapId, Participant[] participants, String platformId, int queueId, Team[] teams, String tournamentCode) {
+    public Info(Long gameCreation, Long gameDuration, Long gameEndTimestamp, Long gameId, GameMode gameMode, String gameName, Long gameStartTimestamp, GameType gameType, String gameVersion, int mapId, Participant[] participants, String platformId, int queueId, Team[] teams, String tournamentCode) {
         this.gameCreation = gameCreation;
         this.gameDuration = gameDuration;
         this.gameEndTimestamp = gameEndTimestamp;
@@ -30,7 +34,7 @@ public class Info {
         this.mapId = mapId;
         this.participants = participants;
         this.platformId = platformId;
-        this.queueId = queueId;
+        this.queueId = QueueId.fromId(queueId);
         this.teams = teams;
         this.tournamentCode = tournamentCode;
     }
@@ -67,11 +71,11 @@ public class Info {
         this.gameId = gameId;
     }
 
-    public String getGameMode() {
+    public GameMode getGameMode() {
         return gameMode;
     }
 
-    public void setGameMode(String gameMode) {
+    public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
     }
 
@@ -91,11 +95,11 @@ public class Info {
         this.gameStartTimestamp = gameStartTimestamp;
     }
 
-    public String getGameType() {
+    public GameType getGameType() {
         return gameType;
     }
 
-    public void setGameType(String gameType) {
+    public void setGameType(GameType gameType) {
         this.gameType = gameType;
     }
 
@@ -131,12 +135,12 @@ public class Info {
         this.platformId = platformId;
     }
 
-    public int getQueueId() {
+    public QueueId getQueueId() {
         return queueId;
     }
 
     public void setQueueId(int queueId) {
-        this.queueId = queueId;
+        this.queueId = QueueId.fromId(queueId);
     }
 
     public Team[] getTeams() {
