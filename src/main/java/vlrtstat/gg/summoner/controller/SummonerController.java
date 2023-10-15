@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vlrtstat.gg.summoner.domain.Summoner;
+import vlrtstat.gg.summoner.domain.SummonerProfile;
 import vlrtstat.gg.summoner.service.SummonerService;
 
 @RestController
@@ -16,7 +17,7 @@ public class SummonerController {
     }
 
     @GetMapping("/summoner/{summonerName}")
-    public Summoner search(@PathVariable("summonerName") String summonerName) {
-        return summonerService.searchSummoner(summonerName);
+    public SummonerProfile search(@PathVariable("summonerName") String summonerName) {
+        return summonerService.searchSummonerProfile(summonerName);
     }
 }

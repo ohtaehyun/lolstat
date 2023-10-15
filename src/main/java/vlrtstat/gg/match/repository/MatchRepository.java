@@ -1,5 +1,6 @@
 package vlrtstat.gg.match.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ public interface MatchRepository {
             method = RequestMethod.GET,
             headers = "X-Riot-Token=${riot.key}"
     )
+    @Cacheable(cacheNames = "match", key = "#matchId")
     Match findById(@PathVariable("matchId") String matchId);
 
 

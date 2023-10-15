@@ -1,5 +1,6 @@
 package vlrtstat.gg.summoner.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,5 +17,6 @@ public interface SummonerRepository {
             path = "/lol/summoner/v4/summoners/by-name/{summonerName}",
             headers = "X-Riot-Token=${riot.key}"
     )
+    @Cacheable(cacheNames = "summoner", key = "#summonerName")
     Summoner findByName(@PathVariable("summonerName") String summonerName);
 }

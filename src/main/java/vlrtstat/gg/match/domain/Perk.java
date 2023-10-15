@@ -1,19 +1,19 @@
 package vlrtstat.gg.match.domain;
 
 public class Perk {
-    PerkStats statPerks;
+    PerkStat statPerks;
     PerkStyle[] styles;
 
-    public Perk(PerkStats statPerks, PerkStyle[] styles) {
+    public Perk(PerkStat statPerks, PerkStyle[] styles) {
         this.statPerks = statPerks;
         this.styles = styles;
     }
 
-    public PerkStats getStatPerks() {
+    public PerkStat getStatPerks() {
         return statPerks;
     }
 
-    public void setStatPerks(PerkStats statPerks) {
+    public void setStatPerks(PerkStat statPerks) {
         this.statPerks = statPerks;
     }
 
