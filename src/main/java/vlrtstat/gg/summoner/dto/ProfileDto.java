@@ -1,38 +1,23 @@
 package vlrtstat.gg.summoner.dto;
 
-import vlrtstat.gg.league.domain.LeagueEntry;
+import vlrtstat.gg.league.domain.LeagueEntries;
+import vlrtstat.gg.league.dto.LeagueEntryDto;
 import vlrtstat.gg.summoner.domain.Summoner;
 
 public class ProfileDto {
     private String summonerName;
     private Long summonerLevel;
     private int profileIconId;
-    private String rank;
-    private String tier;
-    private int leaguePoints;
-    private int wins;
-    private int losses;
 
-    public ProfileDto(String summonerName, Long summonerLevel, int profileIconId, String rank, String tier, int leaguePoints, int wins, int losses) {
-        this.summonerName = summonerName;
-        this.summonerLevel = summonerLevel;
-        this.profileIconId = profileIconId;
-        this.rank = rank;
-        this.tier = tier;
-        this.leaguePoints = leaguePoints;
-        this.wins = wins;
-        this.losses = losses;
-    }
+    private LeagueEntryDto soloLeagueEntry;
+    private LeagueEntryDto flexLeagueEntry;
 
-    public ProfileDto(Summoner summoner, LeagueEntry leagueEntry) {
+    public ProfileDto(Summoner summoner, LeagueEntries leagueEntries) {
         this.summonerName = summoner.getName();
         this.summonerLevel = summoner.getSummonerLevel();
         this.profileIconId = summoner.getProfileIconId();
-        this.rank = leagueEntry.getRank();
-        this.tier = leagueEntry.getTier();
-        this.wins = leagueEntry.getWins();
-        this.losses = leagueEntry.getLosses();
-        this.leaguePoints = leagueEntry.getLeaguePoints();
+        this.soloLeagueEntry = leagueEntries.getSoloLeague().toDto();
+        this.flexLeagueEntry = leagueEntries.getFlexLeague().toDto();
     }
 
     public String getSummonerName() {
@@ -59,43 +44,19 @@ public class ProfileDto {
         this.profileIconId = profileIconId;
     }
 
-    public String getRank() {
-        return rank;
+    public LeagueEntryDto getSoloLeagueEntry() {
+        return soloLeagueEntry;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setSoloLeagueEntry(LeagueEntryDto soloLeagueEntry) {
+        this.soloLeagueEntry = soloLeagueEntry;
     }
 
-    public String getTier() {
-        return tier;
+    public LeagueEntryDto getFlexLeagueEntry() {
+        return flexLeagueEntry;
     }
 
-    public void setTier(String tier) {
-        this.tier = tier;
-    }
-
-    public int getLeaguePoints() {
-        return leaguePoints;
-    }
-
-    public void setLeaguePoints(int leaguePoints) {
-        this.leaguePoints = leaguePoints;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
-    public int getLosses() {
-        return losses;
-    }
-
-    public void setLosses(int losses) {
-        this.losses = losses;
+    public void setFlexLeagueEntry(LeagueEntryDto flexLeagueEntry) {
+        this.flexLeagueEntry = flexLeagueEntry;
     }
 }

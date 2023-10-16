@@ -1,7 +1,7 @@
 package vlrtstat.gg.league.service;
 
-import vlrtstat.gg.league.domain.LeagueEntry;
+import vlrtstat.gg.league.domain.LeagueEntries;
 
 public interface LeagueService {
-    LeagueEntry[] findLeagueEntryBySummonerId(String summonerId);
+    LeagueEntries searchLeagueEntries(String summonerId);
 }

@@ -29,21 +29,21 @@ public class SummonerServiceImpl implements SummonerService {
         return summonerRepository.findByName(summonerName);
     }
 
-    @Override
-    public SummonerProfileDto searchSummonerProfile(String summonerName) {
-        Summoner summoner = summonerRepository.findByName(summonerName);
-
-        LeagueEntry[] leagueEntry = leagueRepository.findBySummonerId(summoner.getId());
-
-        String[] MatchIds = matchRepository.findIdsByPuuid(summoner.getPuuid());
-        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
-        for (String matchId : MatchIds) {
-            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
-        }
-
-        ProfileDto profileDto = new ProfileDto(summoner, leagueEntry[0]);
-        SummonerProfileDto summonerProfile = new SummonerProfileDto(profileDto, matches.stream().toArray(match -> new SimpleMatchDto[match]));
-
-        return summonerProfile;
-    }
+//    @Override
+//    public SummonerProfileDto searchSummonerProfile(String summonerName) {
+//        Summoner summoner = summonerRepository.findByName(summonerName);
+//
+//        LeagueEntry[] leagueEntry = leagueRepository.findBySummonerId(summoner.getId());
+//
+//        String[] MatchIds = matchRepository.findIdsByPuuid(summoner.getPuuid());
+//        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
+//        for (String matchId : MatchIds) {
+//            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
+//        }
+//
+//        ProfileDto profileDto = new ProfileDto(summoner, leagueEntry[0]);
+//        SummonerProfileDto summonerProfile = new SummonerProfileDto(profileDto, matches.stream().toArray(match -> new SimpleMatchDto[match]));
+//
+//        return summonerProfile;
+//    }
 }

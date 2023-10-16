@@ -1,12 +1,17 @@
 package vlrtstat.gg.league.domain;
 
+import vlrtstat.gg.global.constant.QueueType;
+import vlrtstat.gg.global.constant.Rank;
+import vlrtstat.gg.global.constant.Tier;
+import vlrtstat.gg.league.dto.LeagueEntryDto;
+
 public class LeagueEntry {
     private String leagueId;
     private String summonerId;
     private String summonerName;
-    private String queueType;
-    private String tier;
-    private String rank;
+    private QueueType queueType;
+    private Tier tier;
+    private Rank rank;
     private int leaguePoints;
     private int wins;
     private int losses;
@@ -20,9 +25,9 @@ public class LeagueEntry {
         this.leagueId = leagueId;
         this.summonerId = summonerId;
         this.summonerName = summonerName;
-        this.queueType = queueType;
-        this.tier = tier;
-        this.rank = rank;
+        this.queueType = QueueType.fromText(queueType);
+        this.tier = Tier.fromText(tier);
+        this.rank = Rank.fromText(rank);
         this.leaguePoints = leaguePoints;
         this.wins = wins;
         this.losses = losses;
@@ -31,6 +36,15 @@ public class LeagueEntry {
         this.freshBlood = freshBlood;
         this.inactive = inactive;
         this.miniSeries = miniSeries;
+    }
+
+    public LeagueEntry(QueueType queueType, String summonerId) {
+        this.summonerId = summonerId;
+        this.queueType = queueType;
+        this.tier = Tier.UNRANKED;
+        this.rank = Rank.UNRANKED;
+        this.wins = 0;
+        this.losses = 0;
     }
 
     public String getLeagueId() {
@@ -57,27 +71,27 @@ public class LeagueEntry {
         this.summonerName = summonerName;
     }
 
-    public String getQueueType() {
+    public QueueType getQueueType() {
         return queueType;
     }
 
-    public void setQueueType(String queueType) {
+    public void setQueueType(QueueType queueType) {
         this.queueType = queueType;
     }
 
-    public String getTier() {
+    public Tier getTier() {
         return tier;
     }
 
-    public void setTier(String tier) {
+    public void setTier(Tier tier) {
         this.tier = tier;
     }
 
-    public String getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
@@ -143,5 +157,16 @@ public class LeagueEntry {
 
     public void setMiniSeries(MiniSeries miniSeries) {
         this.miniSeries = miniSeries;
+    }
+
+    public LeagueEntryDto toDto() {
+        return new LeagueEntryDto(
+                queueType,
+                tier,
+                rank,
+                wins,
+                losses,
+                leaguePoints
+        );
     }
 }

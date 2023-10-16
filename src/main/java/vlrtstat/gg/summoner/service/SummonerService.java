@@ -6,5 +6,5 @@ import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 public interface SummonerService {
     Summoner searchSummoner(String summonerName);
 
-    SummonerProfileDto searchSummonerProfile(String summonerName);
+//    SummonerProfileDto searchSummonerProfile(String summonerName);
 }
