@@ -36,6 +36,7 @@ public class SummonerServiceImpl implements SummonerService {
         }
         SummonerProfile summonerProfile = new SummonerProfile();
         summonerProfile.setSummonerName(summoner.getName());
+        summonerProfile.setSummonerLevel(summoner.getSummonerLevel());
         summonerProfile.setSimpleMatches(matches.stream().toArray(match -> new SimpleMatchDto[match]));
 
         return summonerProfile;

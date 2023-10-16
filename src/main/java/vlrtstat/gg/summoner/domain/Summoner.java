@@ -7,16 +7,16 @@ public class Summoner {
     String name;
     String id;
     String puuid;
-    Long summonerName;
+    Long summonerLevel;
 
-    public Summoner(String accountId, int profileIconId, Long revisionDate, String name, String id, String puuid, Long summonerName) {
+    public Summoner(String accountId, int profileIconId, Long revisionDate, String name, String id, String puuid, Long summonerLevel) {
         this.accountId = accountId;
         this.profileIconId = profileIconId;
         this.revisionDate = revisionDate;
         this.name = name;
         this.id = id;
         this.puuid = puuid;
-        this.summonerName = summonerName;
+        this.summonerLevel = summonerLevel;
     }
 
     public String getAccountId() {
@@ -67,11 +67,11 @@ public class Summoner {
         this.puuid = puuid;
     }
 
-    public Long getSummonerName() {
-        return summonerName;
+    public Long getSummonerLevel() {
+        return summonerLevel;
     }
 
-    public void setSummonerName(Long summonerName) {
-        this.summonerName = summonerName;
+    public void setSummonerLevel(Long summonerLevel) {
+        this.summonerLevel = summonerLevel;
     }
 }
