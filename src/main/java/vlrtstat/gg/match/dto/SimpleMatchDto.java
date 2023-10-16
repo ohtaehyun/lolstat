@@ -1,8 +1,8 @@
 package vlrtstat.gg.match.dto;
 
-import vlrtstat.gg.match.constant.GameMode;
-import vlrtstat.gg.match.constant.GameType;
-import vlrtstat.gg.match.constant.QueueId;
+import vlrtstat.gg.global.constant.GameMode;
+import vlrtstat.gg.global.constant.GameType;
+import vlrtstat.gg.global.constant.QueueId;
 
 public class SimpleMatchDto {
     private String matchId;

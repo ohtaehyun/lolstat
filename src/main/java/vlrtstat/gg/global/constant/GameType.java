@@ -1,4 +1,4 @@
-package vlrtstat.gg.match.constant;
+package vlrtstat.gg.global.constant;
 
 public enum GameType {
     CUSTOM_GAME,
