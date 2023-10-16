@@ -5,10 +5,10 @@ import vlrtstat.gg.summoner.domain.Summoner;
 
 public class SummonerProfile {
     String summonerName;
-    int summonerLevel;
+    Long summonerLevel;
     SimpleMatchDto[] simpleMatches;
 
-    public SummonerProfile(String summonerName, int summonerLevel, SimpleMatchDto[] simpleMatches) {
+    public SummonerProfile(String summonerName, Long summonerLevel, SimpleMatchDto[] simpleMatches) {
         this.summonerName = summonerName;
         this.summonerLevel = summonerLevel;
         this.simpleMatches = simpleMatches;
@@ -24,11 +24,11 @@ public class SummonerProfile {
         this.summonerName = summonerName;
     }
 
-    public int getSummonerLevel() {
+    public Long getSummonerLevel() {
         return summonerLevel;
     }
 
-    public void setSummonerLevel(int summonerLevel) {
+    public void setSummonerLevel(Long summonerLevel) {
         this.summonerLevel = summonerLevel;
     }
 
