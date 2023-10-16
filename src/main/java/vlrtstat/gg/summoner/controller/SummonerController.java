@@ -3,7 +3,7 @@ package vlrtstat.gg.summoner.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import vlrtstat.gg.summoner.dto.SummonerProfile;
+import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 import vlrtstat.gg.summoner.service.SummonerService;
 
 @RestController
@@ -15,7 +15,7 @@ public class SummonerController {
     }
 
     @GetMapping("/summoner/{summonerName}")
-    public SummonerProfile search(@PathVariable("summonerName") String summonerName) {
+    public SummonerProfileDto search(@PathVariable("summonerName") String summonerName) {
         return summonerService.searchSummonerProfile(summonerName);
     }
 }

@@ -1,11 +1,13 @@
 package vlrtstat.gg.summoner.service;
 
 import org.springframework.stereotype.Service;
-import vlrtstat.gg.match.domain.Match;
+import vlrtstat.gg.league.domain.LeagueEntry;
+import vlrtstat.gg.league.repository.LeagueRepository;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.repository.MatchRepository;
 import vlrtstat.gg.summoner.domain.Summoner;
-import vlrtstat.gg.summoner.dto.SummonerProfile;
+import vlrtstat.gg.summoner.dto.ProfileDto;
+import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 import vlrtstat.gg.summoner.repository.SummonerRepository;
 
 import java.util.ArrayList;
@@ -14,10 +16,12 @@ import java.util.ArrayList;
 public class SummonerServiceImpl implements SummonerService {
     private SummonerRepository summonerRepository;
     private MatchRepository matchRepository;
+    private LeagueRepository leagueRepository;
 
-    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchRepository matchRepository) {
+    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchRepository matchRepository, LeagueRepository leagueRepository) {
         this.summonerRepository = summonerRepository;
         this.matchRepository = matchRepository;
+        this.leagueRepository = leagueRepository;
     }
 
     @Override
@@ -26,18 +30,19 @@ public class SummonerServiceImpl implements SummonerService {
     }
 
     @Override
-    public SummonerProfile searchSummonerProfile(String summonerName) {
+    public SummonerProfileDto searchSummonerProfile(String summonerName) {
         Summoner summoner = summonerRepository.findByName(summonerName);
-        String puuid = summoner.getPuuid();
-        String[] MatchIds = matchRepository.findIdsByPuuid(puuid);
+
+        LeagueEntry[] leagueEntry = leagueRepository.findBySummonerId(summoner.getId());
+
+        String[] MatchIds = matchRepository.findIdsByPuuid(summoner.getPuuid());
         ArrayList<SimpleMatchDto> matches = new ArrayList<>();
         for (String matchId : MatchIds) {
             matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }
-        SummonerProfile summonerProfile = new SummonerProfile();
-        summonerProfile.setSummonerName(summoner.getName());
-        summonerProfile.setSummonerLevel(summoner.getSummonerLevel());
-        summonerProfile.setSimpleMatches(matches.stream().toArray(match -> new SimpleMatchDto[match]));
+
+        ProfileDto profileDto = new ProfileDto(summoner, leagueEntry[0]);
+        SummonerProfileDto summonerProfile = new SummonerProfileDto(profileDto, matches.stream().toArray(match -> new SimpleMatchDto[match]));
 
         return summonerProfile;
     }
