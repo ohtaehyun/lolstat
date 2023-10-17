@@ -1,17 +1,19 @@
 package vlrtstat.gg.league.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import vlrtstat.gg.global.constant.QueueType;
 import vlrtstat.gg.global.constant.Rank;
 import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.league.domain.LeagueEntry;
 
+@Schema(description = "랭크 정보")
 public class LeagueEntryDto {
     private QueueType queueType;
     private Tier tier;
     private Rank rank;
+    private int leaguePoints;
     private int wins;
     private int losses;
-    private int leaguePoints;
 
     public LeagueEntryDto(QueueType queueType, Tier tier, Rank rank, int wins, int losses, int leaguePoints) {
         this.queueType = queueType;

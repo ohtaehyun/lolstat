@@ -1,15 +1,23 @@
 package vlrtstat.gg.summoner.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.dto.LeagueEntryDto;
 import vlrtstat.gg.summoner.domain.Summoner;
 
+@Schema(description = "소환사 프로필 정보 응답 DTO")
 public class ProfileDto {
+    @Schema(description = "소환사명")
     private String summonerName;
+    @Schema(description = "소환사 레벨")
     private Long summonerLevel;
+
+    @Schema(description = "소환사 아이콘 id (추후 이미지 경로로 변경 예정)")
     private int profileIconId;
 
+    @Schema(description = "솔로 랭크 정보")
     private LeagueEntryDto soloLeagueEntry;
+    @Schema(description = "자유 랭크 정보")
     private LeagueEntryDto flexLeagueEntry;
 
     public ProfileDto(Summoner summoner, LeagueEntries leagueEntries) {

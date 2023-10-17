@@ -1,5 +1,6 @@
 package vlrtstat.gg.match.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ public class MatchController {
     }
 
     @GetMapping("/matches/{puuid}")
+    @Operation(hidden = true)
     String[] searchMatchIds(@PathVariable("puuid") String puuid) {
         return matchService.getMatchHistories(puuid);
     }
