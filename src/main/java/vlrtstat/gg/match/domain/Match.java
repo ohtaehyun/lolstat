@@ -1,6 +1,9 @@
 package vlrtstat.gg.match.domain;
 
 import vlrtstat.gg.match.dto.SimpleMatchDto;
+import vlrtstat.gg.match.dto.SimpleParticipantDto;
+
+import java.util.Arrays;
 
 public class Match {
     Metadata metadata;
@@ -33,6 +36,14 @@ public class Match {
         simpleMatchDto.setGameMode(info.getGameMode());
         simpleMatchDto.setGameType(info.getGameType());
         simpleMatchDto.setQueueId(info.getQueueId());
+
+        Participant[] participants = info.getParticipants();
+        simpleMatchDto.setParticipants(
+            Arrays.stream(participants)
+                    .map(participant -> participant.toSimpleDto())
+                    .toArray(participant -> new SimpleParticipantDto[participant])
+        );
+
         return simpleMatchDto;
     }
 }

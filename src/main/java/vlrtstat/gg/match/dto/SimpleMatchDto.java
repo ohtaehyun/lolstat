@@ -9,12 +9,14 @@ public class SimpleMatchDto {
     private GameMode gameMode;
     private GameType gameType;
     private QueueId queueId;
+    private SimpleParticipantDto[] participants;
 
-    public SimpleMatchDto(String matchId, GameMode gameMode, GameType gameType, QueueId queueId) {
+    public SimpleMatchDto(String matchId, GameMode gameMode, GameType gameType, QueueId queueId, SimpleParticipantDto[] participants) {
         this.matchId = matchId;
         this.gameMode = gameMode;
         this.gameType = gameType;
         this.queueId = queueId;
+        this.participants = participants;
     }
 
     public SimpleMatchDto() {
@@ -50,5 +52,13 @@ public class SimpleMatchDto {
 
     public void setQueueId(QueueId queueId) {
         this.queueId = queueId;
+    }
+
+    public SimpleParticipantDto[] getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(SimpleParticipantDto[] participants) {
+        this.participants = participants;
     }
 }

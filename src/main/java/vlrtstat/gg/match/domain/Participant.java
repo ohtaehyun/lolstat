@@ -1,5 +1,7 @@
 package vlrtstat.gg.match.domain;
 
+import vlrtstat.gg.match.dto.SimpleParticipantDto;
+
 public class Participant {
     private int assists;
     private int baronKills;
@@ -1053,5 +1055,36 @@ public class Participant {
 
     public void setWin(boolean win) {
         this.win = win;
+    }
+
+    public SimpleParticipantDto toSimpleDto() {
+        return new SimpleParticipantDto(
+                summonerName,
+                summonerLevel,
+                championId,
+                champLevel,
+                lane,
+                role,
+                teamId,
+                kills,
+                deaths,
+                assists,
+                summoner1Id,
+                summoner2Id,
+                spell1Casts,
+                spell2Casts,
+                spell3Casts,
+                spell4Casts,
+                summoner1Casts,
+                summoner2Casts,
+                item0,
+                item1,
+                item2,
+                item3,
+                item4,
+                item5,
+                item6,
+                win
+        );
     }
 }
