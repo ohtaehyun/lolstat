@@ -9,21 +9,23 @@ import vlrtstat.gg.summoner.domain.Summoner;
 public class ProfileDto {
     @Schema(description = "소환사명")
     private String summonerName;
+
     @Schema(description = "소환사 레벨")
     private Long summonerLevel;
 
-    @Schema(description = "소환사 아이콘 id (추후 이미지 경로로 변경 예정)")
-    private int profileIconId;
+    @Schema(description = "소환사 아이콘 이미지 주소")
+    private String profileIcon;
 
     @Schema(description = "솔로 랭크 정보")
     private LeagueEntryDto soloLeagueEntry;
+
     @Schema(description = "자유 랭크 정보")
     private LeagueEntryDto flexLeagueEntry;
 
     public ProfileDto(Summoner summoner, LeagueEntries leagueEntries) {
         this.summonerName = summoner.getName();
         this.summonerLevel = summoner.getSummonerLevel();
-        this.profileIconId = summoner.getProfileIconId();
+        this.profileIcon = summoner.getProfileIconUrl();
         this.soloLeagueEntry = leagueEntries.getSoloLeague().toDto();
         this.flexLeagueEntry = leagueEntries.getFlexLeague().toDto();
     }
@@ -44,14 +46,6 @@ public class ProfileDto {
         this.summonerLevel = summonerLevel;
     }
 
-    public int getProfileIconId() {
-        return profileIconId;
-    }
-
-    public void setProfileIconId(int profileIconId) {
-        this.profileIconId = profileIconId;
-    }
-
     public LeagueEntryDto getSoloLeagueEntry() {
         return soloLeagueEntry;
     }
@@ -66,5 +60,13 @@ public class ProfileDto {
 
     public void setFlexLeagueEntry(LeagueEntryDto flexLeagueEntry) {
         this.flexLeagueEntry = flexLeagueEntry;
+    }
+
+    public String getProfileIcon() {
+        return profileIcon;
+    }
+
+    public void setProfileIcon(String profileIcon) {
+        this.profileIcon = profileIcon;
     }
 }

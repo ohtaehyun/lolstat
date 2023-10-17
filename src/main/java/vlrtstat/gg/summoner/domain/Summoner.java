@@ -1,22 +1,26 @@
 package vlrtstat.gg.summoner.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import vlrtstat.gg.global.propertyStore.PropertyStore;
+
 public class Summoner {
-    String accountId;
-    int profileIconId;
-    Long revisionDate;
-    String name;
-    String id;
-    String puuid;
-    Long summonerLevel;
+    private String accountId;
+    private int profileIconId;
+    private Long revisionDate;
+    private String name;
+    private String id;
+    private String puuid;
+    private Long summonerLevel;
 
     public Summoner(String accountId, int profileIconId, Long revisionDate, String name, String id, String puuid, Long summonerLevel) {
-        this.accountId = accountId;
-        this.profileIconId = profileIconId;
-        this.revisionDate = revisionDate;
-        this.name = name;
-        this.id = id;
-        this.puuid = puuid;
-        this.summonerLevel = summonerLevel;
+        this.setAccountId(accountId);
+        this.setProfileIconId(profileIconId);
+        this.setRevisionDate(revisionDate);
+        this.setName(name);
+        this.setId(id);
+        this.setPuuid(puuid);
+        this.setSummonerLevel(summonerLevel);
     }
 
     public String getAccountId() {
@@ -73,5 +77,9 @@ public class Summoner {
 
     public void setSummonerLevel(Long summonerLevel) {
         this.summonerLevel = summonerLevel;
+    }
+
+    public String getProfileIconUrl() {
+        return PropertyStore.getProperty("aws.s3.url") + "/profileicon/" + profileIconId + ".png";
     }
 }
