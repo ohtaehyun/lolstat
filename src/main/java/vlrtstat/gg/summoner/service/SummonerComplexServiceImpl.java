@@ -26,7 +26,6 @@ public class SummonerComplexServiceImpl implements SummonerComplexService{
         Summoner summoner = summonerService.searchSummoner(summonerName);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
         SimpleMatchDto[] simpleMatchDtos = matchService.searchSimpleMatchesByPuuid(summoner.getPuuid());
-
         SummonerProfileDto summonerProfile = new SummonerProfileDto(summoner, leagueEntries, simpleMatchDtos);
         return summonerProfile;
     }
