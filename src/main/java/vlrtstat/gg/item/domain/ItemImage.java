@@ -1,5 +1,7 @@
 package vlrtstat.gg.item.domain;
 
+import vlrtstat.gg.global.propertyStore.PropertyStore;
+
 public class ItemImage {
     private String full;
     private String sprite;
@@ -76,5 +78,9 @@ public class ItemImage {
 
     public void setH(int h) {
         this.h = h;
+    }
+
+    public String getImageUrl() {
+        return PropertyStore.getProperty("aws.s3.url") + "/item/" + full;
     }
 }

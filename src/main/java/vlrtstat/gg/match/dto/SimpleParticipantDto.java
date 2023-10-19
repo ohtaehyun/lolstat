@@ -1,5 +1,7 @@
 package vlrtstat.gg.match.dto;
 
+import vlrtstat.gg.item.dto.ItemDto;
+
 public class SimpleParticipantDto {
     private String summonerName;
     private int summonerLevel;
@@ -19,6 +21,7 @@ public class SimpleParticipantDto {
     private int spell4Casts;
     private int summoner1Casts;
     private int summoner2Casts;
+    private ItemDto[] items;
     private int item0;
     private int item1;
     private int item2;

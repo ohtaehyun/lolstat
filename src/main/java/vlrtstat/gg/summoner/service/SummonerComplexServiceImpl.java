@@ -3,6 +3,7 @@ package vlrtstat.gg.summoner.service;
 import org.springframework.stereotype.Service;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
+import vlrtstat.gg.match.domain.Match;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.service.MatchService;
 import vlrtstat.gg.summoner.domain.Summoner;
@@ -25,6 +26,7 @@ public class SummonerComplexServiceImpl implements SummonerComplexService{
     public SummonerProfileDto searchSummoner(String summonerName) {
         Summoner summoner = summonerService.searchSummoner(summonerName);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
+
         SimpleMatchDto[] simpleMatchDtos = matchService.searchSimpleMatchesByPuuid(summoner.getPuuid());
         SummonerProfileDto summonerProfile = new SummonerProfileDto(summoner, leagueEntries, simpleMatchDtos);
         return summonerProfile;
