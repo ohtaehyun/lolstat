@@ -16,8 +16,9 @@ public class MatchServiceImpl implements MatchService {
     private MatchRepository matchRepository;
     private ItemRepository itemRepository;
 
-    public MatchServiceImpl(MatchRepository matchRepository) {
+    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository) {
         this.matchRepository = matchRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
