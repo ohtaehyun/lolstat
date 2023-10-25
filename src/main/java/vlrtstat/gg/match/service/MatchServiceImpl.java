@@ -7,18 +7,21 @@ import vlrtstat.gg.match.domain.Match;
 import vlrtstat.gg.match.domain.Participant;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.repository.MatchRepository;
+import vlrtstat.gg.spell.domain.Spell;
+import vlrtstat.gg.spell.repository.SpellRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Service
 public class MatchServiceImpl implements MatchService {
     private MatchRepository matchRepository;
     private ItemRepository itemRepository;
+    private SpellRepository spellRepository;
 
-    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository) {
+    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository) {
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
+        this.spellRepository = spellRepository;
     }
 
     @Override
@@ -37,6 +40,10 @@ public class MatchServiceImpl implements MatchService {
                 int[] itemIds = participant.getItemIds();
                 Item[] items = itemRepository.findByIds(itemIds);
                 participant.setItems(items);
+
+                int[] spellIds = participant.getSummonerSpellIds();
+                Spell[] spells = spellRepository.findByIds(spellIds);
+                participant.setSpells(spells);
             }
             matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }

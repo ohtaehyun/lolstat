@@ -1,6 +1,7 @@
 package vlrtstat.gg.match.dto;
 
 import vlrtstat.gg.item.dto.ItemDto;
+import vlrtstat.gg.spell.dto.SpellDto;
 
 public class SimpleParticipantDto {
     private String summonerName;
@@ -13,8 +14,6 @@ public class SimpleParticipantDto {
     private int kills;
     private int deaths;
     private int assists;
-    private int summoner1Id;
-    private int summoner2Id;
     private int spell1Casts;
     private int spell2Casts;
     private int spell3Casts;
@@ -22,9 +21,10 @@ public class SimpleParticipantDto {
     private int summoner1Casts;
     private int summoner2Casts;
     private ItemDto[] items;
+    private SpellDto[] spells;
     private boolean win;
 
-    public SimpleParticipantDto(String summonerName, int summonerLevel, int championId, int champLevel, String lane, String role, int teamId, int kills, int deaths, int assists, int summoner1Id, int summoner2Id, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
+    public SimpleParticipantDto(String summonerName, int summonerLevel, int championId, int champLevel, String lane, String role, int teamId, int kills, int deaths, int assists, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
         this.summonerName = summonerName;
         this.summonerLevel = summonerLevel;
         this.championId = championId;
@@ -35,8 +35,6 @@ public class SimpleParticipantDto {
         this.kills = kills;
         this.deaths = deaths;
         this.assists = assists;
-        this.summoner1Id = summoner1Id;
-        this.summoner2Id = summoner2Id;
         this.spell1Casts = spell1Casts;
         this.spell2Casts = spell2Casts;
         this.spell3Casts = spell3Casts;
@@ -126,22 +124,6 @@ public class SimpleParticipantDto {
         this.assists = assists;
     }
 
-    public int getSummoner1Id() {
-        return summoner1Id;
-    }
-
-    public void setSummoner1Id(int summoner1Id) {
-        this.summoner1Id = summoner1Id;
-    }
-
-    public int getSummoner2Id() {
-        return summoner2Id;
-    }
-
-    public void setSummoner2Id(int summoner2Id) {
-        this.summoner2Id = summoner2Id;
-    }
-
     public int getSpell1Casts() {
         return spell1Casts;
     }
@@ -204,5 +186,13 @@ public class SimpleParticipantDto {
 
     public void setItems(ItemDto[] items) {
         this.items = items;
+    }
+
+    public SpellDto[] getSpells() {
+        return spells;
+    }
+
+    public void setSpells(SpellDto[] spells) {
+        this.spells = spells;
     }
 }
