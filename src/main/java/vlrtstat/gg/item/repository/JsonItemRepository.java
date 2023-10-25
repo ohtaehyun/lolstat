@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 
 @Repository
 public class JsonItemRepository implements ItemRepository {
@@ -36,5 +37,14 @@ public class JsonItemRepository implements ItemRepository {
         } catch (JsonProcessingException e) {
             return new Item();
         }
+    }
+
+    @Override
+    public Item[] findByIds(int[] itemIds) {
+        ArrayList<Item> items = new ArrayList<>();
+        for (int itemId : itemIds) {
+            items.add(findById(itemId));
+        }
+        return items.toArray(item -> new Item[item]);
     }
 }

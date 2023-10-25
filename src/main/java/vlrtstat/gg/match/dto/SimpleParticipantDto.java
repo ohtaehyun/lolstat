@@ -22,16 +22,9 @@ public class SimpleParticipantDto {
     private int summoner1Casts;
     private int summoner2Casts;
     private ItemDto[] items;
-    private int item0;
-    private int item1;
-    private int item2;
-    private int item3;
-    private int item4;
-    private int item5;
-    private int item6;
     private boolean win;
 
-    public SimpleParticipantDto(String summonerName, int summonerLevel, int championId, int champLevel, String lane, String role, int teamId, int kills, int deaths, int assists, int summoner1Id, int summoner2Id, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, int item0, int item1, int item2, int item3, int item4, int item5, int item6, boolean win) {
+    public SimpleParticipantDto(String summonerName, int summonerLevel, int championId, int champLevel, String lane, String role, int teamId, int kills, int deaths, int assists, int summoner1Id, int summoner2Id, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
         this.summonerName = summonerName;
         this.summonerLevel = summonerLevel;
         this.championId = championId;
@@ -50,13 +43,6 @@ public class SimpleParticipantDto {
         this.spell4Casts = spell4Casts;
         this.summoner1Casts = summoner1Casts;
         this.summoner2Casts = summoner2Casts;
-        this.item0 = item0;
-        this.item1 = item1;
-        this.item2 = item2;
-        this.item3 = item3;
-        this.item4 = item4;
-        this.item5 = item5;
-        this.item6 = item6;
         this.win = win;
     }
 
@@ -204,67 +190,19 @@ public class SimpleParticipantDto {
         this.summoner2Casts = summoner2Casts;
     }
 
-    public int getItem0() {
-        return item0;
-    }
-
-    public void setItem0(int item0) {
-        this.item0 = item0;
-    }
-
-    public int getItem1() {
-        return item1;
-    }
-
-    public void setItem1(int item1) {
-        this.item1 = item1;
-    }
-
-    public int getItem2() {
-        return item2;
-    }
-
-    public void setItem2(int item2) {
-        this.item2 = item2;
-    }
-
-    public int getItem3() {
-        return item3;
-    }
-
-    public void setItem3(int item3) {
-        this.item3 = item3;
-    }
-
-    public int getItem4() {
-        return item4;
-    }
-
-    public void setItem4(int item4) {
-        this.item4 = item4;
-    }
-
-    public int getItem5() {
-        return item5;
-    }
-
-    public void setItem5(int item5) {
-        this.item5 = item5;
-    }
-
-    public int getItem6() {
-        return item6;
-    }
-
-    public void setItem6(int item6) {
-        this.item6 = item6;
-    }
-
     public boolean isWin() {
         return win;
     }
 
     public void setWin(boolean win) {
         this.win = win;
+    }
+
+    public ItemDto[] getItems() {
+        return items;
+    }
+
+    public void setItems(ItemDto[] items) {
+        this.items = items;
     }
 }

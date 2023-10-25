@@ -35,8 +35,8 @@ public class MatchServiceImpl implements MatchService {
             Participant[] participants = match.getInfo().getParticipants();
             for (Participant participant : participants) {
                 int[] itemIds = participant.getItemIds();
-                Item[] items = Arrays.stream(itemIds).mapToObj(itemId -> itemRepository.findById(itemId)).toArray(item -> new Item[item]);
-                System.out.println("items[0] = " + items[0]);
+                Item[] items = itemRepository.findByIds(itemIds);
+                participant.setItems(items);
             }
             matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }

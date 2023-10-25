@@ -7,4 +7,5 @@ import vlrtstat.gg.item.domain.Item;
 
 public interface ItemRepository {
     Item findById(int itemId);
+    Item[] findByIds(int[] itemIds);
 }
