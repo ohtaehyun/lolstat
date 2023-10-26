@@ -1,19 +1,19 @@
 package vlrtstat.gg.match.dto;
 
+import vlrtstat.gg.champion.dto.ChampionDto;
 import vlrtstat.gg.item.dto.ItemDto;
 import vlrtstat.gg.spell.dto.SpellDto;
 
 public class SimpleParticipantDto {
     private String summonerName;
     private int summonerLevel;
-    private int championId;
-    private int champLevel;
-    private String lane;
-    private String role;
-    private int teamId;
+    private int championLevel;
     private int kills;
     private int deaths;
     private int assists;
+    private String lane;
+    private String role;
+    private int teamId;
     private int spell1Casts;
     private int spell2Casts;
     private int spell3Casts;
@@ -22,19 +22,19 @@ public class SimpleParticipantDto {
     private int summoner2Casts;
     private ItemDto[] items;
     private SpellDto[] spells;
+    private ChampionDto champion;
     private boolean win;
 
-    public SimpleParticipantDto(String summonerName, int summonerLevel, int championId, int champLevel, String lane, String role, int teamId, int kills, int deaths, int assists, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
+    public SimpleParticipantDto(String summonerName, int summonerLevel, int championLevel, int kills, int deaths, int assists, String lane, String role, int teamId, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
         this.summonerName = summonerName;
         this.summonerLevel = summonerLevel;
-        this.championId = championId;
-        this.champLevel = champLevel;
-        this.lane = lane;
-        this.role = role;
-        this.teamId = teamId;
+        this.championLevel = championLevel;
         this.kills = kills;
         this.deaths = deaths;
         this.assists = assists;
+        this.lane = lane;
+        this.role = role;
+        this.teamId = teamId;
         this.spell1Casts = spell1Casts;
         this.spell2Casts = spell2Casts;
         this.spell3Casts = spell3Casts;
@@ -60,22 +60,6 @@ public class SimpleParticipantDto {
         this.summonerLevel = summonerLevel;
     }
 
-    public int getChampionId() {
-        return championId;
-    }
-
-    public void setChampionId(int championId) {
-        this.championId = championId;
-    }
-
-    public int getChampLevel() {
-        return champLevel;
-    }
-
-    public void setChampLevel(int champLevel) {
-        this.champLevel = champLevel;
-    }
-
     public String getLane() {
         return lane;
     }
@@ -98,30 +82,6 @@ public class SimpleParticipantDto {
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
-    }
-
-    public int getKills() {
-        return kills;
-    }
-
-    public void setKills(int kills) {
-        this.kills = kills;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
-    public int getAssists() {
-        return assists;
-    }
-
-    public void setAssists(int assists) {
-        this.assists = assists;
     }
 
     public int getSpell1Casts() {
@@ -194,5 +154,45 @@ public class SimpleParticipantDto {
 
     public void setSpells(SpellDto[] spells) {
         this.spells = spells;
+    }
+
+    public ChampionDto getChampion() {
+        return champion;
+    }
+
+    public void setChampion(ChampionDto champion) {
+        this.champion = champion;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public int getChampionLevel() {
+        return championLevel;
+    }
+
+    public void setChampionLevel(int championLevel) {
+        this.championLevel = championLevel;
     }
 }

@@ -1,6 +1,8 @@
 package vlrtstat.gg.match.service;
 
 import org.springframework.stereotype.Service;
+import vlrtstat.gg.champion.domain.Champion;
+import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.repository.ItemRepository;
 import vlrtstat.gg.match.domain.Match;
@@ -17,11 +19,13 @@ public class MatchServiceImpl implements MatchService {
     private MatchRepository matchRepository;
     private ItemRepository itemRepository;
     private SpellRepository spellRepository;
+    private ChampionRepository championRepository;
 
-    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository) {
+    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository) {
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
         this.spellRepository = spellRepository;
+        this.championRepository = championRepository;
     }
 
     @Override
@@ -44,6 +48,10 @@ public class MatchServiceImpl implements MatchService {
                 int[] spellIds = participant.getSummonerSpellIds();
                 Spell[] spells = spellRepository.findByIds(spellIds);
                 participant.setSpells(spells);
+
+                int championId = participant.getChampionId();
+                Champion champion = championRepository.findById(championId);
+                participant.setChampion(champion);
             }
             matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }

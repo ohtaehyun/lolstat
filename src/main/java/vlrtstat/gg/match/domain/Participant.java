@@ -1,5 +1,7 @@
 package vlrtstat.gg.match.domain;
 
+import vlrtstat.gg.champion.domain.Champion;
+import vlrtstat.gg.champion.dto.ChampionDto;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.dto.ItemDto;
 import vlrtstat.gg.match.dto.SimpleParticipantDto;
@@ -116,6 +118,7 @@ public class Participant {
     private boolean win;
     private Item[] items;
     private Spell[] spells;
+    private Champion champion;
 
     public Participant(int assists, int baronKills, int bountyLebel, int champExperience, int champLevel, int championId, String championName, int championTransform, int consumablesPurchased, int damageDealtToBuildings, int damageDealtToObjectives, int damageDealtToTurrets, int damageSelfMitigated, int deaths, int detectorWardsPlaced, int doubleKills, int dragonKills, boolean firstBloodAssist, boolean firstBloodKill, boolean firstTowerAssist, boolean firstTowerKill, boolean gameEndedInEarlySurrender, boolean gameEndedInSurrender, int goldEarned, int goldSpent, String individualPosition, int inhibitorKills, int inhibitorTakedowns, int inhibitorsLost, int item0, int item1, int item2, int item3, int item4, int item5, int item6, int itemsPurchased, int killingSprees, int kills, String lane, int largestCriticalStrike, int largestKillingSpree, int largestMultiKill, int longestTimeSpentLiving, int magicDamageDealt, int magicDamageDealtToChampions, int magicDamageTaken, int neutralMinionsKilled, int nexusKills, int nexusTakedowns, int nexusLost, int objectivesStolen, int objectivesStolenAssists, int participantId, int pentaKills, Perk perks, int physicalDamageDealt, int physicalDamageDealtToChampions, int physicalDamageTaken, int profileIcon, String puuid, int quadraKills, String riotName, String riotIdTagline, String role, int sightWardsBoughtInGame, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner1Id, int summoner2Casts, int summoner2Id, String summonerId, int summonerLevel, String summonerName, boolean teamEarlySurrendered, int teamId, String teamPosition, int timeCCingOthers, int timePlayed, int totalDamageDealt, int totalDamageDealtToChampions, int totalDamageShieldedOnTeammates, int totalDamageTaken, int totalHeal, int totalHealsOnTeammates, int totalMinionsKilled, int totalTimeCCDealt, int totalTimeSpentDead, int totalUnitsHealed, int tripleKills, int trueDamageDealt, int trueDamageDealtToChampions, int trueDamageTaken, int turretKills, int turretTakedowns, int turretsLost, int unrealKills, int visionScore, int visionWardsBoughtInGame, int wardsKilled, int wardsPlaced, boolean win) {
         this.setAssists(assists);
@@ -1077,14 +1080,13 @@ public class Participant {
         SimpleParticipantDto simpleParticipantDto = new SimpleParticipantDto(
                 summonerName,
                 summonerLevel,
-                championId,
                 champLevel,
-                lane,
-                role,
-                teamId,
                 kills,
                 deaths,
                 assists,
+                lane,
+                role,
+                teamId,
                 summoner1Id,
                 summoner2Id,
                 spell1Casts,
@@ -1109,6 +1111,8 @@ public class Participant {
 
         simpleParticipantDto.setSpells(spellDtos.stream().toArray(spell -> new SpellDto[spell]));
 
+        simpleParticipantDto.setChampion(champion.toChampionDto());
+
         return simpleParticipantDto;
     }
 
@@ -1126,5 +1130,13 @@ public class Participant {
 
     public void setSpells(Spell[] spells) {
         this.spells = spells;
+    }
+
+    public Champion getChampion() {
+        return champion;
+    }
+
+    public void setChampion(Champion champion) {
+        this.champion = champion;
     }
 }
