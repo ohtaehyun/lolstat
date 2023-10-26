@@ -9,6 +9,9 @@ import vlrtstat.gg.match.domain.Match;
 import vlrtstat.gg.match.domain.Participant;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.repository.MatchRepository;
+import vlrtstat.gg.rune.domain.Rune;
+import vlrtstat.gg.rune.domain.RuneGroup;
+import vlrtstat.gg.rune.repository.RuneRepository;
 import vlrtstat.gg.spell.domain.Spell;
 import vlrtstat.gg.spell.repository.SpellRepository;
 
@@ -20,12 +23,14 @@ public class MatchServiceImpl implements MatchService {
     private ItemRepository itemRepository;
     private SpellRepository spellRepository;
     private ChampionRepository championRepository;
+    private RuneRepository runeRepository;
 
-    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository) {
+    public MatchServiceImpl(MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository) {
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
         this.spellRepository = spellRepository;
         this.championRepository = championRepository;
+        this.runeRepository = runeRepository;
     }
 
     @Override
@@ -52,6 +57,14 @@ public class MatchServiceImpl implements MatchService {
                 int championId = participant.getChampionId();
                 Champion champion = championRepository.findById(championId);
                 participant.setChampion(champion);
+
+                int mainRuneId = participant.getPerks().getStyles()[0].getSelections()[0].getPerk();
+                Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
+                participant.setMainRune(mainRune);
+
+                int subRuneGroupId = participant.getPerks().getStyles()[1].getStyle();
+                RuneGroup subRuneGroup = runeRepository.findRuneGroupByRuneId(subRuneGroupId);
+                participant.setSubRuneGroup(subRuneGroup);
             }
             matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }

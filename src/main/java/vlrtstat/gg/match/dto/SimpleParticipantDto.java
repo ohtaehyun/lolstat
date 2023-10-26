@@ -2,6 +2,7 @@ package vlrtstat.gg.match.dto;
 
 import vlrtstat.gg.champion.dto.ChampionDto;
 import vlrtstat.gg.item.dto.ItemDto;
+import vlrtstat.gg.rune.dto.RuneDto;
 import vlrtstat.gg.spell.dto.SpellDto;
 
 public class SimpleParticipantDto {
@@ -14,18 +15,14 @@ public class SimpleParticipantDto {
     private String lane;
     private String role;
     private int teamId;
-    private int spell1Casts;
-    private int spell2Casts;
-    private int spell3Casts;
-    private int spell4Casts;
-    private int summoner1Casts;
-    private int summoner2Casts;
     private ItemDto[] items;
     private SpellDto[] spells;
     private ChampionDto champion;
     private boolean win;
+    private RuneDto mainRune;
+    private RuneDto subRune;
 
-    public SimpleParticipantDto(String summonerName, int summonerLevel, int championLevel, int kills, int deaths, int assists, String lane, String role, int teamId, int spell1Casts, int spell2Casts, int spell3Casts, int spell4Casts, int summoner1Casts, int summoner2Casts, boolean win) {
+    public SimpleParticipantDto(String summonerName, int summonerLevel, int championLevel, int kills, int deaths, int assists, String lane, String role, int teamId, boolean win) {
         this.summonerName = summonerName;
         this.summonerLevel = summonerLevel;
         this.championLevel = championLevel;
@@ -35,12 +32,6 @@ public class SimpleParticipantDto {
         this.lane = lane;
         this.role = role;
         this.teamId = teamId;
-        this.spell1Casts = spell1Casts;
-        this.spell2Casts = spell2Casts;
-        this.spell3Casts = spell3Casts;
-        this.spell4Casts = spell4Casts;
-        this.summoner1Casts = summoner1Casts;
-        this.summoner2Casts = summoner2Casts;
         this.win = win;
     }
 
@@ -82,54 +73,6 @@ public class SimpleParticipantDto {
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
-    }
-
-    public int getSpell1Casts() {
-        return spell1Casts;
-    }
-
-    public void setSpell1Casts(int spell1Casts) {
-        this.spell1Casts = spell1Casts;
-    }
-
-    public int getSpell2Casts() {
-        return spell2Casts;
-    }
-
-    public void setSpell2Casts(int spell2Casts) {
-        this.spell2Casts = spell2Casts;
-    }
-
-    public int getSpell3Casts() {
-        return spell3Casts;
-    }
-
-    public void setSpell3Casts(int spell3Casts) {
-        this.spell3Casts = spell3Casts;
-    }
-
-    public int getSpell4Casts() {
-        return spell4Casts;
-    }
-
-    public void setSpell4Casts(int spell4Casts) {
-        this.spell4Casts = spell4Casts;
-    }
-
-    public int getSummoner1Casts() {
-        return summoner1Casts;
-    }
-
-    public void setSummoner1Casts(int summoner1Casts) {
-        this.summoner1Casts = summoner1Casts;
-    }
-
-    public int getSummoner2Casts() {
-        return summoner2Casts;
-    }
-
-    public void setSummoner2Casts(int summoner2Casts) {
-        this.summoner2Casts = summoner2Casts;
     }
 
     public boolean isWin() {
@@ -194,5 +137,21 @@ public class SimpleParticipantDto {
 
     public void setChampionLevel(int championLevel) {
         this.championLevel = championLevel;
+    }
+
+    public RuneDto getMainRune() {
+        return mainRune;
+    }
+
+    public void setMainRune(RuneDto mainRune) {
+        this.mainRune = mainRune;
+    }
+
+    public RuneDto getSubRune() {
+        return subRune;
+    }
+
+    public void setSubRune(RuneDto subRune) {
+        this.subRune = subRune;
     }
 }
