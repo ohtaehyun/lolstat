@@ -34,13 +34,8 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public String[] getMatchHistories(String puuid) {
-        return matchRepository.findIdsByPuuid(puuid);
-    }
-
-    @Override
-    public SimpleMatchDto[] searchSimpleMatchesByPuuid(String puuid) {
-        String[] MatchIds = matchRepository.findIdsByPuuid(puuid);
+    public SimpleMatchDto[] searchSimpleMatchesByPuuid(String puuid, int page) {
+        String[] MatchIds = matchRepository.findIdsByPuuid(puuid, (page - 1) * 20);
         ArrayList<SimpleMatchDto> matches = new ArrayList<>();
         for (String matchId : MatchIds) {
             Match match = matchRepository.findById(matchId);
@@ -72,14 +67,14 @@ public class MatchServiceImpl implements MatchService {
         return matches.stream().toArray(match -> new SimpleMatchDto[match]);
     }
 
-    @Override
-    public Match[] searchMatchesByPuuid(String puuid) {
-        String[] MatchIds = matchRepository.findIdsByPuuid(puuid);
-        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
-        for (String matchId : MatchIds) {
-            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
-        }
-
-        return matches.stream().toArray(match -> new Match[match]);
-    }
+//    @Override
+//    public Match[] searchMatchesByPuuid(String puuid, int page) {
+//        String[] MatchIds = matchRepository.findIdsByPuuid(puuid, (page - 1) * 20);
+//        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
+//        for (String matchId : MatchIds) {
+//            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
+//        }
+//
+//        return matches.stream().toArray(match -> new Match[match]);
+//    }
 }
