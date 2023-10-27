@@ -1,6 +1,7 @@
 package vlrtstat.gg.match.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.QueryParam;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.service.MatchService;
 
 @RestController
+@Tag(name = "Match", description = "전적 API")
 public class MatchController {
     private MatchService matchService;
 
@@ -19,6 +21,7 @@ public class MatchController {
     }
 
     @GetMapping("matches/{puuid}")
+    @Operation(description = "소환사 전적 검색")
     SimpleMatchDto[] searchMatch(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
         return matchService.searchSimpleMatchesByPuuid(puuid, page);
     }
