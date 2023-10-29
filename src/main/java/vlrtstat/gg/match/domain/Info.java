@@ -26,7 +26,7 @@ public class Info {
         this.setGameDuration(gameDuration);
         this.setGameEndTimestamp(gameEndTimestamp);
         this.setGameId(gameId);
-        this.setGameMode(gameMode);
+        this.gameMode = gameMode;
         this.setGameName(gameName);
         this.setGameStartTimestamp(gameStartTimestamp);
         this.setGameType(gameType);
@@ -75,8 +75,8 @@ public class Info {
         return gameMode;
     }
 
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
+    public void setGameMode(String gameMode) {
+        this.gameMode = GameMode.fromString(gameMode);
     }
 
     public String getGameName() {

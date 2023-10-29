@@ -55,6 +55,9 @@ public class MatchServiceImpl implements MatchService {
 
                 int mainRuneId = participant.getPerks().getStyles()[0].getSelections()[0].getPerk();
                 Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
+                if (mainRune == null) {
+                    System.out.println("mainRune = " + mainRune);
+                }
                 participant.setMainRune(mainRune);
 
                 int subRuneGroupId = participant.getPerks().getStyles()[1].getStyle();

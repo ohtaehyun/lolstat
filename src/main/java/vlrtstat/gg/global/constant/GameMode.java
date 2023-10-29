@@ -21,4 +21,13 @@ public enum GameMode {
     ODYSSEY,
     NEXUSBLITZ,
     ULTBOOK,
+    CHERRY,
+    UNKNOWN;
+
+    public static GameMode fromString(String mode) {
+        for (GameMode gameMode : values()) {
+            if (gameMode.toString().equals(mode)) return gameMode;
+        }
+        return UNKNOWN;
+    }
 }

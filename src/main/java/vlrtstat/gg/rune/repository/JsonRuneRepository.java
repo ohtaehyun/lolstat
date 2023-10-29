@@ -52,6 +52,6 @@ public class JsonRuneRepository implements RuneRepository {
         for (RuneGroup runeGroup : runeGroups) {
             if (runeGroup.hasRune(id)) return runeGroup.getRuneById(id);
         }
-        return null;
+        return new Rune();
     }
 }
