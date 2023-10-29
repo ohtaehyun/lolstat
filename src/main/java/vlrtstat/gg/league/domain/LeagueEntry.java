@@ -47,6 +47,9 @@ public class LeagueEntry {
         this.losses = 0;
     }
 
+    public LeagueEntry() {
+    }
+
     public String getLeagueId() {
         return leagueId;
     }
@@ -75,8 +78,8 @@ public class LeagueEntry {
         return queueType;
     }
 
-    public void setQueueType(QueueType queueType) {
-        this.queueType = queueType;
+    public void setQueueType(String queueType) {
+        this.queueType = QueueType.fromText(queueType);
     }
 
     public Tier getTier() {
@@ -91,8 +94,8 @@ public class LeagueEntry {
         return rank;
     }
 
-    public void setRank(Rank rank) {
-        this.rank = rank;
+    public void setRank(String rank) {
+        this.rank = Rank.fromText(rank);
     }
 
     public int getLeaguePoints() {
