@@ -1,12 +1,14 @@
 package vlrtstat.gg.champion.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import vlrtstat.gg.champion.dto.ChampionDto;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Champion {
     private String name;
     private String blurb;
+    @JsonProperty("image")
     private ChampionImage championImage;
     private String key;
 
