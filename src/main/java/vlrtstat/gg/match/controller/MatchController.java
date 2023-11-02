@@ -25,4 +25,11 @@ public class MatchController {
     SimpleMatchDto[] searchMatch(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
         return matchService.searchSimpleMatchesByPuuid(puuid, page);
     }
+
+    @GetMapping("timeline/{matchId}")
+    @Operation(description = "매치 상세 타임라인 검색")
+    Object searchTimeline(@PathVariable("matchId") String matchId) {
+
+        return null;
+    }
 }
