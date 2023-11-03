@@ -38,33 +38,37 @@ public class MatchServiceImpl implements MatchService {
         String[] MatchIds = matchRepository.findIdsByPuuid(puuid, (page - 1) * 20);
         ArrayList<SimpleMatchDto> matches = new ArrayList<>();
         for (String matchId : MatchIds) {
-            Match match = matchRepository.findById(matchId);
-            Participant[] participants = match.getInfo().getParticipants();
-            for (Participant participant : participants) {
-                int[] itemIds = participant.getItemIds();
-                Item[] items = itemRepository.findByIds(itemIds);
-                participant.setItems(items);
+            try {
+                Match match = matchRepository.findById(matchId);
+                Participant[] participants = match.getInfo().getParticipants();
+                for (Participant participant : participants) {
+                    int[] itemIds = participant.getItemIds();
+                    Item[] items = itemRepository.findByIds(itemIds);
+                    participant.setItems(items);
 
-                int[] spellIds = participant.getSummonerSpellIds();
-                Spell[] spells = spellRepository.findByIds(spellIds);
-                participant.setSpells(spells);
+                    int[] spellIds = participant.getSummonerSpellIds();
+                    Spell[] spells = spellRepository.findByIds(spellIds);
+                    participant.setSpells(spells);
 
-                int championId = participant.getChampionId();
-                Champion champion = championRepository.findById(championId);
-                participant.setChampion(champion);
+                    int championId = participant.getChampionId();
+                    Champion champion = championRepository.findById(championId);
+                    participant.setChampion(champion);
 
-                int mainRuneId = participant.getPerks().getStyles()[0].getSelections()[0].getPerk();
-                Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
-                if (mainRune == null) {
-                    System.out.println("mainRune = " + mainRune);
+                    int mainRuneId = participant.getPerks().getStyles()[0].getSelections()[0].getPerk();
+                    Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
+                    if (mainRune == null) {
+                        System.out.println("mainRune = " + mainRune);
+                    }
+                    participant.setMainRune(mainRune);
+
+                    int subRuneGroupId = participant.getPerks().getStyles()[1].getStyle();
+                    RuneGroup subRuneGroup = runeRepository.findRuneGroupByRuneId(subRuneGroupId);
+                    participant.setSubRuneGroup(subRuneGroup);
                 }
-                participant.setMainRune(mainRune);
+                matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
+            } catch (Exception e) {
 
-                int subRuneGroupId = participant.getPerks().getStyles()[1].getStyle();
-                RuneGroup subRuneGroup = runeRepository.findRuneGroupByRuneId(subRuneGroupId);
-                participant.setSubRuneGroup(subRuneGroup);
             }
-            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
         }
 
         return matches.stream().toArray(match -> new SimpleMatchDto[match]);
