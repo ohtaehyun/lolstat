@@ -6,10 +6,18 @@ import vlrtstat.gg.global.constant.Tier;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueList {
     private String leagueId;
-    private LeagueItem entries;
+    private LeagueItem[] entries;
     private Tier tier;
     private String queue;
     private String name;
+
+    public LeagueList(String leagueId, LeagueItem[] entries, Tier tier, String queue, String name) {
+        this.leagueId = leagueId;
+        this.entries = entries;
+        this.tier = tier;
+        this.queue = queue;
+        this.name = name;
+    }
 
     public String getLeagueId() {
         return leagueId;
@@ -19,11 +27,11 @@ public class LeagueList {
         this.leagueId = leagueId;
     }
 
-    public LeagueItem getEntries() {
+    public LeagueItem[] getEntries() {
         return entries;
     }
 
-    public void setEntries(LeagueItem entries) {
+    public void setEntries(LeagueItem[] entries) {
         this.entries = entries;
     }
 
