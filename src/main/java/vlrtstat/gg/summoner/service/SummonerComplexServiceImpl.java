@@ -3,11 +3,9 @@ package vlrtstat.gg.summoner.service;
 import org.springframework.stereotype.Service;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
-import vlrtstat.gg.match.domain.Match;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.service.MatchService;
 import vlrtstat.gg.summoner.domain.Summoner;
-import vlrtstat.gg.summoner.dto.ProfileDto;
 import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 
 @Service

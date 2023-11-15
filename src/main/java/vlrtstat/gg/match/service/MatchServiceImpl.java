@@ -5,7 +5,7 @@ import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.repository.ItemRepository;
-import vlrtstat.gg.match.domain.Match;
+import vlrtstat.gg.match.domain.MatchResponse;
 import vlrtstat.gg.match.domain.Participant;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.repository.MatchRepository;
@@ -39,8 +39,8 @@ public class MatchServiceImpl implements MatchService {
         ArrayList<SimpleMatchDto> matches = new ArrayList<>();
         for (String matchId : MatchIds) {
             try {
-                Match match = matchRepository.findById(matchId);
-                Participant[] participants = match.getInfo().getParticipants();
+                MatchResponse matchResponse = matchRepository.findById(matchId);
+                Participant[] participants = matchResponse.getInfo().getParticipants();
                 for (Participant participant : participants) {
                     int[] itemIds = participant.getItemIds();
                     Item[] items = itemRepository.findByIds(itemIds);
@@ -75,13 +75,13 @@ public class MatchServiceImpl implements MatchService {
     }
 
 //    @Override
-//    public Match[] searchMatchesByPuuid(String puuid, int page) {
+//    public MatchResponse[] searchMatchesByPuuid(String puuid, int page) {
 //        String[] MatchIds = matchRepository.findIdsByPuuid(puuid, (page - 1) * 20);
 //        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
 //        for (String matchId : MatchIds) {
 //            matches.add(matchRepository.findById(matchId).toSimpleMatchDto());
 //        }
 //
-//        return matches.stream().toArray(match -> new Match[match]);
+//        return matches.stream().toArray(match -> new MatchResponse[match]);
 //    }
 }
