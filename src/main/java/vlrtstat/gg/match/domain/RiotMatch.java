@@ -1,14 +1,17 @@
 package vlrtstat.gg.match.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jdk.jfr.DataAmount;
 
 @Entity
-public class Match {
+public class RiotMatch {
     @Id
     private String matchId;
 
-    public Match() {
+    @Column
+    private String dataVersion;
+
+    public RiotMatch() {
     }
 }
