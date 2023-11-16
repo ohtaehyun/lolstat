@@ -1,16 +1,24 @@
 package vlrtstat.gg.match.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import vlrtstat.gg.global.constant.GameMode;
 import vlrtstat.gg.match.client.response.MatchResponse;
+import vlrtstat.gg.participant.domain.Participant;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "RiotMatch", indexes = {
+        @Index(name = "idx_riotmatch_matchid_unq", columnList = "matchId", unique = true)
+})
 public class RiotMatch {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
+
+    @Column
     private String matchId;
 
     @Column
@@ -36,6 +44,9 @@ public class RiotMatch {
 
     @Column
     private String gameName;
+
+    @OneToMany(mappedBy = "match")
+    private List<Participant> participants;
 
     public RiotMatch() {
     }

@@ -3,6 +3,7 @@ package vlrtstat.gg.match.domain;
 import vlrtstat.gg.global.constant.GameMode;
 import vlrtstat.gg.global.constant.GameType;
 import vlrtstat.gg.global.constant.QueueId;
+import vlrtstat.gg.match.client.response.ParticipantResponse;
 
 public class Info {
     private Long gameCreation;
@@ -15,13 +16,13 @@ public class Info {
     private GameType gameType;
     private String gameVersion;
     private int mapId;
-    private Participant[] participants;
+    private ParticipantResponse[] participantResponses;
     private String platformId;
     private QueueId queueId;
     private Team[] teams;
     private String tournamentCode;
 
-    public Info(Long gameCreation, Long gameDuration, Long gameEndTimestamp, Long gameId, GameMode gameMode, String gameName, Long gameStartTimestamp, GameType gameType, String gameVersion, int mapId, Participant[] participants, String platformId, int queueId, Team[] teams, String tournamentCode) {
+    public Info(Long gameCreation, Long gameDuration, Long gameEndTimestamp, Long gameId, GameMode gameMode, String gameName, Long gameStartTimestamp, GameType gameType, String gameVersion, int mapId, ParticipantResponse[] participantResponses, String platformId, int queueId, Team[] teams, String tournamentCode) {
         this.setGameCreation(gameCreation);
         this.setGameDuration(gameDuration);
         this.setGameEndTimestamp(gameEndTimestamp);
@@ -32,7 +33,7 @@ public class Info {
         this.setGameType(gameType);
         this.setGameVersion(gameVersion);
         this.setMapId(mapId);
-        this.setParticipants(participants);
+        this.setParticipants(participantResponses);
         this.setPlatformId(platformId);
         this.setQueueId(QueueId.fromId(queueId));
         this.setTeams(teams);
@@ -119,12 +120,12 @@ public class Info {
         this.mapId = mapId;
     }
 
-    public Participant[] getParticipants() {
-        return participants;
+    public ParticipantResponse[] getParticipants() {
+        return participantResponses;
     }
 
-    public void setParticipants(Participant[] participants) {
-        this.participants = participants;
+    public void setParticipants(ParticipantResponse[] participantResponses) {
+        this.participantResponses = participantResponses;
     }
 
     public String getPlatformId() {

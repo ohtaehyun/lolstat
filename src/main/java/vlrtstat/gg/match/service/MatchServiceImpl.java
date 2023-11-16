@@ -6,7 +6,7 @@ import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.repository.ItemRepository;
 import vlrtstat.gg.match.client.response.MatchResponse;
-import vlrtstat.gg.match.domain.Participant;
+import vlrtstat.gg.match.client.response.ParticipantResponse;
 import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.client.MatchClient;
@@ -45,30 +45,30 @@ public class MatchServiceImpl implements MatchService {
         for (String matchId : MatchIds) {
             try {
                 MatchResponse matchResponse = matchClient.findById(matchId);
-                Participant[] participants = matchResponse.getInfo().getParticipants();
-                for (Participant participant : participants) {
-                    int[] itemIds = participant.getItemIds();
+                ParticipantResponse[] participantResponses = matchResponse.getInfo().getParticipants();
+                for (ParticipantResponse participantResponse : participantResponses) {
+                    int[] itemIds = participantResponse.getItemIds();
                     Item[] items = itemRepository.findByIds(itemIds);
-                    participant.setItems(items);
+                    participantResponse.setItems(items);
 
-                    int[] spellIds = participant.getSummonerSpellIds();
+                    int[] spellIds = participantResponse.getSummonerSpellIds();
                     Spell[] spells = spellRepository.findByIds(spellIds);
-                    participant.setSpells(spells);
+                    participantResponse.setSpells(spells);
 
-                    int championId = participant.getChampionId();
+                    int championId = participantResponse.getChampionId();
                     Champion champion = championRepository.findById(championId);
-                    participant.setChampion(champion);
+                    participantResponse.setChampion(champion);
 
-                    int mainRuneId = participant.getPerks().getStyles()[0].getSelections()[0].getPerk();
+                    int mainRuneId = participantResponse.getPerks().getStyles()[0].getSelections()[0].getPerk();
                     Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
                     if (mainRune == null) {
                         System.out.println("mainRune = " + mainRune);
                     }
-                    participant.setMainRune(mainRune);
+                    participantResponse.setMainRune(mainRune);
 
-                    int subRuneGroupId = participant.getPerks().getStyles()[1].getStyle();
+                    int subRuneGroupId = participantResponse.getPerks().getStyles()[1].getStyle();
                     RuneGroup subRuneGroup = runeRepository.findRuneGroupByRuneId(subRuneGroupId);
-                    participant.setSubRuneGroup(subRuneGroup);
+                    participantResponse.setSubRuneGroup(subRuneGroup);
                 }
                 matches.add(matchClient.findById(matchId).toSimpleMatchDto());
             } catch (Exception e) {
@@ -81,7 +81,7 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public RiotMatch searchMatch(String matchId) {
-        Optional<RiotMatch> match = matchRepository.find(matchId);
+        Optional<RiotMatch> match = matchRepository.findByMatchId(matchId);
         if (match.isEmpty()) {
             try {
                 MatchResponse matchResponse = matchClient.findById(matchId);
