@@ -1,5 +1,8 @@
-package vlrtstat.gg.match.domain;
+package vlrtstat.gg.match.client.response;
 
+import vlrtstat.gg.match.domain.Info;
+import vlrtstat.gg.match.domain.Metadata;
+import vlrtstat.gg.match.domain.Participant;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.dto.SimpleParticipantDto;
 

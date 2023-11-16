@@ -1,26 +1,20 @@
 package vlrtstat.gg.summoner.service;
 
 import org.springframework.stereotype.Service;
-import vlrtstat.gg.league.domain.LeagueEntry;
 import vlrtstat.gg.league.repository.LeagueRepository;
-import vlrtstat.gg.match.dto.SimpleMatchDto;
-import vlrtstat.gg.match.repository.MatchRepository;
+import vlrtstat.gg.match.client.MatchClient;
 import vlrtstat.gg.summoner.domain.Summoner;
-import vlrtstat.gg.summoner.dto.ProfileDto;
-import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 import vlrtstat.gg.summoner.repository.SummonerRepository;
-
-import java.util.ArrayList;
 
 @Service
 public class SummonerServiceImpl implements SummonerService {
     private SummonerRepository summonerRepository;
-    private MatchRepository matchRepository;
+    private MatchClient matchClient;
     private LeagueRepository leagueRepository;
 
-    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchRepository matchRepository, LeagueRepository leagueRepository) {
+    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchClient matchClient, LeagueRepository leagueRepository) {
         this.summonerRepository = summonerRepository;
-        this.matchRepository = matchRepository;
+        this.matchClient = matchClient;
         this.leagueRepository = leagueRepository;
     }
 
