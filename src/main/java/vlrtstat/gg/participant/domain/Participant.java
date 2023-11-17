@@ -1,6 +1,8 @@
 package vlrtstat.gg.participant.domain;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import vlrtstat.gg.item.domain.JpaItem;
@@ -55,26 +57,61 @@ public class Participant {
     @Column
     private int champLevel;
 
-    @Column
-    private int item0;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item0_id", insertable = false, updatable = false)
+    private JpaItem item0;
 
-    @Column
-    private int item1;
+    @Column(name = "item0_id")
+    private int item0Id;
 
-    @Column
-    private int item2;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item1_id", insertable = false, updatable = false)
+    private JpaItem item1;
 
-    @Column
-    private int item3;
+    @Column(name = "item1_id")
+    private int item1Id;
 
-    @Column
-    private int item4;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item2_id", insertable = false, updatable = false)
+    private JpaItem item2;
 
-    @Column
-    private int item5;
+    @Column(name = "item2_id")
+    private int item2Id;
 
-    @Column
-    private int item6;
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item3_id", insertable = false, updatable = false)
+    private JpaItem item3;
+
+    @Column(name = "item3_id")
+    private int item3Id;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item4_id", insertable = false, updatable = false)
+    private JpaItem item4;
+
+    @Column(name = "item4_id")
+    private int item4Id;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item5_id", insertable = false, updatable = false)
+    private JpaItem item5;
+
+    @Column(name = "item5_id")
+    private int item5Id;
+
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(targetEntity = JpaItem.class)
+    @JoinColumn(name = "item6_id", insertable = false, updatable = false)
+    private JpaItem item6;
+
+    @Column(name = "item6_id")
+    private int item6Id;
 
     @Column
     private int spell1Casts;
@@ -239,62 +276,6 @@ public class Participant {
         this.champLevel = champLevel;
     }
 
-    public int getItem0() {
-        return item0;
-    }
-
-    public void setItem0(int item0) {
-        this.item0 = item0;
-    }
-
-    public int getItem1() {
-        return item1;
-    }
-
-    public void setItem1(int item1) {
-        this.item1 = item1;
-    }
-
-    public int getItem2() {
-        return item2;
-    }
-
-    public void setItem2(int item2) {
-        this.item2 = item2;
-    }
-
-    public int getItem3() {
-        return item3;
-    }
-
-    public void setItem3(int item3) {
-        this.item3 = item3;
-    }
-
-    public int getItem4() {
-        return item4;
-    }
-
-    public void setItem4(int item4) {
-        this.item4 = item4;
-    }
-
-    public int getItem5() {
-        return item5;
-    }
-
-    public void setItem5(int item5) {
-        this.item5 = item5;
-    }
-
-    public int getItem6() {
-        return item6;
-    }
-
-    public void setItem6(int item6) {
-        this.item6 = item6;
-    }
-
     public int getSpell1Casts() {
         return spell1Casts;
     }
@@ -445,5 +426,117 @@ public class Participant {
 
     public void setTotalMinionsKilled(int totalMinionsKilled) {
         this.totalMinionsKilled = totalMinionsKilled;
+    }
+
+    public JpaItem getItem0() {
+        return item0;
+    }
+
+    public void setItem0(JpaItem item0) {
+        this.item0 = item0;
+    }
+
+    public JpaItem getItem6() {
+        return item6;
+    }
+
+    public void setItem6(JpaItem item6) {
+        this.item6 = item6;
+    }
+
+    public JpaItem getItem1() {
+        return item1;
+    }
+
+    public void setItem1(JpaItem item1) {
+        this.item1 = item1;
+    }
+
+    public JpaItem getItem2() {
+        return item2;
+    }
+
+    public void setItem2(JpaItem item2) {
+        this.item2 = item2;
+    }
+
+    public JpaItem getItem3() {
+        return item3;
+    }
+
+    public void setItem3(JpaItem item3) {
+        this.item3 = item3;
+    }
+
+    public JpaItem getItem4() {
+        return item4;
+    }
+
+    public void setItem4(JpaItem item4) {
+        this.item4 = item4;
+    }
+
+    public JpaItem getItem5() {
+        return item5;
+    }
+
+    public void setItem5(JpaItem item5) {
+        this.item5 = item5;
+    }
+
+    public int getItem0Id() {
+        return item0Id;
+    }
+
+    public void setItem0Id(int item0Id) {
+        this.item0Id = item0Id;
+    }
+
+    public int getItem1Id() {
+        return item1Id;
+    }
+
+    public void setItem1Id(int item1Id) {
+        this.item1Id = item1Id;
+    }
+
+    public int getItem2Id() {
+        return item2Id;
+    }
+
+    public void setItem2Id(int item2Id) {
+        this.item2Id = item2Id;
+    }
+
+    public int getItem3Id() {
+        return item3Id;
+    }
+
+    public void setItem3Id(int item3Id) {
+        this.item3Id = item3Id;
+    }
+
+    public int getItem4Id() {
+        return item4Id;
+    }
+
+    public void setItem4Id(int item4Id) {
+        this.item4Id = item4Id;
+    }
+
+    public int getItem5Id() {
+        return item5Id;
+    }
+
+    public void setItem5Id(int item5Id) {
+        this.item5Id = item5Id;
+    }
+
+    public int getItem6Id() {
+        return item6Id;
+    }
+
+    public void setItem6Id(int item6Id) {
+        this.item6Id = item6Id;
     }
 }

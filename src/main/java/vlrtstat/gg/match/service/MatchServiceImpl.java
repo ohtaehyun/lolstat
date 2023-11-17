@@ -36,9 +36,10 @@ public class MatchServiceImpl implements MatchService {
     private ChampionRepository championRepository;
     private RuneRepository runeRepository;
     private ParticipantRepository participantRepository;
-    private JpaItemRepository jpaItemRepository;
+    private final JpaItemRepository jpaItemRepository;
 
-    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository, JpaItemRepository jpaItemRepository) {
+    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository,
+                            JpaItemRepository jpaItemRepository) {
         this.matchClient = matchClient;
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
@@ -111,6 +112,7 @@ public class MatchServiceImpl implements MatchService {
                 participantRepository.saveAll(participants);
                 return riotMatch;
             } catch (Exception e) {
+                System.out.println("e.getMessage() = " + e.getMessage());
                 return null;
             }
         }
