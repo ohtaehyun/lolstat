@@ -1165,6 +1165,13 @@ public class ParticipantResponse {
         participant.setKills(kills);
         participant.setDeaths(deaths);
         participant.setAssists(assists);
+        participant.setItem0(item0);
+        participant.setItem1(item1);
+        participant.setItem2(item2);
+        participant.setItem3(item3);
+        participant.setItem4(item4);
+        participant.setItem5(item5);
+        participant.setItem6(item6);
         return participant;
     }
 }

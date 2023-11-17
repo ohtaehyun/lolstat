@@ -32,6 +32,7 @@ public class JpaItem {
     }
 
     public JpaItem() {
+        this.id = 0;
     }
 
     public int getId() {

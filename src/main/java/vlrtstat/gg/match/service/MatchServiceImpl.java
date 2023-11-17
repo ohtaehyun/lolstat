@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
+import vlrtstat.gg.item.domain.JpaItem;
 import vlrtstat.gg.item.repository.ItemRepository;
 import vlrtstat.gg.item.repository.JpaItemRepository;
 import vlrtstat.gg.match.client.response.MatchResponse;
@@ -22,6 +23,7 @@ import vlrtstat.gg.spell.domain.Spell;
 import vlrtstat.gg.spell.repository.SpellRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

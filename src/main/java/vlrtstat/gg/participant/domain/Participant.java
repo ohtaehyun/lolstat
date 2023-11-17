@@ -55,40 +55,26 @@ public class Participant {
     @Column
     private int champLevel;
 
-    @OneToOne
-    @JoinColumn(name = "item0")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item0;
+    @Column
+    private int item0;
 
-    @OneToOne
-    @JoinColumn(name = "item1")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item1;
+    @Column
+    private int item1;
 
-    @OneToOne
-    @JoinColumn(name = "item2")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item2;
+    @Column
+    private int item2;
 
-    @OneToOne
-    @JoinColumn(name = "item3")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item3;
+    @Column
+    private int item3;
 
-    @OneToOne
-    @JoinColumn(name = "item4")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item4;
+    @Column
+    private int item4;
 
-    @OneToOne
-    @JoinColumn(name = "item5")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item5;
+    @Column
+    private int item5;
 
-    @OneToOne
-    @JoinColumn(name = "item6")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private JpaItem item6;
+    @Column
+    private int item6;
 
     @Column
     private int spell1Casts;
@@ -253,59 +239,59 @@ public class Participant {
         this.champLevel = champLevel;
     }
 
-    public JpaItem getItem0() {
+    public int getItem0() {
         return item0;
     }
 
-    public void setItem0(JpaItem item0) {
+    public void setItem0(int item0) {
         this.item0 = item0;
     }
 
-    public JpaItem getItem1() {
+    public int getItem1() {
         return item1;
     }
 
-    public void setItem1(JpaItem item1) {
+    public void setItem1(int item1) {
         this.item1 = item1;
     }
 
-    public JpaItem getItem2() {
+    public int getItem2() {
         return item2;
     }
 
-    public void setItem2(JpaItem item2) {
+    public void setItem2(int item2) {
         this.item2 = item2;
     }
 
-    public JpaItem getItem3() {
+    public int getItem3() {
         return item3;
     }
 
-    public void setItem3(JpaItem item3) {
+    public void setItem3(int item3) {
         this.item3 = item3;
     }
 
-    public JpaItem getItem4() {
+    public int getItem4() {
         return item4;
     }
 
-    public void setItem4(JpaItem item4) {
+    public void setItem4(int item4) {
         this.item4 = item4;
     }
 
-    public JpaItem getItem5() {
+    public int getItem5() {
         return item5;
     }
 
-    public void setItem5(JpaItem item5) {
+    public void setItem5(int item5) {
         this.item5 = item5;
     }
 
-    public JpaItem getItem6() {
+    public int getItem6() {
         return item6;
     }
 
-    public void setItem6(JpaItem item6) {
+    public void setItem6(int item6) {
         this.item6 = item6;
     }
 
