@@ -24,6 +24,4 @@ public interface MatchClient {
     )
     @Cacheable(cacheNames = "match", key = "#matchId")
     MatchResponse findById(@PathVariable("matchId") String matchId);
-
-
 }

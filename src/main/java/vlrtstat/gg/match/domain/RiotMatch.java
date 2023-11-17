@@ -2,9 +2,13 @@ package vlrtstat.gg.match.domain;
 
 import jakarta.persistence.*;
 import vlrtstat.gg.global.constant.GameMode;
+import vlrtstat.gg.global.constant.GameType;
+import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.match.client.response.MatchResponse;
+import vlrtstat.gg.match.client.response.ParticipantResponse;
 import vlrtstat.gg.participant.domain.Participant;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,8 +49,14 @@ public class RiotMatch {
     @Column
     private String gameName;
 
+    @Column
+    private QueueId queueId;
+
+    @Column
+    private GameType gameType;
+
     @OneToMany(mappedBy = "match")
-    private List<Participant> participants;
+    private List<Participant> participants = new ArrayList<>();
 
     public RiotMatch() {
     }
@@ -61,6 +71,8 @@ public class RiotMatch {
         this.gameEnd = new Date(matchResponse.getInfo().getGameEndTimestamp());
         this.gameMode = matchResponse.getInfo().getGameMode();
         this.gameName = matchResponse.getInfo().getGameName();
+        this.gameType = matchResponse.getInfo().getGameType();
+        this.queueId = matchResponse.getInfo().getQueueId();
     }
 
     public String getMatchId() {
@@ -133,5 +145,41 @@ public class RiotMatch {
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
+    public void addParticipants(Participant participant) {
+        this.participants.add(participant);
+    }
+
+    public QueueId getQueueId() {
+        return queueId;
+    }
+
+    public void setQueueId(QueueId queueId) {
+        this.queueId = queueId;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(GameType gameType) {
+        this.gameType = gameType;
     }
 }

@@ -3,8 +3,10 @@ package vlrtstat.gg.item.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Item")
 public class JpaItem {
     @Id
     private int id;

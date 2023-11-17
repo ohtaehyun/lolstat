@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vlrtstat.gg.match.domain.RiotMatch;
+import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.service.MatchService;
 
@@ -23,7 +24,7 @@ public class MatchController {
 
     @GetMapping("matches/v2/{puuid}")
     @Operation(description = "소환사 전적 검색 v2")
-    RiotMatch[] searchMatchV2(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
+    MatchDto[] searchMatchV2(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
         return matchService.searchMatchesByPuuid(puuid, page);
     }
 

@@ -5,12 +5,16 @@ import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.repository.ItemRepository;
+import vlrtstat.gg.item.repository.JpaItemRepository;
 import vlrtstat.gg.match.client.response.MatchResponse;
 import vlrtstat.gg.match.client.response.ParticipantResponse;
 import vlrtstat.gg.match.domain.RiotMatch;
+import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.client.MatchClient;
 import vlrtstat.gg.match.repository.MatchRepository;
+import vlrtstat.gg.participant.domain.Participant;
+import vlrtstat.gg.participant.repository.ParticipantRepository;
 import vlrtstat.gg.rune.domain.Rune;
 import vlrtstat.gg.rune.domain.RuneGroup;
 import vlrtstat.gg.rune.repository.RuneRepository;
@@ -18,6 +22,7 @@ import vlrtstat.gg.spell.domain.Spell;
 import vlrtstat.gg.spell.repository.SpellRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,14 +33,18 @@ public class MatchServiceImpl implements MatchService {
     private SpellRepository spellRepository;
     private ChampionRepository championRepository;
     private RuneRepository runeRepository;
+    private ParticipantRepository participantRepository;
+    private JpaItemRepository jpaItemRepository;
 
-    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository) {
+    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository, JpaItemRepository jpaItemRepository) {
         this.matchClient = matchClient;
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
         this.spellRepository = spellRepository;
         this.championRepository = championRepository;
         this.runeRepository = runeRepository;
+        this.participantRepository = participantRepository;
+        this.jpaItemRepository = jpaItemRepository;
     }
 
     @Override
@@ -86,7 +95,18 @@ public class MatchServiceImpl implements MatchService {
             try {
                 MatchResponse matchResponse = matchClient.findById(matchId);
                 RiotMatch riotMatch = new RiotMatch(matchResponse);
+
+                ParticipantResponse[] participantResponses = matchResponse.getInfo().getParticipants();
+                List<Participant> participants = new ArrayList<>();
+                for (ParticipantResponse pr : participantResponses) {
+                    Participant participant = pr.toDomain();
+                    participant.setMatch(riotMatch);
+                    participants.add(participant);
+                }
+
+                riotMatch.setParticipants(participants);
                 matchRepository.save(riotMatch);
+                participantRepository.saveAll(participants);
                 return riotMatch;
             } catch (Exception e) {
                 return null;
@@ -96,7 +116,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public RiotMatch[] searchMatchesByPuuid(String puuid, int page) {
+    public MatchDto[] searchMatchesByPuuid(String puuid, int page) {
         int start = (page - 1) * 20;
         String[] matchIds = matchClient.findIdsByPuuid(puuid, start);
         ArrayList<RiotMatch> riotMatches = new ArrayList<>();
@@ -104,6 +124,6 @@ public class MatchServiceImpl implements MatchService {
             RiotMatch match = searchMatch(matchId);
             if (match != null) riotMatches.add(match);
         }
-        return riotMatches.toArray(riotMatch -> new RiotMatch[riotMatch]);
+        return riotMatches.stream().map(riotMatch -> new MatchDto(riotMatch)).toArray(MatchDto[]::new);
     }
 }

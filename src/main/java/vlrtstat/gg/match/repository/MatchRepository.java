@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface MatchRepository extends JpaRepository<RiotMatch, Long> {
     Optional<RiotMatch> findByMatchId(String matchId);
-    RiotMatch save(RiotMatch riotMatch);
 }

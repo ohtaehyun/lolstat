@@ -5,6 +5,7 @@ import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.dto.ItemDto;
 import vlrtstat.gg.match.domain.Perk;
 import vlrtstat.gg.match.dto.SimpleParticipantDto;
+import vlrtstat.gg.participant.domain.Participant;
 import vlrtstat.gg.rune.domain.Rune;
 import vlrtstat.gg.rune.domain.RuneGroup;
 import vlrtstat.gg.spell.domain.Spell;
@@ -1153,5 +1154,17 @@ public class ParticipantResponse {
 
     public void setSubRuneGroup(RuneGroup subRuneGroup) {
         this.subRuneGroup = subRuneGroup;
+    }
+
+    public Participant toDomain() {
+        Participant participant = new Participant();
+        participant.setSummonerId(summonerId);
+        participant.setSummonerName(summonerName);
+        participant.setSummonerLevel(summonerLevel);
+        participant.setPuuid(puuid);
+        participant.setKills(kills);
+        participant.setDeaths(deaths);
+        participant.setAssists(assists);
+        return participant;
     }
 }
