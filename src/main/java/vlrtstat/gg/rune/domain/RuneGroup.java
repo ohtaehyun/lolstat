@@ -1,7 +1,7 @@
 package vlrtstat.gg.rune.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 import vlrtstat.gg.rune.dto.RuneDto;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

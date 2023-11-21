@@ -1,6 +1,6 @@
 package vlrtstat.gg.champion.domain;
 
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 
 public class ChampionImage {
     private String full;

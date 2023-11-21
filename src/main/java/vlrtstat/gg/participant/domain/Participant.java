@@ -1,12 +1,12 @@
 package vlrtstat.gg.participant.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import vlrtstat.gg.item.domain.JpaItem;
+import vlrtstat.gg.global.store.ItemStore;
+import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.match.domain.RiotMatch;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Participant", indexes = {
@@ -57,58 +57,23 @@ public class Participant {
     @Column
     private int champLevel;
 
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item0_id", insertable = false, updatable = false)
-    private JpaItem item0;
-
     @Column(name = "item0_id")
     private int item0Id;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item1_id", insertable = false, updatable = false)
-    private JpaItem item1;
 
     @Column(name = "item1_id")
     private int item1Id;
 
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item2_id", insertable = false, updatable = false)
-    private JpaItem item2;
-
     @Column(name = "item2_id")
     private int item2Id;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item3_id", insertable = false, updatable = false)
-    private JpaItem item3;
 
     @Column(name = "item3_id")
     private int item3Id;
 
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item4_id", insertable = false, updatable = false)
-    private JpaItem item4;
-
     @Column(name = "item4_id")
     private int item4Id;
 
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item5_id", insertable = false, updatable = false)
-    private JpaItem item5;
-
     @Column(name = "item5_id")
     private int item5Id;
-
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ManyToOne(targetEntity = JpaItem.class)
-    @JoinColumn(name = "item6_id", insertable = false, updatable = false)
-    private JpaItem item6;
 
     @Column(name = "item6_id")
     private int item6Id;
@@ -428,66 +393,6 @@ public class Participant {
         this.totalMinionsKilled = totalMinionsKilled;
     }
 
-    public JpaItem getItem0() {
-        return item0;
-    }
-
-    public void setItem0(JpaItem item0) {
-        this.item0 = item0;
-    }
-
-    public JpaItem getItem6() {
-        return item6;
-    }
-
-    public void setItem6(JpaItem item6) {
-        this.item6 = item6;
-    }
-
-    public JpaItem getItem1() {
-        return item1;
-    }
-
-    public void setItem1(JpaItem item1) {
-        this.item1 = item1;
-    }
-
-    public JpaItem getItem2() {
-        return item2;
-    }
-
-    public void setItem2(JpaItem item2) {
-        this.item2 = item2;
-    }
-
-    public JpaItem getItem3() {
-        return item3;
-    }
-
-    public void setItem3(JpaItem item3) {
-        this.item3 = item3;
-    }
-
-    public JpaItem getItem4() {
-        return item4;
-    }
-
-    public void setItem4(JpaItem item4) {
-        this.item4 = item4;
-    }
-
-    public JpaItem getItem5() {
-        return item5;
-    }
-
-    public void setItem5(JpaItem item5) {
-        this.item5 = item5;
-    }
-
-    public int getItem0Id() {
-        return item0Id;
-    }
-
     public void setItem0Id(int item0Id) {
         this.item0Id = item0Id;
     }
@@ -538,5 +443,10 @@ public class Participant {
 
     public void setItem6Id(int item6Id) {
         this.item6Id = item6Id;
+    }
+
+    public Item[] getItems() {
+        int[] itemIds = new int[] {item0Id, item1Id, item2Id, item3Id, item4Id, item5Id, item6Id};
+        return ItemStore.getItems(itemIds);
     }
 }

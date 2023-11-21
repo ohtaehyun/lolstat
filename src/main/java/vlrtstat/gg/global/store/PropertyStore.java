@@ -1,4 +1,4 @@
-package vlrtstat.gg.global.propertyStore;
+package vlrtstat.gg.global.store;
 
 import org.springframework.context.ApplicationContext;
 

@@ -1,8 +1,6 @@
 package vlrtstat.gg.summoner.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 
 public class Summoner {
     private String accountId;

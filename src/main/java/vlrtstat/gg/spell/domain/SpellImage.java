@@ -1,6 +1,6 @@
 package vlrtstat.gg.spell.domain;
 
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 
 public class SpellImage {
     private String full;

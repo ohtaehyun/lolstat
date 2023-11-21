@@ -4,9 +4,7 @@ import org.springframework.stereotype.Service;
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
-import vlrtstat.gg.item.domain.JpaItem;
 import vlrtstat.gg.item.repository.ItemRepository;
-import vlrtstat.gg.item.repository.JpaItemRepository;
 import vlrtstat.gg.match.client.response.MatchResponse;
 import vlrtstat.gg.match.client.response.ParticipantResponse;
 import vlrtstat.gg.match.domain.RiotMatch;
@@ -36,10 +34,8 @@ public class MatchServiceImpl implements MatchService {
     private ChampionRepository championRepository;
     private RuneRepository runeRepository;
     private ParticipantRepository participantRepository;
-    private final JpaItemRepository jpaItemRepository;
 
-    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository,
-                            JpaItemRepository jpaItemRepository) {
+    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository) {
         this.matchClient = matchClient;
         this.matchRepository = matchRepository;
         this.itemRepository = itemRepository;
@@ -47,7 +43,6 @@ public class MatchServiceImpl implements MatchService {
         this.championRepository = championRepository;
         this.runeRepository = runeRepository;
         this.participantRepository = participantRepository;
-        this.jpaItemRepository = jpaItemRepository;
     }
 
     @Override

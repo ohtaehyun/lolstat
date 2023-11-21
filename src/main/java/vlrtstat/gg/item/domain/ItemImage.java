@@ -1,6 +1,6 @@
 package vlrtstat.gg.item.domain;
 
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 
 public class ItemImage {
     private String full;

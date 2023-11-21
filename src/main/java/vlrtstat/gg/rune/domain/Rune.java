@@ -1,6 +1,6 @@
 package vlrtstat.gg.rune.domain;
 
-import vlrtstat.gg.global.propertyStore.PropertyStore;
+import vlrtstat.gg.global.store.PropertyStore;
 import vlrtstat.gg.rune.dto.RuneDto;
 
 public class Rune {
