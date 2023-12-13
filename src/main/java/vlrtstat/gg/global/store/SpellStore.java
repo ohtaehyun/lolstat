@@ -9,11 +9,16 @@ public class SpellStore {
 
     private static void setSpellRepository() {
         ApplicationContext ac = ApplicationContextStore.getApplicationContext();
-        spellRepository = ac.getBean("spellRepository", SpellRepository.class);
+        spellRepository = ac.getBean("jsonSpellRepository", SpellRepository.class);
     }
 
-    private static Spell getSpell(int spellId) {
+    public static Spell getSpell(int spellId) {
         if (spellRepository == null) setSpellRepository();
         return spellRepository.findById(spellId);
+    }
+
+    public static Spell[] getSpells(int[] spellIds) {
+        if (spellRepository == null) setSpellRepository();
+        return spellRepository.findByIds(spellIds);
     }
 }

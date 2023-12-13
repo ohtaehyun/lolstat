@@ -1,5 +1,7 @@
 package vlrtstat.gg.spell.dto;
 
+import vlrtstat.gg.spell.domain.Spell;
+
 public class SpellDto {
     private String name;
     private String description;
@@ -9,6 +11,12 @@ public class SpellDto {
         this.name = name;
         this.description = description;
         this.image = image;
+    }
+
+    public SpellDto(Spell spell) {
+        this.name = spell.getName();
+        this.description = spell.getDescription();
+        this.image = spell.getSpellImageUrl();
     }
 
     public String getName() {

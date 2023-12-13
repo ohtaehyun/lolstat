@@ -3,10 +3,12 @@ package vlrtstat.gg.participant.domain;
 import jakarta.persistence.*;
 import vlrtstat.gg.global.store.ItemStore;
 import vlrtstat.gg.global.store.RuneStore;
+import vlrtstat.gg.global.store.SpellStore;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.rune.domain.Rune;
 import vlrtstat.gg.rune.domain.RuneGroup;
+import vlrtstat.gg.spell.domain.Spell;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -460,5 +462,10 @@ public class Participant {
 
     public RuneGroup getSubRuneGroup() {
         return RuneStore.getRuneGroup(summoner1Casts);
+    }
+
+    public Spell[] getSpells() {
+        int[] spellIds = new int[] {summoner1Id, summoner2Id};
+        return SpellStore.getSpells(spellIds);
     }
 }

@@ -65,4 +65,11 @@ public class Spell {
         }
         return new SpellDto(name, description, imageUrl);
     }
+
+    public String getSpellImageUrl() {
+        if (spellImage != null) {
+            return spellImage.getImageUrl();
+        }
+        return "";
+    }
 }

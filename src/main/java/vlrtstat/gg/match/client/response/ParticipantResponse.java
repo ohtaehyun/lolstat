@@ -1172,6 +1172,14 @@ public class ParticipantResponse {
         participant.setItem4Id(item4);
         participant.setItem5Id(item5);
         participant.setItem6Id(item6);
+        participant.setGoldEarned(goldEarned);
+        participant.setGoldSpent(goldSpent);
+        participant.setSummoner1Id(summoner1Id);
+        participant.setSummoner2Id(summoner2Id);
+        participant.setSpell1Casts(spell1Casts);
+        participant.setSpell2Casts(spell2Casts);
+        participant.setSpell3Casts(spell3Casts);
+        participant.setSpell4Casts(spell4Casts);
         return participant;
     }
 }

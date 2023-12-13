@@ -2,6 +2,8 @@ package vlrtstat.gg.match.dto;
 
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.participant.domain.Participant;
+import vlrtstat.gg.spell.domain.Spell;
+import vlrtstat.gg.spell.dto.SpellDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +18,9 @@ public class ParticipantDto {
     private int assists;
     private int goldEarned;
     private int goldSpent;
+    private int teamId;
     private List<ItemDto> items = new ArrayList<>();
+    private List<SpellDto> spells = new ArrayList<>();
 
     public ParticipantDto(Participant participant) {
         this.summonerId = participant.getSummonerId();
@@ -27,10 +31,14 @@ public class ParticipantDto {
         this.assists = participant.getAssists();
         this.goldEarned = participant.getGoldEarned();
         this.goldSpent = participant.getGoldSpent();
-
+        this.teamId = participant.getTeamId();
 
         for (Item item : participant.getItems()) {
             items.add(new ItemDto(item));
+        }
+
+        for (Spell spell : participant.getSpells()) {
+            spells.add(new SpellDto(spell));
         }
     }
 
@@ -96,5 +104,29 @@ public class ParticipantDto {
 
     public void setGoldSpent(int goldSpent) {
         this.goldSpent = goldSpent;
+    }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
+
+    public List<ItemDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemDto> items) {
+        this.items = items;
+    }
+
+    public List<SpellDto> getSpells() {
+        return spells;
+    }
+
+    public void setSpells(List<SpellDto> spells) {
+        this.spells = spells;
     }
 }
