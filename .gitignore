@@ -41,3 +41,4 @@ application-riot.properties
 application-aws.properties
 application-db.properties
 application-slack.properties
+application-ssl.properties

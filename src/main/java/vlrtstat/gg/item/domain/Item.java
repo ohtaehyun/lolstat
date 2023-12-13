@@ -201,4 +201,11 @@ public class Item {
     public void setHideFromAll(boolean hideFromAll) {
         this.hideFromAll = hideFromAll;
     }
+
+    public String getItemImage() {
+        if (this.image == null) {
+            return "";
+        }
+        return this.image.getImageUrl();
+    }
 }

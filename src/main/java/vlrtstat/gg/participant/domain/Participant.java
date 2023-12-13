@@ -450,6 +450,7 @@ public class Participant {
 
     public Item[] getItems() {
         int[] itemIds = new int[] {item0Id, item1Id, item2Id, item3Id, item4Id, item5Id, item6Id};
+
         return ItemStore.getItems(itemIds);
     }
 

@@ -10,7 +10,7 @@ public class ItemDto {
     public ItemDto(Item item) {
         this.name = item.getName();
         this.description = item.getDescription();
-        this.imageUrl = item.getImage().getImageUrl();
+        this.imageUrl = item.getItemImage();
     }
 
     public ItemDto(String name, String description, String imageUrl) {

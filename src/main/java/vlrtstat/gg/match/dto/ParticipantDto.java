@@ -1,8 +1,11 @@
 package vlrtstat.gg.match.dto;
 
+import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.participant.domain.Participant;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ParticipantDto {
     private String summonerId;
@@ -13,7 +16,7 @@ public class ParticipantDto {
     private int assists;
     private int goldEarned;
     private int goldSpent;
-    private ItemDto[] items;
+    private List<ItemDto> items = new ArrayList<>();
 
     public ParticipantDto(Participant participant) {
         this.summonerId = participant.getSummonerId();
@@ -24,7 +27,11 @@ public class ParticipantDto {
         this.assists = participant.getAssists();
         this.goldEarned = participant.getGoldEarned();
         this.goldSpent = participant.getGoldSpent();
-        this.items = Arrays.stream(participant.getItems()).toArray(ItemDto[]::new);
+
+
+        for (Item item : participant.getItems()) {
+            items.add(new ItemDto(item));
+        }
     }
 
     public String getSummonerId() {

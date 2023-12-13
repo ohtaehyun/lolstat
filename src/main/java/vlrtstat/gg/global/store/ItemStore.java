@@ -12,7 +12,7 @@ public class ItemStore {
 
     private static void setItemRepository() {
         ApplicationContext ac = ApplicationContextStore.getApplicationContext();
-        itemRepository = ac.getBean("itemRepository", ItemRepository.class);
+        itemRepository = ac.getBean("jsonItemRepository", ItemRepository.class);
     }
 
     public static Item getItem(int itemId) {
@@ -22,10 +22,7 @@ public class ItemStore {
 
     public static Item[] getItems(int[] itemIds) {
         if (itemRepository == null) setItemRepository();
-        List<Item> items = new ArrayList<>();
-        for (int itemId : itemIds) {
-            items.add(getItem(itemId));
-        }
-        return items.toArray(Item[]::new);
+        Item[] items = itemRepository.findByIds(itemIds);
+        return itemRepository.findByIds(itemIds);
     }
 }
