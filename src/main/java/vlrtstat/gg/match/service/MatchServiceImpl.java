@@ -1,7 +1,7 @@
 package vlrtstat.gg.match.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
@@ -22,7 +22,6 @@ import vlrtstat.gg.spell.domain.Spell;
 import vlrtstat.gg.spell.repository.SpellRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,6 +116,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    @Transactional
     public MatchDto[] searchMatchesByPuuid(String puuid, int page) {
         int start = (page - 1) * 20;
         String[] matchIds = matchClient.findIdsByPuuid(puuid, start);

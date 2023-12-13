@@ -1,9 +1,17 @@
 package vlrtstat.gg.champion.dto;
 
+import vlrtstat.gg.champion.domain.Champion;
+
 public class ChampionDto {
     private String name;
     private String description;
     private String image;
+
+    public ChampionDto(Champion champion) {
+        this.name = champion.getName();
+        this.description = champion.getBlurb();
+        this.image = champion.getChampionImage().getImageUrl();
+    }
 
     public ChampionDto(String name, String description, String image) {
         this.name = name;

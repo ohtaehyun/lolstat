@@ -9,7 +9,7 @@ public class ChampionStore {
 
     private static void setRepository() {
         ApplicationContext ac = ApplicationContextStore.getApplicationContext();
-        championRepository = ac.getBean("championRepository", ChampionRepository.class);
+        championRepository = ac.getBean("jsonChampionRepository", ChampionRepository.class);
     }
 
     public static Champion getChampion(int championId) {

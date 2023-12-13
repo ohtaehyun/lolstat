@@ -1,5 +1,8 @@
 package vlrtstat.gg.match.dto;
 
+import vlrtstat.gg.champion.domain.Champion;
+import vlrtstat.gg.champion.dto.ChampionDto;
+import vlrtstat.gg.global.store.ChampionStore;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.participant.domain.Participant;
 import vlrtstat.gg.spell.domain.Spell;
@@ -22,6 +25,10 @@ public class ParticipantDto {
     private List<ItemDto> items = new ArrayList<>();
     private List<SpellDto> spells = new ArrayList<>();
 
+    private ChampionDto champion;
+
+    private int championLevel;
+
     public ParticipantDto(Participant participant) {
         this.summonerId = participant.getSummonerId();
         this.summonerName = participant.getSummonerName();
@@ -32,6 +39,8 @@ public class ParticipantDto {
         this.goldEarned = participant.getGoldEarned();
         this.goldSpent = participant.getGoldSpent();
         this.teamId = participant.getTeamId();
+        this.champion = new ChampionDto(ChampionStore.getChampion(participant.getChampionId()));
+        this.championLevel = participant.getChampLevel();
 
         for (Item item : participant.getItems()) {
             items.add(new ItemDto(item));
@@ -128,5 +137,21 @@ public class ParticipantDto {
 
     public void setSpells(List<SpellDto> spells) {
         this.spells = spells;
+    }
+
+    public ChampionDto getChampion() {
+        return champion;
+    }
+
+    public void setChampion(ChampionDto champion) {
+        this.champion = champion;
+    }
+
+    public int getChampionLevel() {
+        return championLevel;
+    }
+
+    public void setChampionLevel(int championLevel) {
+        this.championLevel = championLevel;
     }
 }
