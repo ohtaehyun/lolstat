@@ -1,6 +1,7 @@
 package vlrtstat.gg.match.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.repository.ChampionRepository;
 import vlrtstat.gg.item.domain.Item;
@@ -87,6 +88,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    @Transactional
     public RiotMatch searchMatch(String matchId) {
         Optional<RiotMatch> match = matchRepository.findByMatchId(matchId);
         if (match.isEmpty()) {

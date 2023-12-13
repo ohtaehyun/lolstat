@@ -4,6 +4,7 @@ import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.item.dto.ItemDto;
 import vlrtstat.gg.match.domain.Perk;
+import vlrtstat.gg.match.domain.PerkStyle;
 import vlrtstat.gg.match.dto.SimpleParticipantDto;
 import vlrtstat.gg.participant.domain.Participant;
 import vlrtstat.gg.rune.domain.Rune;
@@ -1180,6 +1181,19 @@ public class ParticipantResponse {
         participant.setSpell2Casts(spell2Casts);
         participant.setSpell3Casts(spell3Casts);
         participant.setSpell4Casts(spell4Casts);
+        participant.setSummoner1Casts(summoner1Casts);
+        participant.setSummoner2Casts(summoner2Casts);
+        participant.setChampionId(championId);
+        participant.setChampLevel(champLevel);
+        participant.setTeamId(teamId);
+
+        PerkStyle[] styles = perks.getStyles();
+        participant.setMainRuneGroupId(styles[0].getStyle());
+        participant.setMainRuneIds(styles[0].getPerkIds());
+
+        participant.setSubRuneGroupId(styles[1].getStyle());
+        participant.setSubRuneIds(styles[1].getPerkIds());
+
         return participant;
     }
 }

@@ -1,5 +1,8 @@
 package vlrtstat.gg.match.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PerkStyle {
     private String description;
     private PerkStyleSelection[] selections;
@@ -33,5 +36,13 @@ public class PerkStyle {
 
     public void setStyle(int style) {
         this.style = style;
+    }
+
+    public int[] getPerkIds() {
+        List<Integer> ids = new ArrayList<>();
+        for (PerkStyleSelection selection : selections) {
+            ids.add(selection.getPerk());
+        }
+        return ids.stream().mapToInt(i -> i).toArray();
     }
 }

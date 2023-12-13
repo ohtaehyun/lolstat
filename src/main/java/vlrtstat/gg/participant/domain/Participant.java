@@ -140,6 +140,18 @@ public class Participant {
     @Column
     private int totalMinionsKilled;
 
+    @Column
+    private int mainRuneGroupId;
+    @Column
+    private int subRuneGroupId;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private int[] mainRuneIds;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private int[] subRuneIds;
+
+
     public Participant() {}
 
     public Long getId() {
@@ -467,5 +479,41 @@ public class Participant {
     public Spell[] getSpells() {
         int[] spellIds = new int[] {summoner1Id, summoner2Id};
         return SpellStore.getSpells(spellIds);
+    }
+
+    public int getItem0Id() {
+        return item0Id;
+    }
+
+    public int getMainRuneGroupId() {
+        return mainRuneGroupId;
+    }
+
+    public void setMainRuneGroupId(int mainRuneGroupId) {
+        this.mainRuneGroupId = mainRuneGroupId;
+    }
+
+    public int getSubRuneGroupId() {
+        return subRuneGroupId;
+    }
+
+    public void setSubRuneGroupId(int subRuneGroupId) {
+        this.subRuneGroupId = subRuneGroupId;
+    }
+
+    public int[] getMainRuneIds() {
+        return mainRuneIds;
+    }
+
+    public void setMainRuneIds(int[] mainRuneIds) {
+        this.mainRuneIds = mainRuneIds;
+    }
+
+    public int[] getSubRuneIds() {
+        return subRuneIds;
+    }
+
+    public void setSubRuneIds(int[] subRuneIds) {
+        this.subRuneIds = subRuneIds;
     }
 }
