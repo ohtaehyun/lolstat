@@ -19,4 +19,13 @@ public interface SummonerRepository {
     )
     @Cacheable(cacheNames = "summoner", key = "#summonerName")
     Summoner findByName(@PathVariable("summonerName") String summonerName);
+
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/lol/summoner/v4/summoners/by-puuid/{puuid}",
+            headers = "X-Riot-Token=${riot.key}"
+    )
+    @Cacheable(cacheNames = "summoner", key = "#puuid")
+    Summoner findByPuuid(@PathVariable("puuid") String puuid);
 }

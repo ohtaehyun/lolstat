@@ -22,6 +22,7 @@ public class SummonerController {
     @GetMapping("/{summonerName}")
     @Operation(description = "소환사 정보 검색")
     public SummonerProfileDto searchSummoner(@PathVariable("summonerName") String summonerName) {
-        return summonerComplexService.searchSummoner(summonerName);
+        String[] summonerInfo = summonerName.split("-");
+        return summonerComplexService.searchSummoner(summonerInfo[0], summonerInfo[1]);
     }
 }

@@ -3,7 +3,9 @@ package vlrtstat.gg.summoner.service;
 import org.springframework.stereotype.Service;
 import vlrtstat.gg.league.repository.LeagueRepository;
 import vlrtstat.gg.match.client.MatchClient;
+import vlrtstat.gg.summoner.domain.Account;
 import vlrtstat.gg.summoner.domain.Summoner;
+import vlrtstat.gg.summoner.repository.AccountRepository;
 import vlrtstat.gg.summoner.repository.SummonerRepository;
 
 @Service
@@ -11,16 +13,20 @@ public class SummonerServiceImpl implements SummonerService {
     private SummonerRepository summonerRepository;
     private MatchClient matchClient;
     private LeagueRepository leagueRepository;
+    private AccountRepository accountRepository;
 
-    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchClient matchClient, LeagueRepository leagueRepository) {
+    public SummonerServiceImpl(SummonerRepository summonerRepository, MatchClient matchClient, LeagueRepository leagueRepository, AccountRepository accountRepository) {
         this.summonerRepository = summonerRepository;
         this.matchClient = matchClient;
         this.leagueRepository = leagueRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
-    public Summoner searchSummoner(String summonerName) {
-        return summonerRepository.findByName(summonerName);
+    public Summoner searchSummoner(String gameName, String tagLine) {
+        Account account = accountRepository.findByNameAndTag(gameName, tagLine);
+        Summoner summoner = summonerRepository.findByPuuid(account.getPuuid());
+        return summoner;
     }
 
 //    @Override

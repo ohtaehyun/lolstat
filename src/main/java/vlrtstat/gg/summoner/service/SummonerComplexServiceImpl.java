@@ -5,6 +5,7 @@ import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
 import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.service.MatchService;
+import vlrtstat.gg.summoner.domain.Account;
 import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 
@@ -21,8 +22,8 @@ public class SummonerComplexServiceImpl implements SummonerComplexService{
     }
 
     @Override
-    public SummonerProfileDto searchSummoner(String summonerName) {
-        Summoner summoner = summonerService.searchSummoner(summonerName);
+    public SummonerProfileDto searchSummoner(String gameName, String tagLine) {
+        Summoner summoner = summonerService.searchSummoner(gameName, tagLine);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
 
         SimpleMatchDto[] simpleMatchDtos = matchService.searchSimpleMatchesByPuuid(summoner.getPuuid(), 1);
