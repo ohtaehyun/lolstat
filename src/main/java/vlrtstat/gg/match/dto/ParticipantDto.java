@@ -3,8 +3,10 @@ package vlrtstat.gg.match.dto;
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.champion.dto.ChampionDto;
 import vlrtstat.gg.global.store.ChampionStore;
+import vlrtstat.gg.global.store.RuneStore;
 import vlrtstat.gg.item.domain.Item;
 import vlrtstat.gg.participant.domain.Participant;
+import vlrtstat.gg.rune.dto.RuneDto;
 import vlrtstat.gg.spell.domain.Spell;
 import vlrtstat.gg.spell.dto.SpellDto;
 
@@ -29,6 +31,10 @@ public class ParticipantDto {
 
     private int championLevel;
 
+    private RuneDto mainRune;
+
+    private RuneDto subRune;
+
     public ParticipantDto(Participant participant) {
         this.summonerId = participant.getSummonerId();
         this.summonerName = participant.getSummonerName();
@@ -49,6 +55,9 @@ public class ParticipantDto {
         for (Spell spell : participant.getSpells()) {
             spells.add(new SpellDto(spell));
         }
+
+        this.mainRune = RuneStore.getRune(participant.getMainRuneIds()[0]).toRuneDto();
+        this.subRune = RuneStore.getRuneGroup(participant.getSubRuneGroupId()).toRuneDto();
     }
 
     public String getSummonerId() {
@@ -153,5 +162,21 @@ public class ParticipantDto {
 
     public void setChampionLevel(int championLevel) {
         this.championLevel = championLevel;
+    }
+
+    public RuneDto getMainRune() {
+        return mainRune;
+    }
+
+    public void setMainRune(RuneDto mainRune) {
+        this.mainRune = mainRune;
+    }
+
+    public RuneDto getSubRune() {
+        return subRune;
+    }
+
+    public void setSubRune(RuneDto subRune) {
+        this.subRune = subRune;
     }
 }

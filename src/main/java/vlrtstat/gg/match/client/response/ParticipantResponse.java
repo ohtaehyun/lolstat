@@ -1186,6 +1186,8 @@ public class ParticipantResponse {
         participant.setChampionId(championId);
         participant.setChampLevel(champLevel);
         participant.setTeamId(teamId);
+        participant.setLane(lane);
+        participant.setRole(role);
 
         PerkStyle[] styles = perks.getStyles();
         participant.setMainRuneGroupId(styles[0].getStyle());

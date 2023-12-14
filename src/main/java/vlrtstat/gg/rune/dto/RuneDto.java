@@ -1,9 +1,17 @@
 package vlrtstat.gg.rune.dto;
 
+import vlrtstat.gg.rune.domain.Rune;
+
 public class RuneDto {
     private String name;
     private String description;
     private String image;
+
+    public RuneDto(Rune rune) {
+        this.name = rune.getName();
+        this.description = rune.getLongDesc();
+        this.image = rune.getImageUrl();
+    }
 
     public RuneDto(String name, String description, String image) {
         this.name = name;

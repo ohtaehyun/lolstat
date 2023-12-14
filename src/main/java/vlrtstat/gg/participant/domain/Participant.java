@@ -151,6 +151,12 @@ public class Participant {
     @ElementCollection(fetch = FetchType.LAZY)
     private int[] subRuneIds;
 
+    @Column
+    private String lane;
+
+    @Column
+    private String role;
+
 
     public Participant() {}
 
@@ -515,5 +521,21 @@ public class Participant {
 
     public void setSubRuneIds(int[] subRuneIds) {
         this.subRuneIds = subRuneIds;
+    }
+
+    public String getLane() {
+        return lane;
+    }
+
+    public void setLane(String lane) {
+        this.lane = lane;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

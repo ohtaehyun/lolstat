@@ -10,7 +10,7 @@ public class RuneStore {
 
     private static void setRuneRepository() {
         ApplicationContext ac = ApplicationContextStore.getApplicationContext();
-        runeRepository = ac.getBean("runeRepository", RuneRepository.class);
+        runeRepository = ac.getBean("jsonRuneRepository", RuneRepository.class);
     }
 
     public static Rune getRune(int runeId) {
