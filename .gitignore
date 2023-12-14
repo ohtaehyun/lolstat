@@ -42,3 +42,4 @@ application-aws.properties
 application-db.properties
 application-slack.properties
 application-ssl.properties
+keystore.p12
