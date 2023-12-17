@@ -35,6 +35,8 @@ public class ParticipantDto {
 
     private RuneDto subRune;
 
+    private boolean win;
+
     public ParticipantDto(Participant participant) {
         this.summonerId = participant.getSummonerId();
         this.summonerName = participant.getSummonerName();
@@ -47,6 +49,7 @@ public class ParticipantDto {
         this.teamId = participant.getTeamId();
         this.champion = new ChampionDto(ChampionStore.getChampion(participant.getChampionId()));
         this.championLevel = participant.getChampLevel();
+        this.win = participant.isWin();
 
         for (Item item : participant.getItems()) {
             items.add(new ItemDto(item));
@@ -178,5 +181,13 @@ public class ParticipantDto {
 
     public void setSubRune(RuneDto subRune) {
         this.subRune = subRune;
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 }
