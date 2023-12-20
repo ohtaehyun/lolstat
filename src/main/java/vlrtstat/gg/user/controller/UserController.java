@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import vlrtstat.gg.user.dto.CreateUesrRequest;
+import vlrtstat.gg.user.dto.LoginRequest;
+import vlrtstat.gg.user.dto.LoginResponse;
 import vlrtstat.gg.user.service.UserService;
 
 @RestController()
@@ -28,5 +30,12 @@ public class UserController {
     @PutMapping("user/verify")
     public void verifyEmail(String verificationCode) {
 
+    }
+
+    @PostMapping("user/login")
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+        return userService.login(email, password);
     }
 }

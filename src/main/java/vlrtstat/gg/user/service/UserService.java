@@ -1,11 +1,14 @@
 package vlrtstat.gg.user.service;
 
+import vlrtstat.gg.user.dto.LoginResponse;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public interface UserService {
     void createUser(String email, String password, String passwordCheck);
+    LoginResponse login(String email, String password);
     default String getSalt() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = new byte[16];
