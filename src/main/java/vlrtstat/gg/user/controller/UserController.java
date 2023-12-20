@@ -1,5 +1,6 @@
 package vlrtstat.gg.user.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +10,8 @@ import vlrtstat.gg.user.dto.LoginRequest;
 import vlrtstat.gg.user.dto.LoginResponse;
 import vlrtstat.gg.user.service.UserService;
 
-@RestController()
+@RestController
+@Tag(name = "User", description = "사용자 API")
 public class UserController {
     private final UserService userService;
 
