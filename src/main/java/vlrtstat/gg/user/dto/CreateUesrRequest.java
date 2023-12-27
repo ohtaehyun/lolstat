@@ -1,5 +1,6 @@
 package vlrtstat.gg.user.dto;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -30,6 +31,7 @@ public class CreateUesrRequest {
         return passwordCheck;
     }
 
+    @Hidden
     @AssertTrue(message = "비밀번호가 같아야 합니다.")
     public boolean isValidSamePassword() {
         return password.equals(passwordCheck);
