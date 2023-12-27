@@ -1,10 +1,8 @@
 package vlrtstat.gg.user.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.user.dto.CreateUesrRequest;
 import vlrtstat.gg.user.dto.LoginRequest;
 import vlrtstat.gg.user.dto.LoginResponse;
@@ -20,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping("user")
-    public void CreateUser(@RequestBody CreateUesrRequest createUesrRequest) {
+    public void CreateUser(@RequestBody @Valid CreateUesrRequest createUesrRequest) {
         userService.createUser(createUesrRequest.getEmail(), createUesrRequest.getPassword(), createUesrRequest.getPasswordCheck());
     }
 
@@ -35,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("user/login")
-    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
         return userService.login(email, password);

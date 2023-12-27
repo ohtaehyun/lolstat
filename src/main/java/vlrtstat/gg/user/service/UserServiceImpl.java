@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import vlrtstat.gg.jwt.JwtProvider;
+import vlrtstat.gg.user.controller.error.DuplicatedEmailException;
 import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.dto.LoginRequest;
 import vlrtstat.gg.user.dto.LoginResponse;
@@ -31,9 +32,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(String email, String password, String passwordCheck) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
-            throw new ResponseStatusException(HttpStatusCode.valueOf(400));
-        } else if (!password.equals(passwordCheck)) {
-            throw new ResponseStatusException(HttpStatusCode.valueOf(400));
+            throw new DuplicatedEmailException();
         }
 
         String salt = this.getSalt();
