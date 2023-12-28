@@ -1,6 +1,7 @@
 package vlrtstat.gg.user.service;
 
 
+import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import vlrtstat.gg.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,11 +64,14 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatusCode.valueOf(400));
         }
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+
         LocalDateTime accessExpireDate = LocalDateTime.now().plusMinutes(240);
-        String accessToken = jwtProvider.generateToken(null, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+        String accessToken = jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
 
         LocalDateTime refreshExpireDate = LocalDateTime.now().plusDays(3);
-        String refreshToken = jwtProvider.generateToken(null, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+        String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
 
 
         return new LoginResponse(accessToken, refreshToken);
