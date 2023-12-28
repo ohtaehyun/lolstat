@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import vlrtstat.gg.jwt.error.NeedLoginError;
 import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.repository.UserRepository;
+import vlrtstat.gg.userEmailSend.service.UserEmailSendService;
 
 import java.util.Optional;
 
@@ -17,9 +18,12 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     private final UserRepository userRepository;
 
-    public JwtInterceptor(JwtProvider jwtProvider, UserRepository userRepository) {
+    private final UserEmailSendService userEmailSendService;
+
+    public JwtInterceptor(JwtProvider jwtProvider, UserRepository userRepository, UserEmailSendService userEmailSendService) {
         this.jwtProvider = jwtProvider;
         this.userRepository = userRepository;
+        this.userEmailSendService = userEmailSendService;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
         
         if (!user.isVerified()) {
+            userEmailSendService.sendAuthenticateEmail(user);
             System.out.println("user.isVerified() = " + user.isVerified());
         }
 

@@ -5,7 +5,7 @@ import com.amazonaws.services.simpleemail.model.*;
 import java.util.List;
 
 public class EmailSendDto {
-    private static final String FROM_EMAIL = "no-reply@lolstat.net";
+    private static final String FROM_EMAIL = "othdev95@gmail.com";
     private final List<String> to;
     private final String subject;
     private final String content;
