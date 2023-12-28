@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import vlrtstat.gg.global.email.EmailSendDto;
 import vlrtstat.gg.global.email.EmailSender;
 import vlrtstat.gg.user.domain.User;
+import vlrtstat.gg.userEmailSend.domain.UserEmailSend;
+import vlrtstat.gg.userEmailSend.repository.UserEmailSendRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,11 +18,14 @@ public class UserEmailSendServiceImpl implements UserEmailSendService{
     @Autowired
     private EmailSender emailSender;
 
+    @Autowired
+    private UserEmailSendRepository userEmailSendRepository;
+
     private static final Random random = new Random();
 
     @Override
     public void sendAuthenticateEmail(User user) {
-        byte[] bytes = new byte[16];
+        byte[] bytes = new byte[4];
         random.nextBytes(bytes);
 
         StringBuilder sb = new StringBuilder();
@@ -37,5 +43,14 @@ public class UserEmailSendServiceImpl implements UserEmailSendService{
 
         EmailSendDto emailSendDto = new EmailSendDto(to, subject, content);
         emailSender.sendEmail(emailSendDto);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        UserEmailSend userEmailSend = new UserEmailSend();
+        userEmailSend.setUserId(user.getId());
+        userEmailSend.setCode(code);
+        userEmailSend.setCreatedAt(now);
+        userEmailSend.setExpiredAt(LocalDateTime.now().plusMinutes(10));
+        userEmailSendRepository.save(userEmailSend);
     }
 }
