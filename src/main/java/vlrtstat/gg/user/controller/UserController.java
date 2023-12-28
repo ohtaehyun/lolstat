@@ -41,5 +41,6 @@ public class UserController {
     }
 
     @PostMapping("user/auth/test")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     public void test() {}
 }
