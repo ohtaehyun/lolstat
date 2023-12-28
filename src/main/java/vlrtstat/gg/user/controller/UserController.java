@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import vlrtstat.gg.user.dto.CreateUesrRequest;
-import vlrtstat.gg.user.dto.LoginRequest;
-import vlrtstat.gg.user.dto.LoginResponse;
-import vlrtstat.gg.user.dto.UserVerifyRequest;
+import vlrtstat.gg.user.dto.*;
 import vlrtstat.gg.user.service.UserService;
 
 @RestController
@@ -43,4 +40,11 @@ public class UserController {
     @PostMapping("user/auth/test")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     public void test() {}
+
+    @PostMapping("user/refresh")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER, description = "Refresh Token")
+    public RefreshTokenResponse refreshAccessToken(@RequestHeader("Authorization") String authorization) {
+        String refreshToken = authorization.split(" ")[1];
+        return userService.refreshAccessToken(refreshToken);
+    }
 }

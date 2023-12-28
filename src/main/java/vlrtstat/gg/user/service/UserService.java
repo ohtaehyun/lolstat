@@ -1,6 +1,7 @@
 package vlrtstat.gg.user.service;
 
 import vlrtstat.gg.user.dto.LoginResponse;
+import vlrtstat.gg.user.dto.RefreshTokenResponse;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -39,4 +40,6 @@ public interface UserService {
     }
 
     void verifyUser(String accessToken, String verificationCode);
+
+    RefreshTokenResponse refreshAccessToken(String refreshToken);
 }

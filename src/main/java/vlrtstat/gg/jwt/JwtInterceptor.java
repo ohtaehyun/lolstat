@@ -1,12 +1,14 @@
 package vlrtstat.gg.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import vlrtstat.gg.jwt.error.EmailAuthenticateError;
 import vlrtstat.gg.jwt.error.NeedLoginError;
+import vlrtstat.gg.jwt.error.TokenExpiredError;
 import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.repository.UserRepository;
 import vlrtstat.gg.userEmailSend.service.UserEmailSendService;
@@ -46,6 +48,8 @@ public class JwtInterceptor implements HandlerInterceptor {
                 throw new Exception("사용자 검색 실패");
             }
             user = optionalUser.get();
+        } catch (ExpiredJwtException e) {
+            throw new TokenExpiredError();
         } catch (Exception e) {
             System.out.println("Jwt Interceptor e = " + e);
             throw new NeedLoginError();

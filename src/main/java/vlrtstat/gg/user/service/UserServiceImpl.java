@@ -2,16 +2,19 @@ package vlrtstat.gg.user.service;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import vlrtstat.gg.jwt.JwtProvider;
 import vlrtstat.gg.jwt.error.NeedLoginError;
+import vlrtstat.gg.jwt.error.TokenExpiredError;
 import vlrtstat.gg.user.controller.error.DuplicatedEmailException;
 import vlrtstat.gg.user.controller.error.WrongEmailAuthenticationError;
 import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.dto.LoginResponse;
+import vlrtstat.gg.user.dto.RefreshTokenResponse;
 import vlrtstat.gg.user.repository.UserRepository;
 import vlrtstat.gg.userEmailSend.domain.UserEmailSend;
 import vlrtstat.gg.userEmailSend.repository.UserEmailSendRepository;
@@ -69,29 +72,15 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatusCode.valueOf(400));
         }
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-
-        LocalDateTime accessExpireDate = LocalDateTime.now().plusMinutes(240);
-        String accessToken = jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
-
-        LocalDateTime refreshExpireDate = LocalDateTime.now().plusDays(3);
-        String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
-
+        String accessToken = generateAccessToken(user);
+        String refreshToken = generateRefreshToken(user);
 
         return new LoginResponse(accessToken, refreshToken);
     }
 
     @Override
     public void verifyUser(String accessToken, String verificationCode) {
-        Claims claims = jwtProvider.verifyToken(accessToken);
-        long userId = claims.get("userId", Integer.class);
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isEmpty()) {
-            throw new NeedLoginError();
-        }
-
-        User user = optionalUser.get();
+        User user = getUserFromToken(accessToken);
 
         Optional<UserEmailSend> optionalEmailSend = userEmailSendRepository.findFirstByUserIdOrderByExpiredAtDesc(user.getId());
         if (optionalEmailSend.isEmpty()) {
@@ -105,5 +94,43 @@ public class UserServiceImpl implements UserService {
 
         user.setVerified(true);
         userRepository.save(user);
+    }
+
+    @Override
+    public RefreshTokenResponse refreshAccessToken(String refreshToken) {
+        User user = getUserFromToken(refreshToken);
+
+        String accessToken = generateAccessToken(user);
+        return new RefreshTokenResponse(accessToken);
+    }
+
+    private String generateAccessToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+
+        LocalDateTime accessExpireDate = LocalDateTime.now().plusHours(1);
+        return jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+    }
+
+    private String generateRefreshToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+
+        LocalDateTime refreshExpireDate = LocalDateTime.now().plusDays(3);
+        return jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+    }
+
+    private User getUserFromToken(String token) {
+        try {
+            Claims claims = jwtProvider.verifyToken(token);
+            long userId = claims.get("userId", Integer.class);
+            Optional<User> optionalUser = userRepository.findById(userId);
+            if (optionalUser.isEmpty()) throw new NeedLoginError();
+            return optionalUser.get();
+        } catch (ExpiredJwtException e) {
+            throw new TokenExpiredError();
+        } catch (Exception e) {
+            throw new NeedLoginError();
+        }
     }
 }
