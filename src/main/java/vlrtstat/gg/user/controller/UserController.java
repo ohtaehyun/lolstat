@@ -37,6 +37,11 @@ public class UserController {
         return userService.login(email, password);
     }
 
+    @PostMapping("user/login/test")
+    public LoginResponse testLogin() {
+        return userService.testLogin();
+    }
+
     @PostMapping("user/auth/test")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     public void test() {}

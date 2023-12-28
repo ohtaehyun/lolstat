@@ -27,6 +27,7 @@ public class WebConfiguration implements WebMvcConfigurer {
                 "/user/login",
                 "/user",
                 "/user/refresh",
+                "/user/login/test",
                 "/matches/**",
                 "/summoner/**",
                 "/api-docs",

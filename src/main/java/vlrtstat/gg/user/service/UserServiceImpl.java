@@ -133,4 +133,16 @@ public class UserServiceImpl implements UserService {
             throw new NeedLoginError();
         }
     }
+    
+    public LoginResponse testLogin() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", 2);
+
+        LocalDateTime accessExpireDate = LocalDateTime.now().plusMinutes(1);
+        String accessToken = jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+
+        LocalDateTime refreshExpireDate = LocalDateTime.now().plusMinutes(2);
+        String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
+        return new LoginResponse(accessToken, refreshToken);
+    }
 }
