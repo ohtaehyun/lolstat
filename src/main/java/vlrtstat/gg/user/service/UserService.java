@@ -37,4 +37,6 @@ public interface UserService {
             throw new RuntimeException(e);
         }
     }
+
+    void verifyUser(String accessToken, String verificationCode);
 }

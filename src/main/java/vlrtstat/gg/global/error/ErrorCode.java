@@ -5,6 +5,7 @@ public enum ErrorCode {
     USER_LOGIN_FAIL(1001, "로그인 실패"),
     NEED_LOGIN(1002, "로그인 필요"),
     NEED_EMAIL_AUTHENTICATION(1003, "이메일 인증 필요"),
+    WRONG_EMAIL_AUTHENTICATION(1004, "이메일 인증 오류"),
     INPUT_ERROR(9000, "입력값이 올바르지 않습니다.");
 
     private int errorNumberCode;

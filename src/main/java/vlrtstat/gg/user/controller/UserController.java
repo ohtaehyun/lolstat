@@ -1,11 +1,14 @@
 package vlrtstat.gg.user.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.user.dto.CreateUesrRequest;
 import vlrtstat.gg.user.dto.LoginRequest;
 import vlrtstat.gg.user.dto.LoginResponse;
+import vlrtstat.gg.user.dto.UserVerifyRequest;
 import vlrtstat.gg.user.service.UserService;
 
 @RestController
@@ -22,14 +25,12 @@ public class UserController {
         userService.createUser(createUesrRequest.getEmail(), createUesrRequest.getPassword(), createUesrRequest.getPasswordCheck());
     }
 
-    @PostMapping("user/verify")
-    public void SendVerifyEmail(String email) {
-
-    }
-
     @PutMapping("user/verify")
-    public void verifyEmail(String verificationCode) {
-
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    public void verifyEmail(@Valid @RequestBody UserVerifyRequest userVerifyRequest, @RequestHeader(name = "Authorization") String authorization) {
+        String accessToken = authorization.split(" ")[1];
+        String verificationCode = userVerifyRequest.getVerificationCode();
+        userService.verifyUser(accessToken, verificationCode);
     }
 
     @PostMapping("user/login")
@@ -38,4 +39,7 @@ public class UserController {
         String password = loginRequest.getPassword();
         return userService.login(email, password);
     }
+
+    @PostMapping("user/auth/test")
+    public void test() {}
 }

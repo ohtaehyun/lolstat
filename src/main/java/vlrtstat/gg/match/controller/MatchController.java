@@ -34,10 +34,10 @@ public class MatchController {
         return matchService.searchSimpleMatchesByPuuid(puuid, page);
     }
 
-    @GetMapping("timeline/{matchId}")
-    @Operation(description = "매치 상세 타임라인 검색")
-    Object searchTimeline(@PathVariable("matchId") String matchId) {
-
-        return null;
-    }
+//    @GetMapping("timeline/{matchId}")
+//    @Operation(description = "매치 상세 타임라인 검색")
+//    Object searchTimeline(@PathVariable("matchId") String matchId) {
+//
+//        return null;
+//    }
 }

@@ -27,7 +27,7 @@ public class UserEmailSendServiceImpl implements UserEmailSendService{
     @Override
     public void sendAuthenticateEmail(User user) {
         Optional<UserEmailSend> recentEmail = userEmailSendRepository.findFirstByUserIdOrderByExpiredAtDesc(user.getId());
-        if (recentEmail.isPresent() && recentEmail.get().getExpiredAt().isBefore(LocalDateTime.now())) {
+        if (recentEmail.isPresent() && recentEmail.get().getExpiredAt().isAfter(LocalDateTime.now())) {
             return;
         }
 

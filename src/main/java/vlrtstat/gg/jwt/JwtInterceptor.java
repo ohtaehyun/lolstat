@@ -51,8 +51,9 @@ public class JwtInterceptor implements HandlerInterceptor {
             throw new NeedLoginError();
         }
         
-        if (!user.isVerified()) {
+        if (!request.getRequestURI().equals("/user/verify") && !user.isVerified()) {
             userEmailSendService.sendAuthenticateEmail(user);
+
             throw new EmailAuthenticateError();
         }
 

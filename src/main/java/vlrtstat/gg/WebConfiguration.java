@@ -22,7 +22,17 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).excludePathPatterns("/user/login", "/user");
+        registry.addInterceptor(jwtInterceptor).excludePathPatterns(
+                "/leaderboard/**",
+                "/user/login",
+                "/user",
+                "/matches/**",
+                "/summoner/**",
+                "/api-docs",
+                "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/error"
+        );
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
