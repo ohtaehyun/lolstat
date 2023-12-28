@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import vlrtstat.gg.jwt.error.EmailAuthenticateError;
 import vlrtstat.gg.jwt.error.NeedLoginError;
 import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.repository.UserRepository;
@@ -52,7 +53,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         
         if (!user.isVerified()) {
             userEmailSendService.sendAuthenticateEmail(user);
-            System.out.println("user.isVerified() = " + user.isVerified());
+            throw new EmailAuthenticateError();
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);

@@ -11,6 +11,7 @@ import vlrtstat.gg.userEmailSend.repository.UserEmailSendRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -25,6 +26,11 @@ public class UserEmailSendServiceImpl implements UserEmailSendService{
 
     @Override
     public void sendAuthenticateEmail(User user) {
+        Optional<UserEmailSend> recentEmail = userEmailSendRepository.findFirstByUserIdOrderByExpiredAtDesc(user.getId());
+        if (recentEmail.isPresent() && recentEmail.get().getExpiredAt().isBefore(LocalDateTime.now())) {
+            return;
+        }
+
         byte[] bytes = new byte[4];
         random.nextBytes(bytes);
 

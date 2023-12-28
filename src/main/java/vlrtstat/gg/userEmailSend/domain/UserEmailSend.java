@@ -12,10 +12,10 @@ public class UserEmailSend {
     private Long id;
 
     @Column
-    private Long UserId;
+    private Long userId;
 
     @Column
-    private String Code;
+    private String code;
 
     @Column
     private LocalDateTime createdAt;
@@ -35,19 +35,19 @@ public class UserEmailSend {
     }
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
     }
 
     public LocalDateTime getCreatedAt() {
