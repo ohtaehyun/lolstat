@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import vlrtstat.gg.global.constant.TokenType;
 import vlrtstat.gg.jwt.JwtProvider;
 import vlrtstat.gg.jwt.error.NeedLoginError;
 import vlrtstat.gg.jwt.error.TokenExpiredError;
@@ -99,6 +100,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public RefreshTokenResponse refreshAccessToken(String refreshToken) {
         User user = getUserFromToken(refreshToken);
+        Claims claims = jwtProvider.verifyToken(refreshToken);
+        TokenType tokenType = TokenType.fromText(claims.get("tokenType", String.class));
+        if (tokenType != TokenType.REFRESH) throw new NeedLoginError();
 
         String accessToken = generateAccessToken(user);
         return new RefreshTokenResponse(accessToken);
@@ -107,6 +111,7 @@ public class UserServiceImpl implements UserService {
     private String generateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
+        claims.put("tokenType", TokenType.ACCESS.getText());
 
         LocalDateTime accessExpireDate = LocalDateTime.now().plusHours(1);
         return jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
@@ -115,6 +120,7 @@ public class UserServiceImpl implements UserService {
     private String generateRefreshToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
+        claims.put("tokenType", TokenType.REFRESH.getText());
 
         LocalDateTime refreshExpireDate = LocalDateTime.now().plusDays(3);
         return jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
@@ -138,9 +144,11 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", 2);
 
+        claims.put("tokenType", TokenType.ACCESS.toString());
         LocalDateTime accessExpireDate = LocalDateTime.now().plusMinutes(1);
         String accessToken = jwtProvider.generateToken(claims, Date.from(accessExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
 
+        claims.put("tokenType", TokenType.REFRESH.toString());
         LocalDateTime refreshExpireDate = LocalDateTime.now().plusMinutes(2);
         String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
         return new LoginResponse(accessToken, refreshToken);
