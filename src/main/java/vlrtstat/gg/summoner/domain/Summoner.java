@@ -3,6 +3,8 @@ package vlrtstat.gg.summoner.domain;
 import vlrtstat.gg.global.store.PropertyStore;
 
 public class Summoner {
+    private String gameName;
+    private String tagLine;
     private String accountId;
     private int profileIconId;
     private Long revisionDate;
@@ -79,5 +81,21 @@ public class Summoner {
 
     public String getProfileIconUrl() {
         return PropertyStore.getProperty("aws.s3.url") + "/profileicon/" + profileIconId + ".png";
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public String getTagLine() {
+        return tagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        this.tagLine = tagLine;
     }
 }

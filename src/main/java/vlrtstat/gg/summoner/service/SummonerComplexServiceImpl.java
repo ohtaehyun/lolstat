@@ -30,4 +30,13 @@ public class SummonerComplexServiceImpl implements SummonerComplexService{
         MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
         return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
     }
+
+    @Override
+    public SummonerProfileDto searchSummoner(String puuid) {
+        Summoner summoner = summonerService.searchSummoner(puuid);
+        LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
+
+        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
+        return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
+    }
 }

@@ -25,4 +25,10 @@ public class SummonerController {
         String[] summonerInfo = summonerName.split("-");
         return summonerComplexService.searchSummoner(summonerInfo[0], summonerInfo[1]);
     }
+
+    @GetMapping("/puuid/{puuid}")
+    @Operation(description = "puuid로 소환사 정보 검색")
+    public SummonerProfileDto searchSummonerByPuuid(@PathVariable("puuid") String puuid) {
+        return summonerComplexService.searchSummoner(puuid);
+    }
 }

@@ -26,8 +26,20 @@ public class SummonerServiceImpl implements SummonerService {
     public Summoner searchSummoner(String gameName, String tagLine) {
         Account account = accountRepository.findByNameAndTag(gameName, tagLine);
         Summoner summoner = summonerRepository.findByPuuid(account.getPuuid());
+        summoner.setGameName(account.getGameName());
+        summoner.setTagLine(account.getTagLine());
         return summoner;
     }
+
+    @Override
+    public Summoner searchSummoner(String puuid) {
+        Account account = accountRepository.findByPuuid(puuid);
+        Summoner summoner = summonerRepository.findByPuuid(account.getPuuid());
+        summoner.setGameName(account.getGameName());
+        summoner.setTagLine(account.getTagLine());
+        return summoner;
+    }
+
 
 //    @Override
 //    public SummonerProfileDto searchSummonerProfile(String summonerName) {

@@ -18,4 +18,11 @@ public interface AccountRepository {
             headers = "X-Riot-Token=${riot.key}"
     )
     Account findByNameAndTag(@PathVariable("gameName") String gameName, @PathVariable("tagLine") String tagLine);
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/riot/account/v1/accounts/by-puuid/{puuid}",
+            headers = "X-Riot-Token=${riot.key}"
+    )
+    Account findByPuuid(@PathVariable("puuid") String puuid);
 }
