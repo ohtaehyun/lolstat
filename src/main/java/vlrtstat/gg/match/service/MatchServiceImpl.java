@@ -125,6 +125,6 @@ public class MatchServiceImpl implements MatchService {
             RiotMatch match = searchMatch(matchId);
             if (match != null) riotMatches.add(match);
         }
-        return riotMatches.stream().map(riotMatch -> new MatchDto(riotMatch)).toArray(MatchDto[]::new);
+        return riotMatches.stream().map(MatchDto::new).toArray(MatchDto[]::new);
     }
 }
