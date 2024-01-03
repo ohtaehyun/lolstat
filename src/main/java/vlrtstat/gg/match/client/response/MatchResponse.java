@@ -2,10 +2,6 @@ package vlrtstat.gg.match.client.response;
 
 import vlrtstat.gg.match.domain.Info;
 import vlrtstat.gg.match.domain.Metadata;
-import vlrtstat.gg.match.dto.SimpleMatchDto;
-import vlrtstat.gg.match.dto.SimpleParticipantDto;
-
-import java.util.Arrays;
 
 public class MatchResponse {
     Metadata metadata;
@@ -30,22 +26,5 @@ public class MatchResponse {
 
     public void setInfo(Info info) {
         this.info = info;
-    }
-
-    public SimpleMatchDto toSimpleMatchDto() {
-        SimpleMatchDto simpleMatchDto = new SimpleMatchDto();
-        simpleMatchDto.setMatchId(metadata.getMatchId());
-        simpleMatchDto.setGameMode(info.getGameMode());
-        simpleMatchDto.setGameType(info.getGameType());
-        simpleMatchDto.setQueueId(info.getQueueId());
-
-        ParticipantResponse[] participantResponses = info.getParticipants();
-        simpleMatchDto.setParticipants(
-            Arrays.stream(participantResponses)
-                    .map(participantResponse -> participantResponse.toSimpleDto())
-                    .toArray(participant -> new SimpleParticipantDto[participant])
-        );
-
-        return simpleMatchDto;
     }
 }

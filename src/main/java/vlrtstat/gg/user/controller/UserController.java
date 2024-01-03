@@ -52,4 +52,10 @@ public class UserController {
         String refreshToken = authorization.split(" ")[1];
         return userService.refreshAccessToken(refreshToken);
     }
+
+    @DeleteMapping("user")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER, description = "Refresh Token")
+    public void deleteUser(@RequestHeader("Authorization") String authorization) {
+
+    }
 }

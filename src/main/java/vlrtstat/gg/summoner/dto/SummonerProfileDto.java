@@ -2,7 +2,6 @@ package vlrtstat.gg.summoner.dto;
 
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.match.dto.MatchDto;
-import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.summoner.domain.Summoner;
 
 public class SummonerProfileDto {

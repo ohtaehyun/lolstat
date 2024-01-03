@@ -2,17 +2,12 @@ package vlrtstat.gg.match.client.response;
 
 import vlrtstat.gg.champion.domain.Champion;
 import vlrtstat.gg.item.domain.Item;
-import vlrtstat.gg.item.dto.ItemDto;
 import vlrtstat.gg.match.domain.Perk;
 import vlrtstat.gg.match.domain.PerkStyle;
-import vlrtstat.gg.match.dto.SimpleParticipantDto;
 import vlrtstat.gg.participant.domain.Participant;
 import vlrtstat.gg.rune.domain.Rune;
 import vlrtstat.gg.rune.domain.RuneGroup;
 import vlrtstat.gg.spell.domain.Spell;
-import vlrtstat.gg.spell.dto.SpellDto;
-
-import java.util.ArrayList;
 
 public class ParticipantResponse {
     private int assists;
@@ -1082,41 +1077,6 @@ public class ParticipantResponse {
         this.items = items;
     }
 
-    public SimpleParticipantDto toSimpleDto() {
-        SimpleParticipantDto simpleParticipantDto = new SimpleParticipantDto(
-                summonerName,
-                summonerLevel,
-                champLevel,
-                kills,
-                deaths,
-                assists,
-                lane,
-                role,
-                teamId,
-                win
-        );
-
-        ArrayList<ItemDto> itemDtos = new ArrayList<>();
-        for (Item item : items) {
-            itemDtos.add(item.toItemDto());
-        }
-        simpleParticipantDto.setItems(itemDtos.stream().toArray(item -> new ItemDto[item]));
-
-        ArrayList<SpellDto> spellDtos = new ArrayList<>();
-        for (Spell spell : spells) {
-            spellDtos.add(spell.toSpellDto());
-        }
-        simpleParticipantDto.setSpells(spellDtos.stream().toArray(spell -> new SpellDto[spell]));
-
-        simpleParticipantDto.setChampion(champion.toChampionDto());
-
-        simpleParticipantDto.setMainRune(mainRune.toRuneDto());
-
-        simpleParticipantDto.setSubRune(subRuneGroup.toRuneDto());
-
-        return simpleParticipantDto;
-    }
-
     public int[] getItemIds() {
         return new int[] {item0, item1, item2, item3, item4, item5, item6};
     }
@@ -1188,6 +1148,7 @@ public class ParticipantResponse {
         participant.setTeamId(teamId);
         participant.setLane(lane);
         participant.setRole(role);
+        participant.setWin(win);
 
         PerkStyle[] styles = perks.getStyles();
         participant.setMainRuneGroupId(styles[0].getStyle());

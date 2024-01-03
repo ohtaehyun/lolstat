@@ -11,7 +11,7 @@ import vlrtstat.gg.summoner.service.SummonerComplexService;
 
 @RestController
 @RequestMapping("/summoner")
-@Tag(name = "summoner", description = "소환사 API")
+@Tag(name = "Summoner", description = "소환사 API")
 public class SummonerController {
     private SummonerComplexService summonerComplexService;
 

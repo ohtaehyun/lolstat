@@ -2,7 +2,6 @@ package vlrtstat.gg.item.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import vlrtstat.gg.item.dto.ItemDto;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Item {
@@ -176,14 +175,6 @@ public class Item {
 
     public void setStats(Object stats) {
         this.stats = stats;
-    }
-
-    public ItemDto toItemDto() {
-        String imageUrl = "";
-        if (image != null) {
-            imageUrl = image.getImageUrl();
-        }
-        return new ItemDto(name, plaintext, imageUrl);
     }
 
     public Object getEffect() {
