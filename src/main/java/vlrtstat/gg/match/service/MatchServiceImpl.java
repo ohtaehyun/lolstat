@@ -22,13 +22,11 @@ public class MatchServiceImpl implements MatchService {
     private final MatchClient matchClient;
     private final MatchRepository matchRepository;
     private final ParticipantRepository participantRepository;
-    private final AccountRepository accountRepository;
 
-    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ParticipantRepository participantRepository, AccountRepository accountRepository) {
+    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ParticipantRepository participantRepository) {
         this.matchClient = matchClient;
         this.matchRepository = matchRepository;
         this.participantRepository = participantRepository;
-        this.accountRepository = accountRepository;
     }
 
     @Override
