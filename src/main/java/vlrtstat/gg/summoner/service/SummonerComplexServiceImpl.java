@@ -11,7 +11,7 @@ import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.dto.SummonerProfileDto;
 
 @Service
-public class SummonerComplexServiceImpl implements SummonerComplexService{
+public class SummonerComplexServiceImpl implements SummonerComplexService {
     private SummonerService summonerService;
     private LeagueService leagueService;
     private MatchService matchService;
@@ -34,6 +34,15 @@ public class SummonerComplexServiceImpl implements SummonerComplexService{
     @Override
     public SummonerProfileDto searchSummoner(String puuid) {
         Summoner summoner = summonerService.searchSummoner(puuid);
+        LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
+
+        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
+        return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
+    }
+
+    @Override
+    public SummonerProfileDto searchBySummonerId(String summonerId) {
+        Summoner summoner = summonerService.findBySummonerId(summonerId);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
 
         MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);

@@ -31,4 +31,10 @@ public class SummonerController {
     public SummonerProfileDto searchSummonerByPuuid(@PathVariable("puuid") String puuid) {
         return summonerComplexService.searchSummoner(puuid);
     }
+
+    @GetMapping("/puuid/{summonerId}")
+    @Operation(description = "소환사 정보 검색")
+    public SummonerProfileDto searchSummonerBySummonerId(@PathVariable("summonerId") String summonerId) {
+        return summonerComplexService.searchBySummonerId(summonerId);
+    }
 }

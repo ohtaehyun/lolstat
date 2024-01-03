@@ -24,8 +24,8 @@ public class LeaderboardServiceImpl implements LeaderboardService {
         LeagueList leagueList = leagueRepository.findLeague(leaderboardTier.getText(), queue);
         LeaderboardPlayerDto[] players = Arrays
                 .stream(leagueList.getEntries())
-                .map(entry -> LeaderboardPlayerDto.fromLeagueItem(entry))
-                .toArray(player -> new LeaderboardPlayerDto[player]);
+                .map(LeaderboardPlayerDto::fromLeagueItem)
+                .toArray(LeaderboardPlayerDto[]::new);
         Arrays.sort(players);
 
         return new LeaderboardDto(

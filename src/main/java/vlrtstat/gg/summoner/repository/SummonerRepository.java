@@ -28,4 +28,12 @@ public interface SummonerRepository {
     )
     @Cacheable(cacheNames = "summoner", key = "#puuid")
     Summoner findByPuuid(@PathVariable("puuid") String puuid);
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/lol/summoner/v4/summoners/{encryptedSummonerId}",
+            headers = "X-Riot-Token=${riot.key}"
+    )
+    @Cacheable(cacheNames = "summoner", key = "#encryptedSummonerId")
+    Summoner findBySummonerId(@PathVariable("encryptedSummonerId") String encryptedSummonerId);
 }

@@ -40,6 +40,15 @@ public class SummonerServiceImpl implements SummonerService {
         return summoner;
     }
 
+    @Override
+    public Summoner findBySummonerId(String summonerId) {
+        Summoner summoner = summonerRepository.findBySummonerId(summonerId);
+        Account account = accountRepository.findByPuuid(summoner.getPuuid());
+        summoner.setGameName(account.getGameName());
+        summoner.setTagLine(account.getTagLine());
+        return summoner;
+    }
+
 
 //    @Override
 //    public SummonerProfileDto searchSummonerProfile(String summonerName) {
