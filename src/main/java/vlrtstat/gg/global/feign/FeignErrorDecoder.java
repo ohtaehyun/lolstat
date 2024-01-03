@@ -36,6 +36,17 @@ public class FeignErrorDecoder implements ErrorDecoder {
                     throw new RuntimeException(e);
                 }
                 return new ServerException(response.reason());
+            case 429:
+                try {
+                    Payload payload = Payload.builder().text(
+                            "methodKey: " + methodKey + "\n" +
+                                    "reason: API 호출 한도 초과\n" +
+                                    "url: " + response.request().url()
+                    ).build();
+                    slack.send(webhookUrl, payload);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             default:
                 return new Exception(response.reason());
         }

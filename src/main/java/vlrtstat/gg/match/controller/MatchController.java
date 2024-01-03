@@ -16,23 +16,23 @@ import vlrtstat.gg.match.service.MatchService;
 @RestController
 @Tag(name = "MatchResponse", description = "전적 API")
 public class MatchController {
-    private MatchService matchService;
+    private final MatchService matchService;
 
     public MatchController(MatchService matchService) {
         this.matchService = matchService;
     }
 
-    @GetMapping("matches/v2/{puuid}")
+    @GetMapping("matches/{puuid}")
     @Operation(description = "소환사 전적 검색 v2")
     MatchDto[] searchMatchV2(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
         return matchService.searchMatchesByPuuid(puuid, page);
     }
 
-    @GetMapping("matches/{puuid}")
-    @Operation(description = "소환사 전적 검색")
-    SimpleMatchDto[] searchMatch(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
-        return matchService.searchSimpleMatchesByPuuid(puuid, page);
-    }
+//    @GetMapping("matches/{puuid}")
+//    @Operation(description = "소환사 전적 검색")
+//    SimpleMatchDto[] searchMatch(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
+//        return matchService.searchSimpleMatchesByPuuid(puuid, page);
+//    }
 
 //    @GetMapping("timeline/{matchId}")
 //    @Operation(description = "매치 상세 타임라인 검색")

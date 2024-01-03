@@ -2,24 +2,16 @@ package vlrtstat.gg.match.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import vlrtstat.gg.champion.domain.Champion;
-import vlrtstat.gg.champion.repository.ChampionRepository;
-import vlrtstat.gg.item.domain.Item;
-import vlrtstat.gg.item.repository.ItemRepository;
 import vlrtstat.gg.match.client.response.MatchResponse;
 import vlrtstat.gg.match.client.response.ParticipantResponse;
 import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.match.dto.MatchDto;
-import vlrtstat.gg.match.dto.SimpleMatchDto;
 import vlrtstat.gg.match.client.MatchClient;
 import vlrtstat.gg.match.repository.MatchRepository;
 import vlrtstat.gg.participant.domain.Participant;
 import vlrtstat.gg.participant.repository.ParticipantRepository;
-import vlrtstat.gg.rune.domain.Rune;
-import vlrtstat.gg.rune.domain.RuneGroup;
-import vlrtstat.gg.rune.repository.RuneRepository;
-import vlrtstat.gg.spell.domain.Spell;
-import vlrtstat.gg.spell.repository.SpellRepository;
+import vlrtstat.gg.summoner.domain.Account;
+import vlrtstat.gg.summoner.repository.AccountRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,63 +19,16 @@ import java.util.Optional;
 
 @Service
 public class MatchServiceImpl implements MatchService {
-    private MatchClient matchClient;
-    private MatchRepository matchRepository;
-    private ItemRepository itemRepository;
-    private SpellRepository spellRepository;
-    private ChampionRepository championRepository;
-    private RuneRepository runeRepository;
-    private ParticipantRepository participantRepository;
+    private final MatchClient matchClient;
+    private final MatchRepository matchRepository;
+    private final ParticipantRepository participantRepository;
+    private final AccountRepository accountRepository;
 
-    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ItemRepository itemRepository, SpellRepository spellRepository, ChampionRepository championRepository, RuneRepository runeRepository, ParticipantRepository participantRepository) {
+    public MatchServiceImpl(MatchClient matchClient, MatchRepository matchRepository, ParticipantRepository participantRepository, AccountRepository accountRepository) {
         this.matchClient = matchClient;
         this.matchRepository = matchRepository;
-        this.itemRepository = itemRepository;
-        this.spellRepository = spellRepository;
-        this.championRepository = championRepository;
-        this.runeRepository = runeRepository;
         this.participantRepository = participantRepository;
-    }
-
-    @Override
-    public SimpleMatchDto[] searchSimpleMatchesByPuuid(String puuid, int page) {
-        String[] MatchIds = matchClient.findIdsByPuuid(puuid, (page - 1) * 20);
-        ArrayList<SimpleMatchDto> matches = new ArrayList<>();
-        for (String matchId : MatchIds) {
-            try {
-                MatchResponse matchResponse = matchClient.findById(matchId);
-                ParticipantResponse[] participantResponses = matchResponse.getInfo().getParticipants();
-                for (ParticipantResponse participantResponse : participantResponses) {
-                    int[] itemIds = participantResponse.getItemIds();
-                    Item[] items = itemRepository.findByIds(itemIds);
-                    participantResponse.setItems(items);
-
-                    int[] spellIds = participantResponse.getSummonerSpellIds();
-                    Spell[] spells = spellRepository.findByIds(spellIds);
-                    participantResponse.setSpells(spells);
-
-                    int championId = participantResponse.getChampionId();
-                    Champion champion = championRepository.findById(championId);
-                    participantResponse.setChampion(champion);
-
-                    int mainRuneId = participantResponse.getPerks().getStyles()[0].getSelections()[0].getPerk();
-                    Rune mainRune = runeRepository.findRuneByRuneId(mainRuneId);
-                    if (mainRune == null) {
-                        System.out.println("mainRune = " + mainRune);
-                    }
-                    participantResponse.setMainRune(mainRune);
-
-                    int subRuneGroupId = participantResponse.getPerks().getStyles()[1].getStyle();
-                    RuneGroup subRuneGroup = runeRepository.findRuneGroupByRuneId(subRuneGroupId);
-                    participantResponse.setSubRuneGroup(subRuneGroup);
-                }
-                matches.add(matchClient.findById(matchId).toSimpleMatchDto());
-            } catch (Exception e) {
-
-            }
-        }
-
-        return matches.stream().toArray(match -> new SimpleMatchDto[match]);
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -122,8 +67,14 @@ public class MatchServiceImpl implements MatchService {
         String[] matchIds = matchClient.findIdsByPuuid(puuid, start);
         ArrayList<RiotMatch> riotMatches = new ArrayList<>();
         for (String matchId : matchIds) {
-            RiotMatch match = searchMatch(matchId);
-            if (match != null) riotMatches.add(match);
+            try {
+                RiotMatch match = searchMatch(matchId);
+                if (match != null) {
+                    riotMatches.add(match);
+                }
+            } catch (Exception e) {
+                System.out.println("e = " + e);
+            }
         }
         return riotMatches.stream().map(MatchDto::new).toArray(MatchDto[]::new);
     }

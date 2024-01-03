@@ -20,7 +20,7 @@ public class MatchDto {
         this.participants = match
                 .getParticipants()
                 .stream()
-                .map(participant -> new ParticipantDto(participant))
+                .map(ParticipantDto::new)
                 .toArray(ParticipantDto[]::new);
     }
 
