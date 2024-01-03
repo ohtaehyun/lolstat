@@ -8,6 +8,10 @@ import vlrtstat.gg.summoner.domain.Summoner;
 @Schema(description = "소환사 프로필 정보 응답 DTO")
 public class ProfileDto {
     private String puuid;
+    @Schema(description = "소환사명 (신규)")
+    private String gameName;
+    @Schema(description = "태그라인")
+    private String tagLine;
     @Schema(description = "소환사명")
     private String summonerName;
 
@@ -30,6 +34,8 @@ public class ProfileDto {
         this.profileIcon = summoner.getProfileIconUrl();
         this.soloLeagueEntry = leagueEntries.getSoloLeague().toDto();
         this.flexLeagueEntry = leagueEntries.getFlexLeague().toDto();
+        this.gameName = summoner.getGameName();
+        this.tagLine = summoner.getTagLine();
     }
 
     public String getPuuid() {
@@ -78,5 +84,21 @@ public class ProfileDto {
 
     public void setProfileIcon(String profileIcon) {
         this.profileIcon = profileIcon;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public String getTagLine() {
+        return tagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        this.tagLine = tagLine;
     }
 }
