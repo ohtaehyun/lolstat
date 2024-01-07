@@ -153,4 +153,11 @@ public class UserServiceImpl implements UserService {
         String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
         return new LoginResponse(accessToken, refreshToken);
     }
+
+    @Override
+    public void withdrawl(String accessToken) {
+        User user = jwtProvider.handleToken(accessToken);
+        user.setDeleted(true);
+        userRepository.save(user);
+    }
 }

@@ -28,6 +28,9 @@ public class User {
     @Column
     private boolean isVerified;
 
+    @Column(columnDefinition = "boolean default false")
+    private  boolean isDeleted;
+
     public User() {
     }
 
@@ -77,5 +80,17 @@ public class User {
 
     public void setVerified(boolean verified) {
         isVerified = verified;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

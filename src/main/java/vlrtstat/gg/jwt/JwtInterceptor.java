@@ -33,31 +33,11 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            throw new NeedLoginError();
-        }
+        String accessToken = jwtProvider.extractToken(authorizationHeader);
+        User user = jwtProvider.handleToken(accessToken);
 
-        String accessToken = authorizationHeader.substring(7);
-        User user;
-
-        try {
-            Claims claims = jwtProvider.verifyToken(accessToken);
-            long userId = claims.get("userId", Integer.class);
-            Optional<User> optionalUser = userRepository.findById(userId);
-            if (optionalUser.isEmpty()) {
-                throw new Exception("사용자 검색 실패");
-            }
-            user = optionalUser.get();
-        } catch (ExpiredJwtException e) {
-            throw new TokenExpiredError();
-        } catch (Exception e) {
-            System.out.println("Jwt Interceptor e = " + e);
-            throw new NeedLoginError();
-        }
-        
         if (!request.getRequestURI().equals("/user/verify") && !user.isVerified()) {
             userEmailSendService.sendAuthenticateEmail(user);
-
             throw new EmailAuthenticateError();
         }
 

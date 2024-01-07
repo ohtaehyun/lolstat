@@ -44,4 +44,6 @@ public interface UserService {
     RefreshTokenResponse refreshAccessToken(String refreshToken);
 
     LoginResponse testLogin();
+
+    void withdrawl(String accessToken);
 }
