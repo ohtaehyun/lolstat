@@ -17,6 +17,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         WebMvcConfigurer.super.addCorsMappings(registry);
         registry.addMapping("/**")
                 .allowedMethods("*")
+                .allowCredentials(true)
                 .allowedOriginPatterns("https://*.lolstat.net,https://localhost:[*],http://localhost:[*]");
     }
 
