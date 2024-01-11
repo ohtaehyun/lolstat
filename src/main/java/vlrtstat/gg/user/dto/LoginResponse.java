@@ -1,12 +1,17 @@
 package vlrtstat.gg.user.dto;
 
+import vlrtstat.gg.user.domain.User;
+
 public class LoginResponse {
     private String accessToken;
     private String refreshToken;
 
-    public LoginResponse(String accessToken, String refreshToken) {
+    private UserInfoDto userInfo;
+
+    public LoginResponse(String accessToken, String refreshToken, User user) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+        this.userInfo = new UserInfoDto(user);
     }
 
     public String getAccessToken() {
@@ -15,5 +20,9 @@ public class LoginResponse {
 
     public String getRefreshToken() {
         return refreshToken;
+    }
+
+    public UserInfoDto getUserInfo() {
+        return userInfo;
     }
 }

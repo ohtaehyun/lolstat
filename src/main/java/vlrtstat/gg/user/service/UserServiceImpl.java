@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         String accessToken = generateAccessToken(user);
         String refreshToken = generateRefreshToken(user);
 
-        return new LoginResponse(accessToken, refreshToken);
+        return new LoginResponse(accessToken, refreshToken, user);
     }
 
     @Override
@@ -151,7 +151,8 @@ public class UserServiceImpl implements UserService {
         claims.put("tokenType", TokenType.REFRESH.toString());
         LocalDateTime refreshExpireDate = LocalDateTime.now().plusMinutes(2);
         String refreshToken = jwtProvider.generateToken(claims, Date.from(refreshExpireDate.atZone(ZoneId.systemDefault()).toInstant()));
-        return new LoginResponse(accessToken, refreshToken);
+        User user = userRepository.findById(2L).orElse(new User());
+        return new LoginResponse(accessToken, refreshToken, user);
     }
 
     @Override
