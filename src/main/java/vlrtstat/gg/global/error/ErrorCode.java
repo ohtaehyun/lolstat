@@ -7,6 +7,7 @@ public enum ErrorCode {
     NEED_EMAIL_AUTHENTICATION(1003, "이메일 인증 필요"),
     WRONG_EMAIL_AUTHENTICATION(1004, "이메일 인증 오류"),
     TOKEN_EXPIRED(1005, "만료된 토큰"),
+    DUO_ALREADY_EXIST(2000, "이미 등록한 듀오 찾기가 존재합니다."),
     INPUT_ERROR(9000, "입력값이 올바르지 않습니다.");
 
     private int errorNumberCode;

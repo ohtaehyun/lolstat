@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.dto.AddDuoDto;
+import vlrtstat.gg.duo.error.DuoAlreadyExistError;
 import vlrtstat.gg.duo.repository.DuoRepository;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
@@ -11,6 +12,7 @@ import vlrtstat.gg.summoner.domain.Summoner;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class DuoServiceImpl implements DuoService {
@@ -23,6 +25,12 @@ public class DuoServiceImpl implements DuoService {
     @Override
     @Transactional
     public void AddDuo(AddDuoDto addDuoDto) {
+        Optional<Duo> optionalDuo = duoRepository.findFirstByUserIdAndIsMatchedFalseOrderByExpiredAtDesc(addDuoDto.getUserId());
+
+        if (optionalDuo.isPresent()) {
+            throw new DuoAlreadyExistError();
+        }
+
         Duo duo = new Duo();
         Summoner summoner = addDuoDto.getSummoner();
         LeagueEntries leagueEntries = addDuoDto.getLeagueEntries();
