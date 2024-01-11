@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.QueryParam;
 import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.dto.AddDuoDto;
@@ -37,6 +36,7 @@ public class DuoController {
 
     @GetMapping("duo")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    @Parameter(name = "user", hidden = true)
     public DuoListResponse getDuoList(
             @LoginUser User user,
             @RequestParam(value = "page", required = false, defaultValue = "1") Optional<Integer> optionalPage,
@@ -48,6 +48,7 @@ public class DuoController {
 
     @PostMapping("duo")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    @Parameter(name = "user", hidden = true)
     public void AddDuo(@RequestBody @Valid AddDuoRequest addDuoRequest, @LoginUser User user) {
         Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
