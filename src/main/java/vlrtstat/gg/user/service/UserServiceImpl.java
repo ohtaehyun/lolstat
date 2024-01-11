@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(String email, String password, String passwordCheck) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
+        Optional<User> userOptional = userRepository.findByEmailAndIsDeletedFalse(email);
         if (userOptional.isPresent()) {
             throw new DuplicatedEmailException();
         }
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse login(String email, String password) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
+        Optional<User> userOptional = userRepository.findByEmailAndIsDeletedFalse(email);
         if (userOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatusCode.valueOf(400));
         }
