@@ -35,7 +35,7 @@ public class DuoServiceImpl implements DuoService {
     @Override
     @Transactional
     public void addDuo(AddDuoDto addDuoDto) {
-        Optional<Duo> optionalDuo = duoRepository.findFirstByUserIdAndIsMatchedFalseOrderByExpiredAtDesc(addDuoDto.getUserId());
+        Optional<Duo> optionalDuo = duoRepository.findLiveOne(addDuoDto.getUserId());
 
         if (optionalDuo.isPresent()) {
             throw new DuoAlreadyExistError();
@@ -61,8 +61,8 @@ public class DuoServiceImpl implements DuoService {
 
     @Override
     public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter) {
-        Optional<Duo> optionalMyDuo = duoRepository.findFirstByUserIdAndIsMatchedFalseOrderByExpiredAtDesc(user.getId());
-        Duo myDuo = optionalMyDuo.orElse(null);
+        Optional<Duo> myDuo = duoRepository.findLiveOne(user.getId());
+        DuoDto myDuoDto = myDuo.isEmpty() ? null : new DuoDto(myDuo.get());
 
         PageRequest pageRequest = PageRequest.of(page - 1, 20, Sort.Direction.DESC, "createdAt");
         Page<Duo> pageData;
@@ -72,9 +72,9 @@ public class DuoServiceImpl implements DuoService {
             pageData = duoRepository.findAllByIsMatched(duoMatchFilter.equals(DuoMatchFilter.MATCHED), pageRequest);
         }
 
-        List<DuoDto> duos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
+        List<DuoDto> duoDtos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
 
-        return new DuoListResponse(new DuoDto(myDuo), duos);
+        return new DuoListResponse(myDuoDto, duoDtos);
     }
 
     @Override
