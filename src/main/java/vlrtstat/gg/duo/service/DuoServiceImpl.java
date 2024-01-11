@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
-import vlrtstat.gg.duo.dto.AddDuoDto;
-import vlrtstat.gg.duo.dto.DuoDetailResponse;
-import vlrtstat.gg.duo.dto.DuoDto;
-import vlrtstat.gg.duo.dto.DuoListResponse;
+import vlrtstat.gg.duo.domain.DuoTicket;
+import vlrtstat.gg.duo.dto.*;
 import vlrtstat.gg.duo.error.DuoAlreadyExistError;
+import vlrtstat.gg.duo.error.DuoAlreadyMatchedError;
+import vlrtstat.gg.duo.error.DuoExpiredError;
+import vlrtstat.gg.duo.error.DuoOwnerTryTicketError;
 import vlrtstat.gg.duo.repository.DuoRepository;
+import vlrtstat.gg.duo.repository.DuoTicketRepository;
+import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
 import vlrtstat.gg.summoner.domain.Summoner;
@@ -28,8 +31,11 @@ import java.util.Optional;
 public class DuoServiceImpl implements DuoService {
     private final DuoRepository duoRepository;
 
-    public DuoServiceImpl(DuoRepository duoRepository) {
+    private final DuoTicketRepository duoTicketRepository;
+
+    public DuoServiceImpl(DuoRepository duoRepository, DuoTicketRepository duoTicketRepository) {
         this.duoRepository = duoRepository;
+        this.duoTicketRepository = duoTicketRepository;
     }
 
     @Override
@@ -60,6 +66,7 @@ public class DuoServiceImpl implements DuoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter) {
         Optional<Duo> myDuo = duoRepository.findLiveOne(user.getId());
         DuoDto myDuoDto = myDuo.isEmpty() ? null : new DuoDto(myDuo.get());
@@ -83,5 +90,37 @@ public class DuoServiceImpl implements DuoService {
         if (optionalDuo.isEmpty()) throw new NotFoundException();
         DuoDto duoDto = new DuoDto(optionalDuo.get());
         return new DuoDetailResponse(duoDto);
+    }
+
+    @Override
+    @Transactional
+    public void addDuoTicket(AddDuoTicketDto addDuoTicketDto) {
+        User user = addDuoTicketDto.getUser();
+        Optional<Duo> optionalDuo = duoRepository.findById(addDuoTicketDto.getDuoId());
+        if (optionalDuo.isEmpty()) throw new NotFoundException();
+        Duo duo = optionalDuo.get();
+        this.validateDuoAvailable(duo, user);
+
+        Summoner summoner = addDuoTicketDto.getSummoner();
+        Tier tier = addDuoTicketDto.getLeagueEntries().getSoloLeague().getTier();
+
+        DuoTicket duoTicket = new DuoTicket();
+        duoTicket.setGameName(summoner.getGameName());
+        duoTicket.setTagLine(summoner.getTagLine());
+        duoTicket.setLine(addDuoTicketDto.getLine());
+        duoTicket.setTier(tier);
+        duoTicket.setUser(user);
+        duoTicket.setDuo(duo);
+        duoTicket.setSelected(false);
+        duoTicket.setMemo(addDuoTicketDto.getMemo());
+        duoTicket.setCreatedAt(LocalDateTime.now());
+
+        duoTicketRepository.save(duoTicket);
+    }
+
+    private void validateDuoAvailable(Duo duo, User user) {
+        if (duo.isMatched()) throw new DuoAlreadyMatchedError();
+        if (duo.getExpiredAt().isBefore(LocalDateTime.now())) throw new DuoExpiredError();
+        if (duo.getUserId().equals(user.getId())) throw new DuoOwnerTryTicketError();
     }
 }

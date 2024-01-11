@@ -5,6 +5,8 @@ import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.user.domain.User;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class DuoTicket {
     @Id
@@ -37,6 +39,9 @@ public class DuoTicket {
 
     @Column
     private boolean isSelected;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
 
     public DuoTicket() {
     }
@@ -111,5 +116,13 @@ public class DuoTicket {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -1,7 +1,6 @@
 package vlrtstat.gg.duo.dto;
 
 import vlrtstat.gg.duo.domain.Duo;
-import vlrtstat.gg.duo.domain.DuoTicket;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
 
@@ -23,7 +22,7 @@ public class DuoDto {
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
 
-    private List<DuoTicket> tickets;
+    private List<DuoTicketDto> tickets;
 
 
     public DuoDto(Duo duo) {
@@ -38,7 +37,7 @@ public class DuoDto {
         this.isMatched = duo.isMatched();
         this.createdAt = duo.getCreatedAt();
         this.expiredAt = duo.getExpiredAt();
-        this.tickets = duo.getTickets();
+        this.tickets = duo.getTickets().stream().map(DuoTicketDto::new).toList();
         this.userId = duo.getUserId();
     }
 
@@ -86,7 +85,7 @@ public class DuoDto {
         return expiredAt;
     }
 
-    public List<DuoTicket> getTickets() {
+    public List<DuoTicketDto> getTickets() {
         return tickets;
     }
 

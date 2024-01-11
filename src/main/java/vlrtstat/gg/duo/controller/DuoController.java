@@ -6,11 +6,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
-import vlrtstat.gg.duo.dto.AddDuoDto;
-import vlrtstat.gg.duo.dto.AddDuoRequest;
-import vlrtstat.gg.duo.dto.DuoDetailResponse;
-import vlrtstat.gg.duo.dto.DuoListResponse;
+import vlrtstat.gg.duo.dto.*;
 import vlrtstat.gg.duo.service.DuoService;
+import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.jwt.LoginUser;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
@@ -66,7 +64,12 @@ public class DuoController {
     @PostMapping("duo/{duoId}")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     @Parameter(name = "user", hidden = true)
-    public void addDuoTicket() {
+    public void addDuoTicket(@PathVariable("duoId") Long duoId, @LoginUser User user, @RequestBody @Valid AddDuoTicketRequest addDuoRequest) {
+        Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());
+        LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
+        Line line = addDuoRequest.getLine();
 
+        AddDuoTicketDto addDuoTicketDto = new AddDuoTicketDto(summoner, leagueEntries, user, duoId, addDuoRequest);
+        duoService.addDuoTicket(addDuoTicketDto);
     }
 }
