@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class Duo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -49,6 +49,9 @@ public class Duo {
 
     @Column
     private LocalDateTime expiredAt;
+
+    @OneToMany(mappedBy = "duo", cascade = CascadeType.ALL)
+    private List<DuoTicket> tickets = new ArrayList<>();
 
     public Duo() {
     }
@@ -155,5 +158,17 @@ public class Duo {
 
     public void setExpiredAt(LocalDateTime expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public List<DuoTicket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<DuoTicket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void addTickets(DuoTicket ticket) {
+        this.tickets.add(ticket);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.dto.AddDuoDto;
 import vlrtstat.gg.duo.dto.AddDuoRequest;
+import vlrtstat.gg.duo.dto.DuoDetailResponse;
 import vlrtstat.gg.duo.dto.DuoListResponse;
 import vlrtstat.gg.duo.service.DuoService;
 import vlrtstat.gg.jwt.LoginUser;
@@ -54,5 +55,18 @@ public class DuoController {
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
         AddDuoDto addDuoDto = new AddDuoDto(user.getId(), summoner, leagueEntries, addDuoRequest.getLine(), addDuoRequest.getWishLines(), addDuoRequest.getWishTiers(), addDuoRequest.getMemo());
         duoService.addDuo(addDuoDto);
+    }
+
+    @GetMapping("duo/{duoId}")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    public DuoDetailResponse DuoDetail(@PathVariable("duoId") Long duoId) {
+        return duoService.getDuoDetail(duoId);
+    }
+
+    @PostMapping("duo/{duoId}")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    @Parameter(name = "user", hidden = true)
+    public void addDuoTicket() {
+
     }
 }

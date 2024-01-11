@@ -1,5 +1,6 @@
 package vlrtstat.gg.duo.service;
 
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.dto.AddDuoDto;
+import vlrtstat.gg.duo.dto.DuoDetailResponse;
 import vlrtstat.gg.duo.dto.DuoDto;
 import vlrtstat.gg.duo.dto.DuoListResponse;
 import vlrtstat.gg.duo.error.DuoAlreadyExistError;
@@ -73,5 +75,13 @@ public class DuoServiceImpl implements DuoService {
         List<DuoDto> duos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
 
         return new DuoListResponse(new DuoDto(myDuo), duos);
+    }
+
+    @Override
+    public DuoDetailResponse getDuoDetail(Long duoId) {
+        Optional<Duo> optionalDuo = duoRepository.findById(duoId);
+        if (optionalDuo.isEmpty()) throw new NotFoundException();
+        DuoDto duoDto = new DuoDto(optionalDuo.get());
+        return new DuoDetailResponse(duoDto);
     }
 }
