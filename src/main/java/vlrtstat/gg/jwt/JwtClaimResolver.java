@@ -11,11 +11,9 @@ import vlrtstat.gg.user.service.UserService;
 
 @Component
 public class JwtClaimResolver implements HandlerMethodArgumentResolver {
-    private final UserService userService;
     private final JwtProvider jwtProvider;
 
-    public JwtClaimResolver(UserService userService, JwtProvider jwtProvider) {
-        this.userService = userService;
+    public JwtClaimResolver(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
 

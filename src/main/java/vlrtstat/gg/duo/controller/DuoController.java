@@ -17,7 +17,7 @@ import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.service.SummonerService;
 import vlrtstat.gg.user.domain.User;
 
-@RestController("duo")
+@RestController
 @Tag(name = "Duo", description = "듀오 찾기 관련 API")
 public class DuoController {
     private SummonerService summonerService;
@@ -32,7 +32,7 @@ public class DuoController {
         this.duoService = duoService;
     }
 
-    @PostMapping("/")
+    @PostMapping("duo")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     public void AddDuo(@RequestBody @Valid AddDuoRequest addDuoRequest, @LoginUser User user) {
         Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());

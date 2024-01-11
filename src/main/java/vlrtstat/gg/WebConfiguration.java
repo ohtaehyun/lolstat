@@ -2,15 +2,22 @@ package vlrtstat.gg;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import vlrtstat.gg.jwt.JwtClaimResolver;
 import vlrtstat.gg.jwt.JwtInterceptor;
+
+import java.util.List;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
     @Autowired
     private JwtInterceptor jwtInterceptor;
+
+    @Autowired
+    private  JwtClaimResolver jwtClaimResolver;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -19,6 +26,12 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowCredentials(true)
                 .allowedOriginPatterns("https://*.lolstat.net,https://localhost:[*],http://localhost:[*]");
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        WebMvcConfigurer.super.addArgumentResolvers(resolvers);
+        resolvers.add(jwtClaimResolver);
     }
 
     @Override

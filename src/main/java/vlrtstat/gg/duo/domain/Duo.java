@@ -32,10 +32,10 @@ public class Duo {
     @Column
     private Tier tier;
 
-    @Column
+    @ElementCollection
     private List<Line> wishLines = new ArrayList<>();
 
-    @Column
+    @ElementCollection
     private List<Tier> wishTiers = new ArrayList<>();
 
     @Column(columnDefinition = "boolean default false")

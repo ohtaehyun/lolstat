@@ -10,6 +10,7 @@ import vlrtstat.gg.league.domain.LeagueEntry;
 import vlrtstat.gg.summoner.domain.Summoner;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Service
 public class DuoServiceImpl implements DuoService {
@@ -33,7 +34,10 @@ public class DuoServiceImpl implements DuoService {
         duo.setLine(addDuoDto.getLine());
         duo.setPuuid(summoner.getPuuid());
         duo.setCreatedAt(LocalDateTime.now());
-        duo.setCreatedAt(LocalDateTime.now().plusHours(1));
+        duo.setExpiredAt(LocalDateTime.now().plusHours(1));
+        duo.setMemo(addDuoDto.getMemo());
+        duo.setWishLines(Arrays.asList(addDuoDto.getWishLines()));
+        duo.setWishTiers(Arrays.asList(addDuoDto.getWishTiers()));
         duoRepository.save(duo);
     }
 }
