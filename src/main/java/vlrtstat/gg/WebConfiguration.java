@@ -2,10 +2,13 @@ package vlrtstat.gg;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import vlrtstat.gg.duo.constant.DuoMatchFilter;
+import vlrtstat.gg.duo.constant.DuoMatchFilterConverter;
 import vlrtstat.gg.jwt.JwtClaimResolver;
 import vlrtstat.gg.jwt.JwtInterceptor;
 
@@ -50,5 +53,11 @@ public class WebConfiguration implements WebMvcConfigurer {
                 "/error"
         );
         WebMvcConfigurer.super.addInterceptors(registry);
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        WebMvcConfigurer.super.addFormatters(registry);
+        registry.addConverter(new DuoMatchFilterConverter());
     }
 }

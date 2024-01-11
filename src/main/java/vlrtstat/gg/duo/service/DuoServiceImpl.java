@@ -1,17 +1,25 @@
 package vlrtstat.gg.duo.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.dto.AddDuoDto;
+import vlrtstat.gg.duo.dto.DuoDto;
+import vlrtstat.gg.duo.dto.DuoListResponse;
 import vlrtstat.gg.duo.error.DuoAlreadyExistError;
 import vlrtstat.gg.duo.repository.DuoRepository;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
 import vlrtstat.gg.summoner.domain.Summoner;
+import vlrtstat.gg.user.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +32,7 @@ public class DuoServiceImpl implements DuoService {
 
     @Override
     @Transactional
-    public void AddDuo(AddDuoDto addDuoDto) {
+    public void addDuo(AddDuoDto addDuoDto) {
         Optional<Duo> optionalDuo = duoRepository.findFirstByUserIdAndIsMatchedFalseOrderByExpiredAtDesc(addDuoDto.getUserId());
 
         if (optionalDuo.isPresent()) {
@@ -47,5 +55,23 @@ public class DuoServiceImpl implements DuoService {
         duo.setWishLines(Arrays.asList(addDuoDto.getWishLines()));
         duo.setWishTiers(Arrays.asList(addDuoDto.getWishTiers()));
         duoRepository.save(duo);
+    }
+
+    @Override
+    public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter) {
+        Optional<Duo> optionalMyDuo = duoRepository.findFirstByUserIdAndIsMatchedFalseOrderByExpiredAtDesc(user.getId());
+        Duo myDuo = optionalMyDuo.orElse(null);
+
+        PageRequest pageRequest = PageRequest.of(page - 1, 20, Sort.Direction.DESC, "createdAt");
+        Page<Duo> pageData;
+        if (duoMatchFilter.equals(DuoMatchFilter.ALL)) {
+            pageData = duoRepository.findAllBy(pageRequest);
+        } else {
+            pageData = duoRepository.findAllByIsMatched(duoMatchFilter.equals(DuoMatchFilter.MATCHED), pageRequest);
+        }
+
+        List<DuoDto> duos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
+
+        return new DuoListResponse(new DuoDto(myDuo), duos);
     }
 }
