@@ -19,13 +19,10 @@ import java.util.Optional;
 public class JwtInterceptor implements HandlerInterceptor {
     private final JwtProvider jwtProvider;
 
-    private final UserRepository userRepository;
-
     private final UserEmailSendService userEmailSendService;
 
-    public JwtInterceptor(JwtProvider jwtProvider, UserRepository userRepository, UserEmailSendService userEmailSendService) {
+    public JwtInterceptor(JwtProvider jwtProvider, UserEmailSendService userEmailSendService) {
         this.jwtProvider = jwtProvider;
-        this.userRepository = userRepository;
         this.userEmailSendService = userEmailSendService;
     }
 
