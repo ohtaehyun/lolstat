@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface DuoRepository extends JpaRepository<Duo, Long> {
     @Query(
             "select a from Duo a " +
-                "where a.userId = ?1 and a.isMatched = false and a.expiredAt > current_timestamp"
+                "where a.userId = ?1 and a.isMatched = false and current_timestamp between a.createdAt and a.expiredAt"
     )
     Optional<Duo> findLiveOne(Long userId);
     Page<Duo> findAllBy(PageRequest pageRequest);
