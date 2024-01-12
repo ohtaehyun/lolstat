@@ -10,10 +10,7 @@ import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.domain.DuoTicket;
 import vlrtstat.gg.duo.dto.*;
-import vlrtstat.gg.duo.error.DuoAlreadyExistError;
-import vlrtstat.gg.duo.error.DuoAlreadyMatchedError;
-import vlrtstat.gg.duo.error.DuoExpiredError;
-import vlrtstat.gg.duo.error.DuoOwnerTryTicketError;
+import vlrtstat.gg.duo.error.*;
 import vlrtstat.gg.duo.repository.DuoRepository;
 import vlrtstat.gg.duo.repository.DuoTicketRepository;
 import vlrtstat.gg.global.constant.Tier;
@@ -97,9 +94,7 @@ public class DuoServiceImpl implements DuoService {
     @Transactional
     public void addDuoTicket(AddDuoTicketDto addDuoTicketDto) {
         User user = addDuoTicketDto.getUser();
-        Optional<Duo> optionalDuo = duoRepository.findById(addDuoTicketDto.getDuoId());
-        if (optionalDuo.isEmpty()) throw new NotFoundException();
-        Duo duo = optionalDuo.get();
+        Duo duo = duoRepository.findById(addDuoTicketDto.getDuoId()).orElseThrow(NotFoundException::new);
         this.validateDuoAddTicket(duo, user);
 
         Summoner summoner = addDuoTicketDto.getSummoner();
@@ -141,5 +136,7 @@ public class DuoServiceImpl implements DuoService {
     private void validateDuoAddTicket(Duo duo, User user) {
         this.validateDuo(duo);
         if (duo.getUserId().equals(user.getId())) throw new DuoOwnerTryTicketError();
+        Optional<DuoTicket> optionalTicket = duoTicketRepository.findByUserIdAndDuoId(user.getId(), duo.getId());
+        if (optionalTicket.isPresent()) throw new DuoTicketAlreadyExist();
     }
 }
