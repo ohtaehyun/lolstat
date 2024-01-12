@@ -15,4 +15,6 @@ public interface DuoService {
     DuoDetailResponse getDuoDetail(Long duoId);
 
     void addDuoTicket(AddDuoTicketDto addDuoTicketDto);
+
+    void acceptDuoTicket(Long duoId, Long ticketId, User user);
 }

@@ -16,4 +16,5 @@ public interface DuoRepository extends JpaRepository<Duo, Long> {
     Optional<Duo> findLiveOne(Long userId);
     Page<Duo> findAllBy(PageRequest pageRequest);
     Page<Duo> findAllByIsMatched(boolean matched, PageRequest pageRequest);
+    Optional<Duo> findByIdAndUserId(Long id, Long userId);
 }

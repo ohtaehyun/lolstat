@@ -72,4 +72,11 @@ public class DuoController {
         AddDuoTicketDto addDuoTicketDto = new AddDuoTicketDto(summoner, leagueEntries, user, duoId, addDuoRequest);
         duoService.addDuoTicket(addDuoTicketDto);
     }
+
+    @PostMapping("duo/{duoId}/{ticketId}/accept")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    @Parameter(name = "user", hidden = true)
+    public void acceptTicket(@PathVariable("duoId") Long duoId, @PathVariable("ticketId") Long ticketId, @LoginUser User user) {
+        duoService.acceptDuoTicket(duoId, ticketId, user);
+    }
 }

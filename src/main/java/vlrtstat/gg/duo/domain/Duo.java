@@ -7,6 +7,7 @@ import vlrtstat.gg.global.constant.Tier;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Duo {
@@ -170,5 +171,12 @@ public class Duo {
 
     public void addTickets(DuoTicket ticket) {
         this.tickets.add(ticket);
+    }
+
+    public Optional<DuoTicket> getTicketById(Long ticketId) {
+        for (DuoTicket ticket : tickets) {
+            if (ticket.getId() == ticketId) return Optional.of(ticket);
+        }
+        return Optional.empty();
     }
 }

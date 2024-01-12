@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class DuoServiceImpl implements DuoService {
@@ -99,7 +100,7 @@ public class DuoServiceImpl implements DuoService {
         Optional<Duo> optionalDuo = duoRepository.findById(addDuoTicketDto.getDuoId());
         if (optionalDuo.isEmpty()) throw new NotFoundException();
         Duo duo = optionalDuo.get();
-        this.validateDuoAvailable(duo, user);
+        this.validateDuoAddTicket(duo, user);
 
         Summoner summoner = addDuoTicketDto.getSummoner();
         Tier tier = addDuoTicketDto.getLeagueEntries().getSoloLeague().getTier();
@@ -118,9 +119,27 @@ public class DuoServiceImpl implements DuoService {
         duoTicketRepository.save(duoTicket);
     }
 
-    private void validateDuoAvailable(Duo duo, User user) {
+    @Override
+    @Transactional
+    public void acceptDuoTicket(Long duoId, Long ticketId, User user) {
+        Duo duo = duoRepository.findByIdAndUserId(duoId, user.getId()).orElseThrow(NotFoundException::new);
+        DuoTicket duoTicket = duo.getTicketById(ticketId).orElseThrow(NotFoundException::new);
+        validateDuo(duo);
+
+        duo.setMatched(true);
+        duoTicket.setSelected(true);
+
+        duoRepository.save(duo);
+        duoTicketRepository.save(duoTicket);
+    }
+
+    private void validateDuo(Duo duo) {
         if (duo.isMatched()) throw new DuoAlreadyMatchedError();
         if (duo.getExpiredAt().isBefore(LocalDateTime.now())) throw new DuoExpiredError();
+    }
+
+    private void validateDuoAddTicket(Duo duo, User user) {
+        this.validateDuo(duo);
         if (duo.getUserId().equals(user.getId())) throw new DuoOwnerTryTicketError();
     }
 }
