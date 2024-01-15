@@ -2,8 +2,10 @@ package vlrtstat.gg.match.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.match.client.response.MatchResponse;
 import vlrtstat.gg.match.client.response.ParticipantResponse;
+import vlrtstat.gg.match.constant.QueueIdFilter;
 import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.client.MatchClient;
@@ -61,8 +63,18 @@ public class MatchServiceImpl implements MatchService {
     @Override
     @Transactional
     public MatchDto[] searchMatchesByPuuid(String puuid, int page) {
+        return searchMatchedByPuuid(puuid, page, QueueIdFilter.ALL);
+    }
+
+    @Override
+    public MatchDto[] searchMatchedByPuuid(String puuid, int page, QueueIdFilter queueIdFilter) {
         int start = (page - 1) * 20;
-        String[] matchIds = matchClient.findIdsByPuuid(puuid, start);
+        String[] matchIds;
+        if (queueIdFilter.equals(QueueIdFilter.ALL)) {
+           matchIds = matchClient.findIdsByPuuid(puuid, start);
+        } else {
+            matchIds = matchClient.findIdsByPuuid(puuid, start, queueIdFilter.getQueueId().getId());
+        }
         ArrayList<RiotMatch> riotMatches = new ArrayList<>();
         for (String matchId : matchIds) {
             try {

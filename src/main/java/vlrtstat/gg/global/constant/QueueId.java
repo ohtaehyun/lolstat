@@ -14,7 +14,7 @@ public enum QueueId {
 
     private int queueId;
 
-    public int getQueueId() {
+    public int getId() {
         return this.queueId;
     }
 
@@ -24,7 +24,7 @@ public enum QueueId {
 
     public static QueueId fromId(int id) {
         for (QueueId type : values()) {
-            if (type.getQueueId() == id) {
+            if (type.getId() == id) {
                 return type;
             }
         }

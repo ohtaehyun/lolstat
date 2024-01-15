@@ -7,8 +7,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.constant.DuoMatchFilterConverter;
+import vlrtstat.gg.match.constant.QueueIdFilterConverter;
 import vlrtstat.gg.jwt.JwtClaimResolver;
 import vlrtstat.gg.jwt.JwtInterceptor;
 
@@ -58,6 +58,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         WebMvcConfigurer.super.addFormatters(registry);
+        registry.addConverter(new QueueIdFilterConverter());
         registry.addConverter(new DuoMatchFilterConverter());
     }
 }

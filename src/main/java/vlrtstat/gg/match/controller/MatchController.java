@@ -2,10 +2,13 @@ package vlrtstat.gg.match.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.ws.rs.QueryParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import vlrtstat.gg.global.constant.QueueId;
+import vlrtstat.gg.match.constant.QueueIdFilter;
 import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.service.MatchService;
 
@@ -20,7 +23,11 @@ public class MatchController {
 
     @GetMapping("matches/{puuid}")
     @Operation(description = "소환사 전적 검색 v2")
-    MatchDto[] searchMatchV2(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
-        return matchService.searchMatchesByPuuid(puuid, page);
+    MatchDto[] searchMatchV2(
+            @PathVariable("puuid") String puuid,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "queue", required = false, defaultValue = "ALL") QueueIdFilter queueIdFilter
+            ) {
+        return matchService.searchMatchedByPuuid(puuid, page, queueIdFilter);
     }
 }
