@@ -23,17 +23,4 @@ public class MatchController {
     MatchDto[] searchMatchV2(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
         return matchService.searchMatchesByPuuid(puuid, page);
     }
-
-//    @GetMapping("matches/{puuid}")
-//    @Operation(description = "소환사 전적 검색")
-//    SimpleMatchDto[] searchMatch(@PathVariable("puuid") String puuid, @RequestParam(value = "page", defaultValue = "1") int page) {
-//        return matchService.searchSimpleMatchesByPuuid(puuid, page);
-//    }
-
-//    @GetMapping("timeline/{matchId}")
-//    @Operation(description = "매치 상세 타임라인 검색")
-//    Object searchTimeline(@PathVariable("matchId") String matchId) {
-//
-//        return null;
-//    }
 }

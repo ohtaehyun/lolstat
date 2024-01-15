@@ -8,6 +8,7 @@ public enum QueueId {
     SOLO_RANK_GAME(420),
     NORMAL_GAME(430),
     FLEX_RANK_GAME(440),
+    QUICK_PLAY(490),
     OTHER_GAME(9999);
 
 
