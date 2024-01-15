@@ -13,7 +13,7 @@ import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.service.MatchService;
 
 @RestController
-@Tag(name = "MatchResponse", description = "전적 API")
+@Tag(name = "Match", description = "전적 API")
 public class MatchController {
     private final MatchService matchService;
 
