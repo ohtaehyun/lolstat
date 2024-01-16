@@ -30,7 +30,7 @@ public class DuoTicket {
     private String tagLine;
 
     @ElementCollection
-    private List<Line> lines;
+    private List<Line> myLines;
 
     @Column
     private Tier tier;
@@ -88,11 +88,11 @@ public class DuoTicket {
     }
 
     public List<Line> getLines() {
-        return lines;
+        return myLines;
     }
 
     public void setLines(List<Line> lines) {
-        this.lines = lines;
+        this.myLines = lines;
     }
 
     public Tier getTier() {
