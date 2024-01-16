@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.jwt.JwtProvider;
+import vlrtstat.gg.jwt.LoginUser;
+import vlrtstat.gg.user.domain.User;
 import vlrtstat.gg.user.dto.*;
 import vlrtstat.gg.user.service.UserService;
 
@@ -19,6 +21,13 @@ public class UserController {
     public UserController(UserService userService, JwtProvider jwtProvider) {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
+    }
+
+    @GetMapping("user/me")
+    @Parameter(name = "user", hidden = true)
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    public UserInfoDto aboutMe(@LoginUser User user) {
+        return new UserInfoDto(user);
     }
 
     @PostMapping("user")
