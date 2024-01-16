@@ -1,4 +1,4 @@
-package vlrtstat.gg.match.constant;
+package vlrtstat.gg.global.filter;
 
 import vlrtstat.gg.global.constant.QueueId;
 
