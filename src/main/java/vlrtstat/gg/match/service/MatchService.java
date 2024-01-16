@@ -1,6 +1,6 @@
 package vlrtstat.gg.match.service;
 
-import vlrtstat.gg.global.filter.QueueIdFilter;
+import vlrtstat.gg.match.constant.QueueIdFilter;
 import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.match.dto.MatchDto;
 

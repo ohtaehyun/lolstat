@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import vlrtstat.gg.duo.constant.DuoMatchFilterConverter;
-import vlrtstat.gg.global.converter.QueueIdFilterConverter;
+import vlrtstat.gg.match.constant.QueueIdFilterConverter;
 import vlrtstat.gg.jwt.JwtClaimResolver;
 import vlrtstat.gg.jwt.JwtInterceptor;
 
