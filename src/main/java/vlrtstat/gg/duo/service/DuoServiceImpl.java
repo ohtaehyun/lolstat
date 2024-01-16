@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
+import vlrtstat.gg.duo.constant.DuoQueueId;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.domain.DuoTicket;
 import vlrtstat.gg.duo.dto.*;
@@ -14,6 +15,7 @@ import vlrtstat.gg.duo.error.*;
 import vlrtstat.gg.duo.repository.DuoRepository;
 import vlrtstat.gg.duo.repository.DuoTicketRepository;
 import vlrtstat.gg.global.constant.Tier;
+import vlrtstat.gg.global.filter.QueueIdFilter;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
 import vlrtstat.gg.summoner.domain.Summoner;
@@ -60,22 +62,18 @@ public class DuoServiceImpl implements DuoService {
         duo.setMemo(addDuoDto.getMemo());
         duo.setWishLines(addDuoDto.getWishLines());
         duo.setWishTiers(addDuoDto.getWishTiers());
+        duo.setQueueId(addDuoDto.getQueueId());
         duoRepository.save(duo);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter) {
+    public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter, QueueIdFilter queueIdFilter) {
         Optional<Duo> myDuo = duoRepository.findLiveOne(user.getId());
         DuoDto myDuoDto = myDuo.isEmpty() ? null : new DuoDto(myDuo.get());
 
         PageRequest pageRequest = PageRequest.of(page - 1, 20, Sort.Direction.DESC, "createdAt");
-        Page<Duo> pageData;
-        if (duoMatchFilter.equals(DuoMatchFilter.ALL)) {
-            pageData = duoRepository.findAllBy(pageRequest);
-        } else {
-            pageData = duoRepository.findAllByIsMatched(duoMatchFilter.equals(DuoMatchFilter.MATCHED), pageRequest);
-        }
+        Page<Duo> pageData = duoRepository.findAllByQuery(duoMatchFilter.getBoolValue(), queueIdFilter.getQueueId(), pageRequest);
 
         List<DuoDto> duoDtos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
 

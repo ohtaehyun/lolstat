@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.dto.*;
 import vlrtstat.gg.duo.service.DuoService;
-import vlrtstat.gg.global.constant.Line;
+import vlrtstat.gg.global.constant.QueueId;
+import vlrtstat.gg.global.filter.QueueIdFilter;
 import vlrtstat.gg.jwt.LoginUser;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
@@ -16,7 +17,6 @@ import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.service.SummonerService;
 import vlrtstat.gg.user.domain.User;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,10 +40,11 @@ public class DuoController {
     public DuoListResponse getDuoList(
             @LoginUser User user,
             @RequestParam(value = "page", required = false, defaultValue = "1") Optional<Integer> optionalPage,
-            @RequestParam(value = "filter", required = false, defaultValue = "all") DuoMatchFilter duoMatchFilter
+            @RequestParam(value = "match", required = false, defaultValue = "ALL") DuoMatchFilter duoMatchFilter,
+            @RequestParam(value = "queue", required = false, defaultValue = "ALL") QueueIdFilter queueIdFilter
     ) {
         int page = optionalPage.orElse(1);
-        return duoService.duoList(user, page, duoMatchFilter);
+        return duoService.duoList(user, page, duoMatchFilter, queueIdFilter);
     }
 
     @PostMapping("duo")
@@ -52,7 +53,8 @@ public class DuoController {
     public void AddDuo(@RequestBody @Valid AddDuoRequest addDuoRequest, @LoginUser User user) {
         Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
-        AddDuoDto addDuoDto = new AddDuoDto(user.getId(), summoner, leagueEntries, addDuoRequest.getLine(), addDuoRequest.getWishLines(), addDuoRequest.getWishTiers(), addDuoRequest.getMemo());
+        QueueId queueId = addDuoRequest.getDuoQueueId().getQueueId();
+        AddDuoDto addDuoDto = new AddDuoDto(user.getId(), summoner, leagueEntries, addDuoRequest.getLines(), addDuoRequest.getWishLines(), addDuoRequest.getWishTiers(), addDuoRequest.getMemo(), queueId);
         duoService.addDuo(addDuoDto);
     }
 

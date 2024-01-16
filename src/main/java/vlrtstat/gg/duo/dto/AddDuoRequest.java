@@ -5,6 +5,7 @@ import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import vlrtstat.gg.duo.constant.DuoQueueId;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
 
@@ -27,6 +28,9 @@ public class AddDuoRequest {
     private List<Tier> wishTiers;
 
     @NotNull
+    private DuoQueueId duoQueueId;
+
+    @NotNull
     @NotEmpty
     @Length(min = 1, max = 50)
     private String memo;
@@ -37,12 +41,13 @@ public class AddDuoRequest {
         return wishLines.size() > 0 && wishTiers.size() > 0;
     }
 
-    public AddDuoRequest(String gameName, String tagLine, List<Line> lines, @NotNull List<Line> wishLines, @NotNull List<Tier> wishTiers, String memo) {
+    public AddDuoRequest(String gameName, String tagLine, List<Line> lines, @NotNull List<Line> wishLines, @NotNull List<Tier> wishTiers, DuoQueueId duoQueueId, String memo) {
         this.gameName = gameName;
         this.tagLine = tagLine;
         this.lines = lines;
         this.wishLines = wishLines;
         this.wishTiers = wishTiers;
+        this.duoQueueId = duoQueueId;
         this.memo = memo;
     }
 
@@ -52,10 +57,6 @@ public class AddDuoRequest {
 
     public String getTagLine() {
         return tagLine;
-    }
-
-    public List<Line> getLine() {
-        return lines;
     }
 
     public List<Line> getWishLines() {
@@ -68,5 +69,13 @@ public class AddDuoRequest {
 
     public String getMemo() {
         return memo;
+    }
+
+    public List<Line> getLines() {
+        return lines;
+    }
+
+    public DuoQueueId getDuoQueueId() {
+        return duoQueueId;
     }
 }

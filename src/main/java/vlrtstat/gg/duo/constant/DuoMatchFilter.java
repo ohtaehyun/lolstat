@@ -1,14 +1,17 @@
 package vlrtstat.gg.duo.constant;
 
 public enum DuoMatchFilter {
-    MATCHING("matching"),
-    MATCHED("matched"),
-    ALL("all");
+    MATCHING("matching", false),
+    MATCHED("matched", true),
+    ALL("all", null);
 
     private String text;
 
-    DuoMatchFilter(String text) {
+    private Boolean boolValue;
+
+    DuoMatchFilter(String text, Boolean boolValue) {
         this.text = text;
+        this.boolValue = boolValue;
     }
 
     public static DuoMatchFilter fromText(String text) {
@@ -20,5 +23,9 @@ public enum DuoMatchFilter {
 
     public String getText() {
         return text;
+    }
+
+    public Boolean getBoolValue() {
+        return boolValue;
     }
 }

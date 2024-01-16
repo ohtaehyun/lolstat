@@ -1,9 +1,9 @@
-package vlrtstat.gg.match.constant;
+package vlrtstat.gg.global.filter;
 
 import vlrtstat.gg.global.constant.QueueId;
 
 public enum QueueIdFilter {
-    ALL("ALL", QueueId.OTHER_GAME),
+    ALL("ALL", null),
     SOLO_RANK_GAME("SOLO_RANK_GAME", QueueId.SOLO_RANK_GAME),
     FLEX_RANK_GAME("FLEX_RANK_GAME", QueueId.FLEX_RANK_GAME),
     QUICK_PLAY("QUICK_PLAY", QueueId.QUICK_PLAY);

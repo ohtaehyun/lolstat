@@ -1,6 +1,7 @@
 package vlrtstat.gg.duo.dto;
 
 import vlrtstat.gg.global.constant.Line;
+import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.summoner.domain.Summoner;
@@ -15,8 +16,9 @@ public class AddDuoDto {
     private List<Line> wishLines;
     private List<Tier> wishTiers;
     private String memo;
+    private QueueId queueId;
 
-    public AddDuoDto(Long userId, Summoner summoner, LeagueEntries leagueEntries, List<Line> lines, List<Line> wishLines, List<Tier> wishTiers, String memo) {
+    public AddDuoDto(Long userId, Summoner summoner, LeagueEntries leagueEntries, List<Line> lines, List<Line> wishLines, List<Tier> wishTiers, String memo, QueueId queueId) {
         this.userId = userId;
         this.summoner = summoner;
         this.leagueEntries = leagueEntries;
@@ -24,6 +26,7 @@ public class AddDuoDto {
         this.wishLines = wishLines;
         this.wishTiers = wishTiers;
         this.memo = memo;
+        this.queueId = queueId;
     }
 
     public Summoner getSummoner() {
@@ -52,5 +55,9 @@ public class AddDuoDto {
 
     public String getMemo() {
         return memo;
+    }
+
+    public QueueId getQueueId() {
+        return queueId;
     }
 }
