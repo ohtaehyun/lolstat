@@ -7,7 +7,7 @@ import vlrtstat.gg.match.dto.MatchDto;
 public interface MatchService {
     RiotMatch searchMatch(String matchId);
 
-    MatchDto[] searchMatchesByPuuid(String puuid, int page);
+    MatchDto[] searchMatchesByPuuid(String puuid, int page, int size);
 
-    MatchDto[] searchMatchedByPuuid(String puuid, int page, QueueIdFilter queueIdFilter);
+    MatchDto[] searchMatchedByPuuid(String puuid, int page, int size, QueueIdFilter queueIdFilter);
 }

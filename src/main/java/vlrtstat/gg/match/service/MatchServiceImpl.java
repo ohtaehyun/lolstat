@@ -59,18 +59,18 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     @Transactional
-    public MatchDto[] searchMatchesByPuuid(String puuid, int page) {
-        return searchMatchedByPuuid(puuid, page, QueueIdFilter.ALL);
+    public MatchDto[] searchMatchesByPuuid(String puuid, int page, int size) {
+        return searchMatchedByPuuid(puuid, page, size, QueueIdFilter.ALL);
     }
 
     @Override
-    public MatchDto[] searchMatchedByPuuid(String puuid, int page, QueueIdFilter queueIdFilter) {
+    public MatchDto[] searchMatchedByPuuid(String puuid, int page, int size, QueueIdFilter queueIdFilter) {
         int start = (page - 1) * 20;
         String[] matchIds;
         if (queueIdFilter.equals(QueueIdFilter.ALL)) {
-           matchIds = matchClient.findIdsByPuuid(puuid, start);
+           matchIds = matchClient.findIdsByPuuid(puuid, start, size);
         } else {
-            matchIds = matchClient.findIdsByPuuid(puuid, start, queueIdFilter.getQueueId().getId());
+            matchIds = matchClient.findIdsByPuuid(puuid, start, size, queueIdFilter.getQueueId().getId());
         }
         ArrayList<RiotMatch> riotMatches = new ArrayList<>();
         for (String matchId : matchIds) {

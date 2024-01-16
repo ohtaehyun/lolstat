@@ -26,6 +26,6 @@ public class MatchController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "queue", required = false, defaultValue = "ALL") QueueIdFilter queueIdFilter
             ) {
-        return matchService.searchMatchedByPuuid(puuid, page, queueIdFilter);
+        return matchService.searchMatchedByPuuid(puuid, page, 20, queueIdFilter);
     }
 }

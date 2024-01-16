@@ -25,7 +25,7 @@ public class SummonerComplexServiceImpl implements SummonerComplexService {
         Summoner summoner = summonerService.searchSummoner(gameName, tagLine);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
 
-        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
+        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1, 20);
         return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
     }
 
@@ -34,7 +34,7 @@ public class SummonerComplexServiceImpl implements SummonerComplexService {
         Summoner summoner = summonerService.searchSummoner(puuid);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
 
-        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
+        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1, 20);
         return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
     }
 
@@ -43,7 +43,7 @@ public class SummonerComplexServiceImpl implements SummonerComplexService {
         Summoner summoner = summonerService.findBySummonerId(summonerId);
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
 
-        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1);
+        MatchDto[] matchDtos = matchService.searchMatchesByPuuid(summoner.getPuuid(), 1, 20);
         return new SummonerProfileDto(summoner, leagueEntries, matchDtos);
     }
 }

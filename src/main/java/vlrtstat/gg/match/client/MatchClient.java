@@ -15,14 +15,14 @@ public interface MatchClient {
             method = RequestMethod.GET,
             headers = "X-Riot-Token=${riot.key}"
     )
-    String[] findIdsByPuuid(@PathVariable("puuid") String puuid, @RequestParam("start") int start);
+    String[] findIdsByPuuid(@PathVariable("puuid") String puuid, @RequestParam("start") int start, @RequestParam int count);
 
     @RequestMapping(
             path = "/lol/match/v5/matches/by-puuid/{puuid}/ids",
             method = RequestMethod.GET,
             headers = "X-Riot-Token=${riot.key}"
     )
-    String[] findIdsByPuuid(@PathVariable("puuid") String puuid, @RequestParam("start") int start, @RequestParam("queue") int queue);
+    String[] findIdsByPuuid(@PathVariable("puuid") String puuid, @RequestParam("start") int start, @RequestParam int count, @RequestParam("queue") int queue);
 
     @RequestMapping(
             path = "/lol/match/v5/matches/{matchId}",

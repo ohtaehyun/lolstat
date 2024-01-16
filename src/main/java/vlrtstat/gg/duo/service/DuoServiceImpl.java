@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
-import vlrtstat.gg.duo.constant.DuoQueueId;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.domain.DuoTicket;
 import vlrtstat.gg.duo.dto.*;
@@ -18,23 +17,25 @@ import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.global.filter.QueueIdFilter;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
+import vlrtstat.gg.match.repository.MatchRepository;
 import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.user.domain.User;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 public class DuoServiceImpl implements DuoService {
     private final DuoRepository duoRepository;
 
+    private final MatchRepository matchRepository;
+
     private final DuoTicketRepository duoTicketRepository;
 
-    public DuoServiceImpl(DuoRepository duoRepository, DuoTicketRepository duoTicketRepository) {
+    public DuoServiceImpl(DuoRepository duoRepository, MatchRepository matchRepository, DuoTicketRepository duoTicketRepository) {
         this.duoRepository = duoRepository;
+        this.matchRepository = matchRepository;
         this.duoTicketRepository = duoTicketRepository;
     }
 
