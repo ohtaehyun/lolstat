@@ -21,8 +21,8 @@ public class DuoDto {
     private boolean isMatched;
     private LocalDateTime createdAt;
     private LocalDateTime expiredAt;
+
     private List<DuoTicketDto> tickets;
-    private String memo;
 
 
     public DuoDto(Duo duo) {
@@ -39,7 +39,6 @@ public class DuoDto {
         this.expiredAt = duo.getExpiredAt();
         this.tickets = duo.getTickets().stream().map(DuoTicketDto::new).toList();
         this.userId = duo.getUserId();
-        this.memo = duo.getMemo();
     }
 
     public Long getId() {
@@ -92,9 +91,5 @@ public class DuoDto {
 
     public Long getUserId() {
         return userId;
-    }
-
-    public String getMemo() {
-        return memo;
     }
 }

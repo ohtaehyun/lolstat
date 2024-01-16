@@ -2,6 +2,7 @@ package vlrtstat.gg.duo.domain;
 
 import jakarta.persistence.*;
 import vlrtstat.gg.global.constant.Line;
+import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.global.constant.Tier;
 
 import java.time.LocalDateTime;
@@ -53,6 +54,9 @@ public class Duo {
 
     @OneToMany(mappedBy = "duo", cascade = CascadeType.ALL)
     private List<DuoTicket> tickets = new ArrayList<>();
+
+    @Column
+    private QueueId queueId;
 
     public Duo() {
     }
@@ -178,5 +182,21 @@ public class Duo {
             if (ticket.getId() == ticketId) return Optional.of(ticket);
         }
         return Optional.empty();
+    }
+
+    public List<Line> getMyLines() {
+        return myLines;
+    }
+
+    public void setMyLines(List<Line> myLines) {
+        this.myLines = myLines;
+    }
+
+    public QueueId getQueueId() {
+        return queueId;
+    }
+
+    public void setQueueId(QueueId queueId) {
+        this.queueId = queueId;
     }
 }
