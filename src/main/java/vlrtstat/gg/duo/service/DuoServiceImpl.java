@@ -10,10 +10,12 @@ import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.duo.domain.DuoMatchRelation;
 import vlrtstat.gg.duo.domain.DuoTicket;
+import vlrtstat.gg.duo.domain.DuoTicketMatchRelation;
 import vlrtstat.gg.duo.dto.*;
 import vlrtstat.gg.duo.error.*;
 import vlrtstat.gg.duo.repository.DuoMatchRelationRepository;
 import vlrtstat.gg.duo.repository.DuoRepository;
+import vlrtstat.gg.duo.repository.DuoTicketMatchRelationRepository;
 import vlrtstat.gg.duo.repository.DuoTicketRepository;
 import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.global.constant.Tier;
@@ -39,11 +41,14 @@ public class DuoServiceImpl implements DuoService {
 
     private final DuoTicketRepository duoTicketRepository;
 
-    public DuoServiceImpl(DuoRepository duoRepository, DuoMatchRelationRepository duoMatchRelationRepository, MatchService matchService, DuoTicketRepository duoTicketRepository) {
+    private final DuoTicketMatchRelationRepository duoTicketMatchRelationRepository;
+
+    public DuoServiceImpl(DuoRepository duoRepository, DuoMatchRelationRepository duoMatchRelationRepository, MatchService matchService, DuoTicketRepository duoTicketRepository, DuoTicketMatchRelationRepository duoTicketMatchRelationRepository) {
         this.duoRepository = duoRepository;
         this.duoMatchRelationRepository = duoMatchRelationRepository;
         this.matchService = matchService;
         this.duoTicketRepository = duoTicketRepository;
+        this.duoTicketMatchRelationRepository = duoTicketMatchRelationRepository;
     }
 
     @Override
@@ -130,6 +135,16 @@ public class DuoServiceImpl implements DuoService {
         duoTicket.setCreatedAt(LocalDateTime.now());
 
         duoTicketRepository.save(duoTicket);
+
+        List<RiotMatch> riotMatches = matchService.searchRiotMatchesByPuuid(summoner.getPuuid(), 1, 5, QueueIdFilter.fromText(duo.getQueueId().name()));
+        List<DuoTicketMatchRelation> relations = riotMatches.stream().map(match -> {
+            DuoTicketMatchRelation duoMatchRelation = new DuoTicketMatchRelation();
+            duoMatchRelation.setRiotMatch(match);
+            duoMatchRelation.setDuoTicket(duoTicket);
+            return duoMatchRelation;
+        }).toList();
+
+        duoTicketMatchRelationRepository.saveAll(relations);
     }
 
     @Override

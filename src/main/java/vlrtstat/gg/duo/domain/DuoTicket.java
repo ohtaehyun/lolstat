@@ -14,7 +14,6 @@ public class DuoTicket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -43,6 +42,9 @@ public class DuoTicket {
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "duoTicket", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<DuoTicketMatchRelation> relations;
 
     public DuoTicket() {
     }
@@ -125,5 +127,21 @@ public class DuoTicket {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Line> getMyLines() {
+        return myLines;
+    }
+
+    public void setMyLines(List<Line> myLines) {
+        this.myLines = myLines;
+    }
+
+    public List<DuoTicketMatchRelation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<DuoTicketMatchRelation> relations) {
+        this.relations = relations;
     }
 }

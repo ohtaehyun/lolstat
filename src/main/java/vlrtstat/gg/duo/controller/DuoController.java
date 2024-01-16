@@ -32,13 +32,10 @@ public class DuoController {
 
     private DuoService duoService;
 
-    private MatchService matchService;
-
-    public DuoController(SummonerService summonerService, LeagueService leagueService, DuoService duoService, MatchService matchService) {
+    public DuoController(SummonerService summonerService, LeagueService leagueService, DuoService duoService) {
         this.summonerService = summonerService;
         this.leagueService = leagueService;
         this.duoService = duoService;
-        this.matchService = matchService;
     }
 
     @GetMapping("duo")
