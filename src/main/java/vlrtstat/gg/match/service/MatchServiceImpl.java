@@ -60,15 +60,20 @@ public class MatchServiceImpl implements MatchService {
     @Override
     @Transactional
     public MatchDto[] searchMatchesByPuuid(String puuid, int page, int size) {
-        return searchMatchedByPuuid(puuid, page, size, QueueIdFilter.ALL);
+        return searchRiotMatchesByPuuid(puuid, page, size, QueueIdFilter.ALL).stream().map(MatchDto::new).toArray(MatchDto[]::new);
     }
 
     @Override
     public MatchDto[] searchMatchedByPuuid(String puuid, int page, int size, QueueIdFilter queueIdFilter) {
+        return searchRiotMatchesByPuuid(puuid, page, size, queueIdFilter).stream().map(MatchDto::new).toArray(MatchDto[]::new);
+    }
+
+    @Override
+    public List<RiotMatch> searchRiotMatchesByPuuid(String puuid, int page, int size, QueueIdFilter queueIdFilter) {
         int start = (page - 1) * 20;
         String[] matchIds;
         if (queueIdFilter.equals(QueueIdFilter.ALL)) {
-           matchIds = matchClient.findIdsByPuuid(puuid, start, size);
+            matchIds = matchClient.findIdsByPuuid(puuid, start, size);
         } else {
             matchIds = matchClient.findIdsByPuuid(puuid, start, size, queueIdFilter.getQueueId().getId());
         }
@@ -83,6 +88,6 @@ public class MatchServiceImpl implements MatchService {
                 System.out.println("e = " + e);
             }
         }
-        return riotMatches.stream().map(MatchDto::new).toArray(MatchDto[]::new);
+        return riotMatches;
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.global.constant.Tier;
+import vlrtstat.gg.match.domain.RiotMatch;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -57,6 +58,9 @@ public class Duo {
 
     @Column
     private QueueId queueId;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "duo", cascade = CascadeType.ALL)
+    private List<DuoMatchRelation> relations;
 
     public Duo() {
     }
@@ -198,5 +202,13 @@ public class Duo {
 
     public void setQueueId(QueueId queueId) {
         this.queueId = queueId;
+    }
+
+    public List<DuoMatchRelation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<DuoMatchRelation> relations) {
+        this.relations = relations;
     }
 }

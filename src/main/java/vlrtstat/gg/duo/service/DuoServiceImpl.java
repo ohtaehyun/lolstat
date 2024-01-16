@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vlrtstat.gg.duo.constant.DuoMatchFilter;
 import vlrtstat.gg.duo.domain.Duo;
+import vlrtstat.gg.duo.domain.DuoMatchRelation;
 import vlrtstat.gg.duo.domain.DuoTicket;
 import vlrtstat.gg.duo.dto.*;
 import vlrtstat.gg.duo.error.*;
+import vlrtstat.gg.duo.repository.DuoMatchRelationRepository;
 import vlrtstat.gg.duo.repository.DuoRepository;
 import vlrtstat.gg.duo.repository.DuoTicketRepository;
+import vlrtstat.gg.global.constant.QueueId;
 import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.global.filter.QueueIdFilter;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.domain.LeagueEntry;
-import vlrtstat.gg.match.repository.MatchRepository;
+import vlrtstat.gg.match.domain.RiotMatch;
+import vlrtstat.gg.match.service.MatchService;
 import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.user.domain.User;
 
@@ -29,13 +33,16 @@ import java.util.Optional;
 public class DuoServiceImpl implements DuoService {
     private final DuoRepository duoRepository;
 
-    private final MatchRepository matchRepository;
+    private final DuoMatchRelationRepository duoMatchRelationRepository;
+
+    private final MatchService matchService;
 
     private final DuoTicketRepository duoTicketRepository;
 
-    public DuoServiceImpl(DuoRepository duoRepository, MatchRepository matchRepository, DuoTicketRepository duoTicketRepository) {
+    public DuoServiceImpl(DuoRepository duoRepository, DuoMatchRelationRepository duoMatchRelationRepository, MatchService matchService, DuoTicketRepository duoTicketRepository) {
         this.duoRepository = duoRepository;
-        this.matchRepository = matchRepository;
+        this.duoMatchRelationRepository = duoMatchRelationRepository;
+        this.matchService = matchService;
         this.duoTicketRepository = duoTicketRepository;
     }
 
@@ -50,6 +57,8 @@ public class DuoServiceImpl implements DuoService {
 
         Duo duo = new Duo();
         Summoner summoner = addDuoDto.getSummoner();
+        QueueId queueId = addDuoDto.getQueueId();
+
         LeagueEntries leagueEntries = addDuoDto.getLeagueEntries();
         LeagueEntry soloLeague = leagueEntries.getSoloLeague();
         duo.setUserId(addDuoDto.getUserId());
@@ -63,8 +72,18 @@ public class DuoServiceImpl implements DuoService {
         duo.setMemo(addDuoDto.getMemo());
         duo.setWishLines(addDuoDto.getWishLines());
         duo.setWishTiers(addDuoDto.getWishTiers());
-        duo.setQueueId(addDuoDto.getQueueId());
+        duo.setQueueId(queueId);
         duoRepository.save(duo);
+
+        List<RiotMatch> riotMatches = matchService.searchRiotMatchesByPuuid(summoner.getPuuid(), 1, 5, QueueIdFilter.fromText(queueId.name()));
+        List<DuoMatchRelation> relations = riotMatches.stream().map(match -> {
+            DuoMatchRelation duoMatchRelation = new DuoMatchRelation();
+            duoMatchRelation.setMatch(match);
+            duoMatchRelation.setDuo(duo);
+            return duoMatchRelation;
+        }).toList();
+
+        duoMatchRelationRepository.saveAll(relations);
     }
 
     @Override

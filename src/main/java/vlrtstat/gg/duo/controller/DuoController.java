@@ -13,11 +13,14 @@ import vlrtstat.gg.global.filter.QueueIdFilter;
 import vlrtstat.gg.jwt.LoginUser;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.league.service.LeagueService;
+import vlrtstat.gg.match.dto.MatchDto;
 import vlrtstat.gg.match.service.MatchService;
 import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.service.SummonerService;
 import vlrtstat.gg.user.domain.User;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -58,7 +61,6 @@ public class DuoController {
         Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
         QueueId queueId = addDuoRequest.getDuoQueueId().getQueueId();
-        matchService.searchMatchesByPuuid(summoner.getPuuid(), 1, 5);
         AddDuoDto addDuoDto = new AddDuoDto(user.getId(), summoner, leagueEntries, addDuoRequest.getLines(), addDuoRequest.getWishLines(), addDuoRequest.getWishTiers(), addDuoRequest.getMemo(), queueId);
         duoService.addDuo(addDuoDto);
     }
