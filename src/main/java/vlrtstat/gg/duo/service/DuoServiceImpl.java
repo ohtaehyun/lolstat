@@ -95,12 +95,12 @@ public class DuoServiceImpl implements DuoService {
     @Transactional(readOnly = true)
     public DuoListResponse duoList(User user, int page, DuoMatchFilter duoMatchFilter, QueueIdFilter queueIdFilter) {
         Optional<Duo> myDuo = duoRepository.findLiveOne(user.getId());
-        DuoDto myDuoDto = myDuo.isEmpty() ? null : new DuoDto(myDuo.get());
+        DuoDto myDuoDto = myDuo.map(DuoDto::new).orElse(null);
 
         PageRequest pageRequest = PageRequest.of(page - 1, 20, Sort.Direction.DESC, "createdAt");
         Page<Duo> pageData = duoRepository.findAllByQuery(duoMatchFilter.getBoolValue(), queueIdFilter.getQueueId(), pageRequest);
 
-        List<DuoDto> duoDtos = pageData.getContent().stream().map(duo -> new DuoDto(duo)).toList();
+        List<DuoDto> duoDtos = pageData.getContent().stream().map(DuoDto::new).toList();
 
         return new DuoListResponse(myDuoDto, duoDtos);
     }
@@ -159,6 +159,12 @@ public class DuoServiceImpl implements DuoService {
 
         duoRepository.save(duo);
         duoTicketRepository.save(duoTicket);
+    }
+
+    @Override
+    public MyDuoResponse getLiveOne(User user) {
+        Duo myDuo = duoRepository.findLiveOne(user.getId()).orElse(null);
+        return myDuo == null ? new MyDuoResponse(null) : new MyDuoResponse(new DuoDto(myDuo));
     }
 
     private void validateDuo(Duo duo) {

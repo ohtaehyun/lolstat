@@ -38,6 +38,13 @@ public class DuoController {
         this.duoService = duoService;
     }
 
+    @GetMapping("duo/my")
+    @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
+    @Parameter(name = "user", hidden = true)
+    public MyDuoResponse getMyActiveDuo(@LoginUser User user) {
+        return duoService.getLiveOne(user);
+    }
+
     @GetMapping("duo")
     @Parameter(name = "Authorization", required = true, in = ParameterIn.HEADER)
     @Parameter(name = "user", hidden = true)
