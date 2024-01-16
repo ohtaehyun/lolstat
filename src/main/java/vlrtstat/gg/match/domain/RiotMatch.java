@@ -11,6 +11,7 @@ import vlrtstat.gg.participant.domain.Participant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "RiotMatch", indexes = {
@@ -165,6 +166,13 @@ public class RiotMatch {
 
     public void addParticipants(Participant participant) {
         this.participants.add(participant);
+    }
+
+    public Optional<Participant> getParticipantByPuuid(String puuid) {
+        for (Participant participant : participants) {
+            if (participant.getPuuid().equals(puuid)) return Optional.of(participant);
+        }
+        return Optional.empty();
     }
 
     public QueueId getQueueId() {

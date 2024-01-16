@@ -211,4 +211,8 @@ public class Duo {
     public void setRelations(List<DuoMatchRelation> relations) {
         this.relations = relations;
     }
+
+    public List<RiotMatch> getRecentMatches() {
+        return relations.stream().map(DuoMatchRelation::getMatch).toList();
+    }
 }

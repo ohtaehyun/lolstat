@@ -4,10 +4,13 @@ import vlrtstat.gg.duo.constant.DuoQueueId;
 import vlrtstat.gg.duo.domain.Duo;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
+import vlrtstat.gg.match.domain.RiotMatch;
+import vlrtstat.gg.participant.domain.Participant;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DuoDto {
     private Long id;
@@ -24,6 +27,7 @@ public class DuoDto {
     private LocalDateTime expiredAt;
     private List<DuoTicketDto> tickets;
     private DuoQueueId duoQueueId;
+    private List<DuoRecentMatchDto> recentMatches = new ArrayList<>();
 
 
     public DuoDto(Duo duo) {
@@ -41,6 +45,11 @@ public class DuoDto {
         this.tickets = duo.getTickets().stream().map(DuoTicketDto::new).toList();
         this.userId = duo.getUserId();
         this.duoQueueId = DuoQueueId.fromText(duo.getQueueId().name());
+        List<RiotMatch> matches = duo.getRecentMatches();
+        for (RiotMatch match : matches) {
+            Optional<Participant> optionalParticipant = match.getParticipantByPuuid(puuid);
+            if (optionalParticipant.isPresent()) recentMatches.add(new DuoRecentMatchDto(optionalParticipant.get()));
+        }
     }
 
     public Long getId() {
@@ -97,5 +106,9 @@ public class DuoDto {
 
     public DuoQueueId getDuoQueueId() {
         return duoQueueId;
+    }
+
+    public List<DuoRecentMatchDto> getRecentMatches() {
+        return recentMatches;
     }
 }
