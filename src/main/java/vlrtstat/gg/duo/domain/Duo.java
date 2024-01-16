@@ -27,8 +27,8 @@ public class Duo {
     @Column
     private String puuid;
 
-    @Column
-    private Line line;
+    @ElementCollection
+    private List<Line> lines;
 
     @Column
     private Tier tier;
@@ -97,12 +97,12 @@ public class Duo {
         this.puuid = puuid;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
-    public void setLine(Line line) {
-        this.line = line;
+    public void setLines(List<Line> lines) {
+        this.lines = lines;
     }
 
     public Tier getTier() {

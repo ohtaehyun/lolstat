@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
 
+import java.util.List;
+
 public class AddDuoRequest {
     @NotNull
     private String gameName;
@@ -16,13 +18,13 @@ public class AddDuoRequest {
     private String tagLine;
 
     @NotNull
-    private Line line;
+    private List<Line> lines;
 
     @NotNull
-    private Line[] wishLines;
+    private List<Line> wishLines;
 
     @NotNull
-    private Tier[] wishTiers;
+    private List<Tier> wishTiers;
 
     @NotNull
     @NotEmpty
@@ -32,13 +34,13 @@ public class AddDuoRequest {
     @AssertTrue(message = "희망 라인과 희망 티어는 필수입니다.")
     @Hidden
     public boolean assertBody() {
-        return wishLines.length > 0 && wishTiers.length > 0;
+        return wishLines.size() > 0 && wishTiers.size() > 0;
     }
 
-    public AddDuoRequest(String gameName, String tagLine, Line line, @NotNull Line[] wishLines, @NotNull Tier[] wishTiers, String memo) {
+    public AddDuoRequest(String gameName, String tagLine, List<Line> lines, @NotNull List<Line> wishLines, @NotNull List<Tier> wishTiers, String memo) {
         this.gameName = gameName;
         this.tagLine = tagLine;
-        this.line = line;
+        this.lines = lines;
         this.wishLines = wishLines;
         this.wishTiers = wishTiers;
         this.memo = memo;
@@ -52,15 +54,15 @@ public class AddDuoRequest {
         return tagLine;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLine() {
+        return lines;
     }
 
-    public Line[] getWishLines() {
+    public List<Line> getWishLines() {
         return wishLines;
     }
 
-    public Tier[] getWishTiers() {
+    public List<Tier> getWishTiers() {
         return wishTiers;
     }
 

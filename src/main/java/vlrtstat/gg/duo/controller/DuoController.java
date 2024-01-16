@@ -16,6 +16,7 @@ import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.summoner.service.SummonerService;
 import vlrtstat.gg.user.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -67,7 +68,6 @@ public class DuoController {
     public void addDuoTicket(@PathVariable("duoId") Long duoId, @LoginUser User user, @RequestBody @Valid AddDuoTicketRequest addDuoRequest) {
         Summoner summoner = summonerService.searchSummoner(addDuoRequest.getGameName(), addDuoRequest.getTagLine());
         LeagueEntries leagueEntries = leagueService.searchLeagueEntries(summoner.getId());
-        Line line = addDuoRequest.getLine();
 
         AddDuoTicketDto addDuoTicketDto = new AddDuoTicketDto(summoner, leagueEntries, user, duoId, addDuoRequest);
         duoService.addDuoTicket(addDuoTicketDto);

@@ -5,20 +5,22 @@ import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.summoner.domain.Summoner;
 
+import java.util.List;
+
 public class AddDuoDto {
     private Long userId;
     private Summoner summoner;
     private LeagueEntries leagueEntries;
-    private Line line;
-    private Line[] wishLines;
-    private Tier[] wishTiers;
+    private List<Line> lines;
+    private List<Line> wishLines;
+    private List<Tier> wishTiers;
     private String memo;
 
-    public AddDuoDto(Long userId, Summoner summoner, LeagueEntries leagueEntries, Line line, Line[] wishLines, Tier[] wishTiers, String memo) {
+    public AddDuoDto(Long userId, Summoner summoner, LeagueEntries leagueEntries, List<Line> lines, List<Line> wishLines, List<Tier> wishTiers, String memo) {
         this.userId = userId;
         this.summoner = summoner;
         this.leagueEntries = leagueEntries;
-        this.line = line;
+        this.lines = lines;
         this.wishLines = wishLines;
         this.wishTiers = wishTiers;
         this.memo = memo;
@@ -32,15 +34,15 @@ public class AddDuoDto {
         return leagueEntries;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
-    public Line[] getWishLines() {
+    public List<Line> getWishLines() {
         return wishLines;
     }
 
-    public Tier[] getWishTiers() {
+    public List<Tier> getWishTiers() {
         return wishTiers;
     }
 

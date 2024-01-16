@@ -5,12 +5,14 @@ import vlrtstat.gg.league.domain.LeagueEntries;
 import vlrtstat.gg.summoner.domain.Summoner;
 import vlrtstat.gg.user.domain.User;
 
+import java.util.List;
+
 public class AddDuoTicketDto {
     private Summoner summoner;
     private LeagueEntries leagueEntries;
     private User user;
     private Long duoId;
-    private Line line;
+    private List<Line> lines;
 
     private String memo;
 
@@ -19,7 +21,7 @@ public class AddDuoTicketDto {
         this.leagueEntries = leagueEntries;
         this.user = user;
         this.duoId = duoId;
-        this.line = addDuoTicketRequest.getLine();
+        this.lines = addDuoTicketRequest.getLines();
         this.memo = addDuoTicketRequest.getMemo();
     }
 
@@ -39,8 +41,8 @@ public class AddDuoTicketDto {
         return duoId;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
     public String getMemo() {

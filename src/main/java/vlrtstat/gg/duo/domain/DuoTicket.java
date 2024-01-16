@@ -6,6 +6,7 @@ import vlrtstat.gg.global.constant.Tier;
 import vlrtstat.gg.user.domain.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class DuoTicket {
@@ -28,8 +29,8 @@ public class DuoTicket {
     @Column
     private String tagLine;
 
-    @Column
-    private Line line;
+    @ElementCollection
+    private List<Line> lines;
 
     @Column
     private Tier tier;
@@ -86,12 +87,12 @@ public class DuoTicket {
         this.tagLine = tagLine;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
-    public void setLine(Line line) {
-        this.line = line;
+    public void setLines(List<Line> lines) {
+        this.lines = lines;
     }
 
     public Tier getTier() {

@@ -53,13 +53,13 @@ public class DuoServiceImpl implements DuoService {
         duo.setGameName(summoner.getGameName());
         duo.setTagLine(summoner.getTagLine());
         duo.setTier(soloLeague.getTier());
-        duo.setLine(addDuoDto.getLine());
+        duo.setLines(addDuoDto.getLines());
         duo.setPuuid(summoner.getPuuid());
         duo.setCreatedAt(LocalDateTime.now());
         duo.setExpiredAt(LocalDateTime.now().plusHours(1));
         duo.setMemo(addDuoDto.getMemo());
-        duo.setWishLines(Arrays.asList(addDuoDto.getWishLines()));
-        duo.setWishTiers(Arrays.asList(addDuoDto.getWishTiers()));
+        duo.setWishLines(addDuoDto.getWishLines());
+        duo.setWishTiers(addDuoDto.getWishTiers());
         duoRepository.save(duo);
     }
 
@@ -103,7 +103,7 @@ public class DuoServiceImpl implements DuoService {
         DuoTicket duoTicket = new DuoTicket();
         duoTicket.setGameName(summoner.getGameName());
         duoTicket.setTagLine(summoner.getTagLine());
-        duoTicket.setLine(addDuoTicketDto.getLine());
+        duoTicket.setLines(addDuoTicketDto.getLines());
         duoTicket.setTier(tier);
         duoTicket.setUser(user);
         duoTicket.setDuo(duo);

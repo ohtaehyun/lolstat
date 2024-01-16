@@ -5,6 +5,7 @@ import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DuoTicketDto {
     private Long id;
@@ -12,14 +13,14 @@ public class DuoTicketDto {
     private Long duoId;
     private String gameName;
     private String tagLine;
-    private Line line;
+    private List<Line> lines;
     private Tier tier;
     private String memo;
     private LocalDateTime createdAt;
 
     public DuoTicketDto(DuoTicket duoTicket) {
         this.id = duoTicket.getId();
-        this.line = duoTicket.getLine();
+        this.lines = duoTicket.getLines();
         this.tier = duoTicket.getTier();
         this.duoId = duoTicket.getDuo().getId();
         this.userId = duoTicket.getUser().getId();
@@ -49,8 +50,8 @@ public class DuoTicketDto {
         return tagLine;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
     public Tier getTier() {

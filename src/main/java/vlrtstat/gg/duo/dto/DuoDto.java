@@ -14,7 +14,7 @@ public class DuoDto {
     private String gameName;
     private String tagLine;
     private String puuid;
-    private Line line;
+    private List<Line> lines;
     private Tier tier;
     private List<Line> wishLines = new ArrayList<>();
     private List<Tier> wishTiers = new ArrayList<>();
@@ -30,7 +30,7 @@ public class DuoDto {
         this.gameName = duo.getGameName();
         this.tagLine = duo.getTagLine();
         this.puuid = duo.getPuuid();
-        this.line = duo.getLine();
+        this.lines = duo.getLines();
         this.tier = duo.getTier();
         this.wishLines = duo.getWishLines();
         this.wishTiers = duo.getWishTiers();
@@ -57,8 +57,8 @@ public class DuoDto {
         return puuid;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
     public Tier getTier() {

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import vlrtstat.gg.global.constant.Line;
 
+import java.util.List;
+
 public class AddDuoTicketRequest {
     @NotNull
     private String gameName;
@@ -12,7 +14,7 @@ public class AddDuoTicketRequest {
     private String tagLine;
 
     @NotNull
-    private Line line;
+    private List<Line> lines;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -21,7 +23,7 @@ public class AddDuoTicketRequest {
     public AddDuoTicketRequest(String gameName, String tagLine, Line line, String memo) {
         this.gameName = gameName;
         this.tagLine = tagLine;
-        this.line = line;
+        this.lines = lines;
         this.memo = memo;
     }
 
@@ -33,8 +35,8 @@ public class AddDuoTicketRequest {
         return tagLine;
     }
 
-    public Line getLine() {
-        return line;
+    public List<Line> getLines() {
+        return lines;
     }
 
     public String getMemo() {
