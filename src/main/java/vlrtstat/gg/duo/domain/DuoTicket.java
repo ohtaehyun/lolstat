@@ -3,6 +3,7 @@ package vlrtstat.gg.duo.domain;
 import jakarta.persistence.*;
 import vlrtstat.gg.global.constant.Line;
 import vlrtstat.gg.global.constant.Tier;
+import vlrtstat.gg.match.domain.RiotMatch;
 import vlrtstat.gg.user.domain.User;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,9 @@ public class DuoTicket {
     @ManyToOne
     @JoinColumn(name = "duo_id")
     private Duo duo;
+
+    @Column
+    private String puuid;
 
     @Column
     private String gameName;
@@ -143,5 +147,17 @@ public class DuoTicket {
 
     public void setRelations(List<DuoTicketMatchRelation> relations) {
         this.relations = relations;
+    }
+
+    public String getPuuid() {
+        return puuid;
+    }
+
+    public void setPuuid(String puuid) {
+        this.puuid = puuid;
+    }
+
+    public List<RiotMatch> getRecentMatches() {
+        return this.relations.stream().map(DuoTicketMatchRelation::getRiotMatch).toList();
     }
 }
