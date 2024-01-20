@@ -183,7 +183,7 @@ public class Duo {
 
     public Optional<DuoTicket> getTicketById(Long ticketId) {
         for (DuoTicket ticket : tickets) {
-            if (ticket.getId() == ticketId) return Optional.of(ticket);
+            if (ticket.getId().equals(ticketId)) return Optional.of(ticket);
         }
         return Optional.empty();
     }
