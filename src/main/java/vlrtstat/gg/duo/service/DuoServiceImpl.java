@@ -133,6 +133,7 @@ public class DuoServiceImpl implements DuoService {
         duoTicket.setSelected(false);
         duoTicket.setMemo(addDuoTicketDto.getMemo());
         duoTicket.setCreatedAt(LocalDateTime.now());
+        duoTicket.setPuuid(summoner.getPuuid());
 
         duoTicketRepository.save(duoTicket);
 
