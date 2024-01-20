@@ -28,6 +28,7 @@ public class DuoDto {
     private List<DuoTicketDto> tickets;
     private DuoQueueId duoQueueId;
     private List<DuoRecentMatchDto> recentMatches = new ArrayList<>();
+    private String memo;
 
 
     public DuoDto(Duo duo) {
@@ -44,6 +45,7 @@ public class DuoDto {
         this.expiredAt = duo.getExpiredAt();
         this.tickets = duo.getTickets().stream().map(DuoTicketDto::new).toList();
         this.userId = duo.getUserId();
+        this.memo = duo.getMemo();
         this.duoQueueId = DuoQueueId.fromText(duo.getQueueId().name());
         List<RiotMatch> matches = duo.getRecentMatches();
         for (RiotMatch match : matches) {
@@ -110,5 +112,9 @@ public class DuoDto {
 
     public List<DuoRecentMatchDto> getRecentMatches() {
         return recentMatches;
+    }
+
+    public String getMemo() {
+        return memo;
     }
 }
