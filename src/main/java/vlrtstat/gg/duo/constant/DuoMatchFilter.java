@@ -1,9 +1,9 @@
 package vlrtstat.gg.duo.constant;
 
 public enum DuoMatchFilter {
-    MATCHING("matching", false),
-    MATCHED("matched", true),
-    ALL("all", null);
+    MATCHING("MATCHING", false),
+    MATCHED("MATCHED", true),
+    ALL("ALL", null);
 
     private String text;
 
