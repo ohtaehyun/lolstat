@@ -10,9 +10,7 @@ import java.io.IOException;
 
 class JsonItemRepositoryTest {
 
-    @Value("${riot.version}") String riotVersion;
-
-    ItemRepository itemRepository = new JsonItemRepository(riotVersion);
+    ItemRepository itemRepository = new JsonItemRepository("14.2.1");
 
     JsonItemRepositoryTest() throws IOException, ParseException {
     }
