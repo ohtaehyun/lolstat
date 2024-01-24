@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import vlrtstat.gg.rune.domain.Rune;
@@ -16,12 +17,11 @@ import java.util.ArrayList;
 
 @Repository
 public class JsonRuneRepository implements RuneRepository {
-
     private static RuneGroup[] runeGroups;
 
-    public JsonRuneRepository() throws IOException, ParseException {
+    public JsonRuneRepository(@Value("${riot.version}") String riotVersion) throws IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
-        ClassPathResource classPathResource = new ClassPathResource("data/13.20.1/runesReforged.json");
+        ClassPathResource classPathResource = new ClassPathResource("data/" + riotVersion + "/runesReforged.json");
         JSONArray jsonArray = (JSONArray) jsonParser.parse(
                 new InputStreamReader(classPathResource.getInputStream(), "UTF-8")
         );

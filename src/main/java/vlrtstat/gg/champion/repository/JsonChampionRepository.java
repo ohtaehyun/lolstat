@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import vlrtstat.gg.champion.domain.Champion;
@@ -17,9 +18,11 @@ import java.util.Iterator;
 public class JsonChampionRepository implements ChampionRepository {
     HashMap<String, Champion> championHashMap = new HashMap<>();
 
-    public JsonChampionRepository() throws IOException, ParseException {
+
+
+    public JsonChampionRepository(@Value("${riot.version}") String riotVersion) throws IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
-        ClassPathResource classPathResource = new ClassPathResource("data/13.20.1/champion.json");
+        ClassPathResource classPathResource = new ClassPathResource("data/" + riotVersion + "/champion.json");
         JSONObject jsonObject = (JSONObject) jsonParser.parse(
                 new InputStreamReader(classPathResource.getInputStream(), "UTF-8")
         );

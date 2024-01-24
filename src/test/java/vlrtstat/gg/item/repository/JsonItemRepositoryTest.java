@@ -3,12 +3,16 @@ package vlrtstat.gg.item.repository;
 import org.assertj.core.api.Assertions;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import vlrtstat.gg.item.domain.Item;
 
 import java.io.IOException;
 
 class JsonItemRepositoryTest {
-    ItemRepository itemRepository = new JsonItemRepository();
+
+    @Value("${riot.version}") String riotVersion;
+
+    ItemRepository itemRepository = new JsonItemRepository(riotVersion);
 
     JsonItemRepositoryTest() throws IOException, ParseException {
     }

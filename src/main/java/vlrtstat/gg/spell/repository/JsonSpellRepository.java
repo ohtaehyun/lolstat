@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import vlrtstat.gg.item.domain.Item;
@@ -18,9 +19,10 @@ import java.util.Iterator;
 @Repository
 public class JsonSpellRepository implements  SpellRepository {
     private HashMap<String, Spell> spellHashMap = new HashMap<>();
-    public JsonSpellRepository() throws IOException, ParseException {
+
+    public JsonSpellRepository(@Value("${riot.version}") String riotVersion) throws IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
-        ClassPathResource classPathResource = new ClassPathResource("data/13.20.1/summoner.json");
+        ClassPathResource classPathResource = new ClassPathResource("data/" + riotVersion + "/summoner.json");
         JSONObject jsonObject = (JSONObject) jsonParser.parse(
                 new InputStreamReader(classPathResource.getInputStream(), "UTF-8")
         );
