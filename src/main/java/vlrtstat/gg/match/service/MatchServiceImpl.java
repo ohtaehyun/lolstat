@@ -58,7 +58,6 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    @Transactional
     public MatchDto[] searchMatchesByPuuid(String puuid, int page, int size) {
         return searchRiotMatchesByPuuid(puuid, page, size, QueueIdFilter.ALL).stream().map(MatchDto::new).toArray(MatchDto[]::new);
     }
